@@ -1,0 +1,104 @@
+.t-login{
+  /* 定义容易的宽度 */
+  width: 600rpx;
+  /* 是的容器水平居中 */
+  margin: 0 auto;
+  margin-top: 25rpx;
+  /* 定义文本的字体和颜色 */
+  font-size: 28rpx;
+  color: #000; 
+}
+
+.t-background .t-i{
+  height: 400rpx;
+  display: flex;
+  justify-content: center;
+} 
+.t-background .t-i image{
+  height: 400rpx;
+  width: 300rpx;
+  border-radius: 200rpx;
+}
+
+.t-login .t-b {
+  text-align: center;
+  font: bold;
+  font-size: 46rpx;
+  color: #000;
+  padding-bottom: 40rpx;
+}
+
+.t-login .t-a{
+  position: relative;
+}
+.t-login input{
+  /* 内边距 分别为上 右 下 左 */
+  padding: 0 20rpx 0 120rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  margin-bottom: 50rpx;
+  background: #f4f4f4;
+  font-size: 28rpx;
+  border-radius: 50rpx;
+}
+
+
+.t-login .t-a image{
+  height: 40rpx;
+  width: 40rpx;
+  position: absolute;
+  left: 40rpx;
+  top: 28rpx;
+  border-right: 2rpx solid #dedede;
+  padding-right: 20rpx;
+}
+
+.t-login .t-a .t-c{
+  background:#1776bd;
+  font-size: 24rpx;
+  height: 50rpx;
+  color: #fff;
+  position:absolute;
+  right: 22rpx;
+  top: 22rpx;
+  /* 字体行高与容器高度一致 则可以达到垂直居中 */
+  line-height: 50rpx;
+  border-radius: 50rpx;
+  padding: 0 25rpx;
+}
+
+.t-login .t-d {
+  text-align: center;
+  margin: 80rpx 0;
+  color: #999;
+}
+
+.t-login .t-t{
+  font-size: 28rpx;
+  background: #1776bd;
+  color: #fff;
+  height: 90rpx;
+  line-height: 90rpx;
+  border-radius: 50rpx;
+  box-shadow: 1rpx 0 10rpx #1776bd;
+}
+
+.t-login .t-f{
+  margin: 80rpx 0;
+  text-align: center;
+  color: #666;
+}
+
+.t-login .t-f text{
+  padding-left: 8rpx;
+  color: #999;
+}
+
+.t-login .t-e {
+  text-align: center;
+}
+
+.t-login .t-e image{
+  height: 50rpx;
+  width: 50rpx;
+}
