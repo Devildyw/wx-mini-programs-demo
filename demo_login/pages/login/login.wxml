@@ -6,23 +6,25 @@
     <!-- <view class="t-b">{{title}}</view> -->
     <view class="t-x">
       <view class="t-a">
-        <image src="../../assets/icon/user.png" mode=""/>
-        <input type="text" name="phone" placeholder="请输入手机号" model:value="{{phone}}"/>
+        <image src="../../assets/icon/user.png" mode="" class="t-i"/>
+        <input type="text" class="t-input1" name="username" placeholder="请输入用户名" model:value="{{account}}"/>
       </view>
       <view class="t-a">
-        <image src="../../assets/icon/验证码.png" mode=""/>
-        <input type="text" name="phone" placeholder="请输入验证码" model:value="{{code}}"/>
-        <button class="t-c">发送短信</button>
+        <image src="../../assets/icon/验证码.png"  mode="" class="t-i"/> 
+        <input type="password" class="t-input1" name="password" placeholder="请输入密码"  model:value="{{password}}"/>
       </view>
+      <view class="t-a">
+        <image src="../../assets/icon/验证码.png"  mode="" class="t-i"/> 
+        <input type="text" class="t-input2" name="code" placeholder="请输入验证码" model:value="{{code}}"/>
+      </view>
+      
+      <image src="{{image}}" class="t-img" bind:tap="refreshCode" mode=""></image>
+      
       <view class="t-d">未注册的手机号验证后将自动注册</view>
-    <button class="t-t">立即登录</button>
+    <button class="t-t" bind:tap="login">立即登录</button>
     </view>
     <view class="t-f">登录即同意<text>用户协议</text></view>
     <view class="t-e">
-      <view class="t-g">
-        <image src="../../assets/logo/微信-logo.png"/>
-        <view>微信</view>
-      </view>
     </view>
   </view>
 </view>

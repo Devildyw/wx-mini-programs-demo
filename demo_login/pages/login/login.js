@@ -1,3 +1,4 @@
+const {get,post} = require('../../utils/request')
 // pages/login/login.js
 Page({
 
@@ -7,16 +8,87 @@ Page({
   data: {
     account:'',
     password:'',
+    code:'',
     title:"登录",
-    
+    imagePrefix:'data:image/png;base64,',
+    image:'',
+    uuid:'',
+  },
+
+  refreshCode(){
+    get('/captchaImage',{},{Authorization:wx.getStorageSync('Authorization')}).then(res=>{
+      this.setData({
+        uuid:res.uuid,
+        image:this.data.imagePrefix + res.img
+      })
+    })
+  },
+
+  login(){
+    var that = this
+        if (that.data.account == '') {
+            wx.showModal({
+                title: "提示",
+                content: "请输入用户名",
+                showCancel: false,
+                success(res) {}
+            })
+        } else if (that.data.password == '') {
+            wx.showModal({
+                title: "提示",
+                content: "请输入密码",
+                showCancel: false,
+                success(res) {}
+            })
+        }else if(that.data.code==''){
+            wx.showModal({
+              title: "提示",
+              content: "请输入验证码",
+              showCancel: false,
+              success(res) {}
+            })
+        } else {
+            wx.clearStorage()
+            post('/login', {
+                username: this.data.account,
+                password: this.data.password,
+                uuid: this.data.uuid,
+                code: this.data.code
+            }).then((data) => {
+                wx.setStorageSync('Authorization', data.token)
+                wx.switchTab({
+                    url: '../index/index',
+                })
+            }).catch((err) => {
+              this.refreshCode();
+                wx.showToast({
+                    title: 'Error!',
+                    icon: 'error'
+                })
+                
+            })
+        }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    let token = null;
+    try {
+        token = wx.getStorageSync('Authorization')
+    } catch (e) {
+        console.log(e);
+    }
+    if (token) {
+        wx.switchTab({
+            url: '../index/index',
+        })
+    }
+    this.refreshCode();
   },
+
+  
 
   /**
    * 生命周期函数--监听页面初次渲染完成

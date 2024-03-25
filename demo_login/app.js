@@ -5,6 +5,14 @@ App({
     const logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
+    //没有token 跳转到登录页
+    let token = null;
+    token = wx.getStorageSync('Authorization')
+    if (token) {
+      wx.switchTab({
+          url: '/pages/login/login',
+      })
+  }
 
     // 登录
     wx.login({

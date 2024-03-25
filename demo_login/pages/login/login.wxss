@@ -31,7 +31,7 @@
 .t-login .t-a{
   position: relative;
 }
-.t-login input{
+.t-login .t-input1{
   /* 内边距 分别为上 右 下 左 */
   padding: 0 20rpx 0 120rpx;
   height: 90rpx;
@@ -39,7 +39,18 @@
   margin-bottom: 50rpx;
   background: #f4f4f4;
   font-size: 28rpx;
-  border-radius: 50rpx;
+  border-radius: 10rpx;
+}
+
+.t-login .t-input2{
+  /* 内边距 分别为上 右 下 左 */
+  padding: 0 160rpx 0 120rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  margin-bottom: 50rpx;
+  background: #f4f4f4;
+  font-size: 28rpx;
+  border-radius: 10rpx;
 }
 
 
@@ -67,6 +78,18 @@
   padding: 0 25rpx;
 }
 
+/* .t-login .t-c{
+  
+} */
+
+.t-img{
+  position:absolute;
+  height: 80rpx;
+  width: 135rpx;
+  top: 709rpx;
+  left: 530rpx;
+}
+
 .t-login .t-d {
   text-align: center;
   margin: 80rpx 0;
@@ -80,7 +103,7 @@
   height: 90rpx;
   line-height: 90rpx;
   border-radius: 50rpx;
-  box-shadow: 1rpx 0 10rpx #1776bd;
+  box-shadow: 1rpx 0 8rpx #1776bd;
 }
 
 .t-login .t-f{

@@ -2,6 +2,8 @@
   "pages": [
     "pages/login/login",
     "pages/index/index",
+    "pages/courseTable/courseTable",
+    "pages/myself/myself",
     "pages/message/message",
     "pages/contact/contact",
     "pages/logs/logs"
@@ -23,14 +25,14 @@
       "selectedIconPath": "/assets/tabBar/home-active.png"
     },
     {
-      "pagePath": "pages/message/message",
-      "text": "消息",
+      "pagePath": "pages/courseTable/courseTable",
+      "text": "我的课表",
       "iconPath": "/assets/tabBar/message.png",
       "selectedIconPath": "/assets/tabBar/message-active.png"
     },
     {
-      "pagePath": "pages/contact/contact",
-      "text": "联系我们",
+      "pagePath": "pages/myself/myself",
+      "text": "个人中心",
       "iconPath": "/assets/tabBar/phone.png",
       "selectedIconPath": "/assets/tabBar/phone-active.png"
     }]
