@@ -42,6 +42,13 @@
   border-radius: 10rpx;
 }
 
+page {
+  background-color: #FFFFFF;
+}
+
+view, scroll-view, swiper, button, input, textarea, label, navigator, image {
+  box-sizing: content-box;
+}
 .t-login .t-input2{
   /* 内边距 分别为上 右 下 左 */
   padding: 0 160rpx 0 120rpx;

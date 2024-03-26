@@ -2,39 +2,42 @@
   "pages": [
     "pages/login/login",
     "pages/index/index",
-    "pages/courseTable/courseTable",
+    "pages/timetable/timetable",
+    "pages/selectCourse/selectCourse",
     "pages/myself/myself",
-    "pages/message/message",
-    "pages/contact/contact",
+    "pages/material/material",
+    "pages/points/points",
     "pages/logs/logs"
   ],
   "window": {
     "navigationBarTextStyle": "white",
-    "navigationBarBackgroundColor": "#1776bd",
+    "navigationBarBackgroundColor": "#1171BA",
     "navigationBarTitleText": "成信选课通",
     "enablePullDownRefresh": true,
     "backgroundTextStyle": "dark",
     "backgroundColor": "#efefef",
     "backgroundColorBottom":"#efefef"
   },
+  
   "tabBar": {
+    "selectedColor": "#0366aa",
     "list": [{
       "pagePath": "pages/index/index",
       "text": "首页",
-      "iconPath": "/assets/tabBar/home.png",
-      "selectedIconPath": "/assets/tabBar/home-active.png"
+      "iconPath": "images/index/i0.png",
+      "selectedIconPath": "images/index/i1.png"
     },
     {
-      "pagePath": "pages/courseTable/courseTable",
+      "pagePath": "pages/timetable/timetable",
       "text": "我的课表",
-      "iconPath": "/assets/tabBar/message.png",
-      "selectedIconPath": "/assets/tabBar/message-active.png"
+      "iconPath": "images/index/12.png",
+      "selectedIconPath": "images/index/13.png"
     },
     {
       "pagePath": "pages/myself/myself",
       "text": "个人中心",
-      "iconPath": "/assets/tabBar/phone.png",
-      "selectedIconPath": "/assets/tabBar/phone-active.png"
+      "iconPath": "images/index/p0.png",
+      "selectedIconPath": "images/index/p1.png"
     }]
   },
   "rendererOptions": {
@@ -50,6 +53,7 @@
   "lazyCodeLoading": "requiredComponents",
   "usingComponents": {
     "van-field": "/miniprogram_npm/@vant/weapp/field/index",
-    "van-button":"/miniprogram_npm/@vant/weapp/button/index"
+    "van-button":"/miniprogram_npm/@vant/weapp/button/index",
+    "cu-custom": "/colorui/components/cu-custom"
   }
 }

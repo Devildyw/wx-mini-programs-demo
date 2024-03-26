@@ -4,14 +4,135 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title: "登录"
+    title: "登录",
+    imgUrls:['/images/3961622281214_.pic_hd.jpg'],
+    times: [
+      "08:30-10:00",
+      "10:15-11:45",
+      "14:30-16:00",
+      "16:15-17:45",
+      "19:00-20:30",
+    ],
+    user_data: {},
+    isLogin: false,
+    "navs": [{
+        key: "timetable",
+        desc: "课表",
+        verify: "jwc"
+      },
+      {
+        key: "selectCourse",
+        desc: "选课",
+        verify: ""
+      }, 
+      {
+        key: "material",
+        desc: "资料",
+        verify: "jwc"
+      },
+      {
+        key: "points",
+        desc: "积分",
+        verify: "jwc"
+      }
+    ],
+    is_bind:''
   },
 
+  //轮播图的切换事件
+  swiperChange: function (e) {
+    this.setData({
+      swiperCurrent: e.detail.current
+    })
+  },
+  //轮播图点击事件
+  swipclick: function (e) {
+    console.log(this.data.swiperCurrent)
+  },
+
+  submit(e) {
+    var key = e.detail.target.dataset.key //要去的地方。
+    // var verify = e.detail.target.dataset.verify; //需要的权限
+    var content = ""
+    var url = ""
+    let is_bind = wx.getStorageSync('Authorization')!=null
+
+    if (!is_bind) {
+      wx.showModal({
+        title: '绑定提示',
+        content: content,
+        confirmText: "去绑定",
+        success: function (res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/login/login',
+            })
+          }
+        }
+      })
+      return;
+    }
+    if (key === 'gold') {
+      wx.navigateToMiniProgram({
+        appId: 'wxd7f640f8d9c0e1c3',
+        path: 'pages/index/index',
+        envVersion: 'release',
+        success(res) {
+          // 打开成功
+          console.log(res)
+          return;
+        }
+      })
+    } else if (key === 'timetable'){
+      wx.switchTab({
+        url: '/pages/' + key + "/" + key,
+        fail: function () {
+          wx.showToast({
+            title: '即将开放',
+            icon: 'none'
+          })
+        }
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/' + key + "/" + key,
+        fail: function () {
+          wx.showToast({
+            title: '即将开放',
+            icon: 'none'
+          })
+        }
+      })
+    }
+  },
+
+  previewImage: function (e) {
+    var current = e.target.dataset.src;
+    wx.previewImage({
+      current: current, // 当前显示图片的http链接
+      urls: this.data.share_detail.images // 需要预览的图片http链接列表
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     
+  },
+
+  navigatetokb: function () {
+    wx.switchTab({
+      url: '/pages/timetable/timetable',
+    })
+  },
+
+  auth: function (e) {
+    console.log(e)
+    var type = "jwc"
+    wx.clearStorage();
+    wx.navigateTo({
+      url: '/pages/login/login',
+    })
   },
 
   /**
@@ -25,9 +146,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    this.getData()
   },
 
+  getData(){
+    this.setData({
+      is_bind : wx.getStorageSync('Authorization')!=null,
+      isLogin : wx.getStorageSync('Authorization')!=null
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
