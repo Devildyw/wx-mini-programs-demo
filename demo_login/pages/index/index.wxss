@@ -100,3 +100,113 @@ button.form_button::after {
   background-color: #4CAF50;
 }
 
+
+
+
+.card-theme {
+  --td-swiper-radius: 0;
+  --td-swiper-item-padding: 0 12rpx;
+  --td-swiper-nav-dot-color: #e7e7e7;
+  --td-swiper-nav-dot-active-color: #0052d9;
+
+  padding-bottom: 18px;
+}
+
+.card-theme .card-theme-nav {
+  bottom: -18px;
+}
+
+.scale-candidate {
+  height: 126px !important;
+}
+
+.dark {
+  background-color: #0052d9;
+}
+
+.light {
+  background-color: #366ef4;
+}
+
+.dark,
+.light {
+  background-clip: content-box;
+  color: #fff;
+  font-size: 28rpx;
+  line-height: 96rpx;
+  margin-bottom: 32rpx;
+  text-align: center;
+}
+
+.grid-list {
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 1rpx solid #efefef;
+  border-left: 1rpx solid #efefef;
+}
+
+.grid-item {
+  width: 33.33%;
+  height: 200rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-right: 1rpx solid #efefef;
+  border-bottom: 1rpx solid #efefef;
+  box-sizing: border-box;
+}
+
+.grid-course-hot-container{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.hot-course-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.hot-course{
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 1rpx solid #efefef;
+  border-left: 1rpx solid #efefef;
+}
+.hot-course-item{
+  width: 33.33%;
+  height: 300rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-right: 1rpx solid #efefef;
+  border-bottom: 1rpx solid #efefef;
+  box-sizing: border-box;
+}
+
+.hot-course-item-cell{
+  /* border: 1rpx solid #00BCD4; */
+  display: flex;
+  height: 100%;
+  width: 90%;
+  border-radius: 60rpx;
+  flex-direction: column;
+  box-shadow: 5rpx #c4edff;
+}
+
+.hot-course-item-cell-top{
+  border: 1rpx solid #c2c2c2;
+  height: 50%;
+  background-color: #03a8f4be;
+  border-radius:60rpx 60rpx 0rpx 0rpx;
+
+}
+
+.hot-course-item-cell-bottom{
+  border: 1rpx solid #e7e7e7;
+  height: 50%;
+  border-radius: 0rpx 0rpx 60rpx 60rpx;
+}

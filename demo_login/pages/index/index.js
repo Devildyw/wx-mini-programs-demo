@@ -1,5 +1,17 @@
+const imageCdn = 'https://tdesign.gtimg.com/mobile/demos';
+const swiperList = [
+  `${imageCdn}/swiper1.png`,
+  `${imageCdn}/swiper2.png`,
+  `${imageCdn}/swiper1.png`,
+  `${imageCdn}/swiper2.png`,
+  `${imageCdn}/swiper1.png`,
+  '/images/3961622281214_.pic_hd.jpg',
+];
+
 Page({
 
+  
+  
   /**
    * 页面的初始数据
    */
@@ -13,6 +25,11 @@ Page({
       "16:15-17:45",
       "19:00-20:30",
     ],
+    current: 0,
+    autoplay: false,
+    duration: 500,
+    interval: 5000,
+    swiperList,
     user_data: {},
     isLogin: false,
     "navs": [{
@@ -36,9 +53,20 @@ Page({
         verify: "jwc"
       }
     ],
-    is_bind:''
+    is_bind:'',
+    notice:"这是一条很长长长长长长长长长长长长长长长长长长长长长长长长长的公告"
   },
 
+  confirmTap(e){
+    console.log('确认事件',e.detail);
+  },
+
+  onChange(e) {
+    const {
+      detail: { current, source },
+    } = e;
+    console.log(current, source);
+  },
   //轮播图的切换事件
   swiperChange: function (e) {
     this.setData({
@@ -155,6 +183,7 @@ Page({
       isLogin : wx.getStorageSync('Authorization')!=null
     })
   },
+
   /**
    * 生命周期函数--监听页面隐藏
    */

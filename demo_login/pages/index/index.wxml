@@ -3,7 +3,7 @@
 
 
 
-<!-- <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" current="{{swiperCurrent}}" bindchange="swiperChange">
+  <!-- <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" current="{{swiperCurrent}}" bindchange="swiperChange">
   <block wx:for="{{imgUrls}}">
     <swiper-item>
       <image src="{{item}}" class="slide-image"bindtap="swipclick" />
@@ -11,70 +11,79 @@
   </block>
 </swiper>  -->
 
-<!--轮播图 -->
+  <!--轮播图 -->
+  <mp-searchbar placeholder="输入课程或老师的名称" ext-class="searchBar" cancel='false' bindblur="confirmTap">
+  </mp-searchbar>
+  <van-notice-bar mode="closeable" text="{{notice}}" />
 
-<swiper class="screen-swiper swiper" indicator-dots='true' autoplay='true' interval='5000' duration='500' circular='true'>
+  <!-- <swiper class="screen-swiper swiper" indicator-dots='true' autoplay='true' interval='5000' duration='500' circular='true'>
   <swiper-item wx:for="{{imgUrls}}" wx:key='{{index}}'>
     <image src="{{item}}"  mode="scaleToFill"></image>
-     <!-- <navigator url='{{item.link}}'>
-     
-    </navigator> -->
   </swiper-item>
-</swiper>
-
-
-
-<view class='card' style='margin-top:30rpx;'>
-  <form bindsubmit="submit" report-submit="ture">
-    <view class='navs'>
-      <block wx:for="{{navs}}" wx:key="key">
-        <button data-key='{{item.key}}' data-verify="{{item.verify}}" class="form_button nav" form-type='submit'
-          plain="{{plain}}">
-          <image class="nav-icon" src="/images/index/{{item.key}}.png"></image>
-          <text class="nav-desc text-caption">{{item.desc}}</text>
-        </button>
-      </block>
-    </view>
-  </form>
-</view>
-<view class='card' wx:if="{{url}}">
-  <navigator url='/pages/web/web?url={{url}}'>
-    <view class='card-desc text-caption'>今日推送</view>
-    <view class='card-content layout-row layout-start-center' style='height:120rpx;'>
-      <view style='color:white; height:inherit;min-width:120rpx;'
-        class='layout-column layout-center color{{week_index}}'>
-        {{week}}
-      </view>
-      <view class='text-body1' style="margin-left:30rpx;text-decoration:underline">
-        {{title}}
-      </view>
-    </view>
-  </navigator>
-</view>
-<view class='card animation-fade'>
-  <view class='card-desc text-caption'>今天的课</view>
-  <view class='card-content layout-column layout-center' wx:if="{{!is_bind}}">
-    <button class='remind-btn sc-button sc-outlined-btn ' bindtap="auth" sc-class="sc-btn sc-outlined-btn">前往登录</button>
+</swiper> -->
+  <view class="card-theme">
+    <view class="box" style="height: 20rpx" />
+    <t-swiper current="{{current}}" autoplay="{{autoplay}}" duration="{{duration}}" interval="{{interval}}" bindchange="onChange" navigation="{{ { type: 'dots-bar' } }}" list="{{swiperList}}" image-props="{{ { shape: 'round' } }}" previousMargin="34px" nextMargin="34px" t-class-nav="card-theme-nav" />
   </view>
-  
-  <view class="padding  card-content " wx:else>
-    <block>
-      <view wx:for="{{today_class}}" class='{{(now_class)==index?"bg-gradual-purple":"bg-white"}} layout-row padding-xl radius  shadow-warp'>
-        <!-- <view wx:for="{{today_class}}" class='bg-white layout-row padding-xl radius  shadow-warp'> -->
-        <view class='layout-column layout-start'>
-          <view class='text-subtitle2' wx:if="{{item.courseName}}">{{(item.courseName || '无课') +"-("+item.teacher+")-("+item.teachWeek+")-("+item.place+")"}}</view>
-          <view class='text-subtitle2' wx:else>{{(item.courseName || '无课') }}</view>
-          <view style='margin-top:10rpx'>{{times[index]}}</view>
-          
+
+  <view class='card' style='margin-top:30rpx;'>
+    <form bindsubmit="submit" report-submit="ture">
+      <view class='navs'>
+        <block wx:for="{{navs}}" wx:key="key">
+          <button data-key='{{item.key}}' data-verify="{{item.verify}}" class="form_button nav" form-type='submit' plain="{{plain}}">
+            <image class="nav-icon" src="/images/index/{{item.key}}.png"></image>
+            <text class="nav-desc text-caption">{{item.desc}}</text>
+          </button>
+        </block>
+      </view>
+    </form>
+  </view>
+  <view class='card' wx:if="{{url}}">
+    <navigator url='/pages/web/web?url={{url}}'>
+      <view class='card-desc text-caption'>今日推送</view>
+      <view class='card-content layout-row layout-start-center' style='height:120rpx;'>
+        <view style='color:white; height:inherit;min-width:120rpx;' class='layout-column layout-center color{{week_index}}'>
+          {{week}}
+        </view>
+        <view class='text-body1' style="margin-left:30rpx;text-decoration:underline">
+          {{title}}
         </view>
       </view>
-      <view class='card-content layout-row layout-center' style="width: 100%">
-        <button class='remind-btn sc-button sc-outlined-btn ' bindtap="navigatetokb" sc-class="sc-btn sc-outlined-btn"
-          flat>查看完整课表</button>
-      </view>
-    </block>
+    </navigator>
   </view>
 
 
-</view>
+
+  <view class='card animation-fade'>
+
+
+    <view class="hot-course-container">
+      <view class="grid-course-hot-container">
+        <view class="card-desc text-caption hot-course-title">热门课程</view>
+        <view class="card-desc text-caption hot-course-more">查看更多></view>
+      </view>
+      <view class="hot-course">
+        <view class="hot-course-item">
+          <view class="hot-course-item-cell">
+            <view class="hot-course-item-cell-top">
+              <view class="hot-course-item-cell-text">
+                
+              </view>
+            </view>
+            <view class="hot-course-item-cell-bottom"></view>
+          </view>
+        </view>
+        <view class="hot-course-item">热门课程2</view>
+        <view class="hot-course-item">热门课程3</view>
+      </view>
+    </view>
+
+      <view class="grid-course-hot-container">
+        <view class='card-desc text-caption'>热门资料</view>
+        <view class="card-desc text-caption hot-course-more">查看更多></view>
+      </view>
+    </view>
+  
+
+
 </view>

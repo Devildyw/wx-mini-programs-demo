@@ -1,0 +1,10 @@
+<view class="weui-flex" >
+      <view class="weui-flex__item" wx:for="{{Flexs}}" wx:key="id">
+        <view class="{{FlexItem}}"  bindtap="flexLink" data-linktype="{{item.LinkType}}" data-url="{{item.LinkUrl}}">
+          <image class="{{FlexImg}}" src="{{item.IconUrl}}"/>
+          <view> 
+            <text class="{{FlexText}}">{{item.IconText}}</text>
+          </view>
+        </view>
+      </view>
+</view>
