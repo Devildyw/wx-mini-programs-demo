@@ -7,7 +7,7 @@
 @import '/miniprogram_npm/weui-miniprogram/weui-wxss/dist/style/weui.wxss';
 
 .container {
-   background: linear-gradient(#1171BA, white);
+   background: linear-gradient(#e2dddde8, white);
   height: 100%;
   display: flex;
   flex-direction: column;

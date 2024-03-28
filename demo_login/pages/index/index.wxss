@@ -141,8 +141,6 @@ button.form_button::after {
 .grid-list {
   display: flex;
   flex-wrap: wrap;
-  border-top: 1rpx solid #efefef;
-  border-left: 1rpx solid #efefef;
 }
 
 .grid-item {
@@ -152,8 +150,6 @@ button.form_button::after {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-right: 1rpx solid #efefef;
-  border-bottom: 1rpx solid #efefef;
   box-sizing: border-box;
 }
 
@@ -172,18 +168,14 @@ button.form_button::after {
 .hot-course{
   display: flex;
   flex-wrap: wrap;
-  border-top: 1rpx solid #efefef;
-  border-left: 1rpx solid #efefef;
 }
 .hot-course-item{
-  width: 33.33%;
-  height: 300rpx;
+  width: 33.3%;
+  height: 280rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-right: 1rpx solid #efefef;
-  border-bottom: 1rpx solid #efefef;
   box-sizing: border-box;
 }
 
@@ -192,21 +184,43 @@ button.form_button::after {
   display: flex;
   height: 100%;
   width: 90%;
-  border-radius: 60rpx;
+  border-radius: 20rpx;
   flex-direction: column;
-  box-shadow: 5rpx #c4edff;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px 0px;
+}
+
+.notice-bar{
+  width: 96%;
+  margin-left: 2%;
 }
 
 .hot-course-item-cell-top{
-  border: 1rpx solid #c2c2c2;
   height: 50%;
-  background-color: #03a8f4be;
-  border-radius:60rpx 60rpx 0rpx 0rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #E1F5F7;
+  border-radius:20rpx 20rpx 0rpx 0rpx;
+}
 
+.hot-course-item-cell-top image{
+  margin-top: 5%;
+  height: 75rpx;
+  width: 75rpx;
 }
 
 .hot-course-item-cell-bottom{
   border: 1rpx solid #e7e7e7;
   height: 50%;
-  border-radius: 0rpx 0rpx 60rpx 60rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 0rpx 0rpx 20rpx 20rpx;
+}
+
+.hot-course-item-cell-text{
+  margin-top: 2%;
+}
+.hot-course-item-cell-title{
+  margin: 10rpx;
 }
