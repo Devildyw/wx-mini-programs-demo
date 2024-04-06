@@ -9,6 +9,7 @@
  * @URL http://www.abtwork.com/
 
  */
+const {get,post} = require('../../utils/request')
 const time = require('../../utils/time')
 var app = getApp()
 Page({
@@ -20,7 +21,7 @@ Page({
     remind: '加载中',
     isLoading: true,
     _days: ['一', '二', '三', '四', '五', '六', '日'],
-    course_days: ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'],
+    course_days: ['day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'day7'],
     activeClass: '',
     activeClassItem: 0,
     painting: {},
@@ -34,34 +35,36 @@ Page({
     timeRow: [{
         l1: '第一小节',
         l2: '第二小节',
-        t1: '8:00-8:45',
-        t2: '8:50-9:35'
+        t1: '8:20-9:05',
+        t2: '9:15-10:00'
       },
       {
         l1: '第三小节',
         l2: '第四小节',
-        t1: '9:55-10:40',
-        t2: '10:45-11:30'
+        t1: '10:20-11:05',
+        t2: '11:15-12:00'
       },
       {
         l1: '第五小节',
         l2: '第六小节',
-        t1: '13:10-13:55',
-        t2: '14:00-14:45'
+        t1: '14:00-14:45',
+        t2: '14:55-15:40'
       },
       {
         l1: '第七小节',
         l2: '第八小节',
-        t1: '15:00-15:45',
-        t2: '15:50-16:35'
+        t1: '16:00-16:45',
+        t2: '16:55-17:40'
       },
       {
         l1: '第九小节',
         l2: '第十小节',
-        t1: '16:50-17:35',
-        t2: '17:40-18:25'
+        t1: '19:30-20:15',
+        t2: '20:25-21:10'
       },
     ],
+    schoolYear:'',
+    semester:'',
     classJson: '',
     targetLessons: [],
     targetX: 0, //target x轴top距离
@@ -102,73 +105,16 @@ Page({
   setInfo: function () {
     var that = this;
     const whichDayOfWeek = new Date().getDay();
-    const arr = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+    const arr = ['day7','day1', 'day2', 'day3', 'day4', 'day5', 'day6'];
     that.setData({
       whichDayOfWeek: arr[whichDayOfWeek],
     })
   },
   getTable: function () {
-    // wx.cloud.callFunction({
-    //   name: 'courses',
-    //   data: {
-    //     action: 'get_user'
-    //   }
-    // }).then(res => {
-    //   console.log(res);
-    //   let courses = JSON.parse(res.result.courses);
-    //   wx.setStorageSync('user', res.result);
-    //   this.setData({
-    //     classJson: courses,
-    //     isLoading: false
-    //   })
-    // })
-
-    // let user_data=wx.getStorageSync('user')
-    // this.setData({
-    //   classJson: user_data.courses,
-    //   isLoading: false
-    // })
-    let user_data=wx.getStorageSync('user')
     this.setData({
-      classJson: user_data.course,
+      // classJson: user_data.course,
       isLoading: false
     })
-    // wx.cloud.callFunction({
-    //   name: 'courses', //function name
-    //   data: {
-    //     action: 'get_course', // 具体方法
-    //     class_name: "汽修2022"
-    //   }
-    // }).then(res => {
-    //   console.log(res, "======>");
-    //   let data = []
-    //   for(let item in res.result.course){ 
-    //     data.push(res.result.course[item])
-    //   }
-    //   console.log(data)
-    //   let date = time.formatTime( new Date())
-    //   console.log(date)
-    //   let week = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六","星期日" ]
-    //   let weekDay = week.indexOf(date.split("  ")[1])
-    //   let M_data = data.splice(weekDay,1)
-    //   data.unshift(M_data[0])
-    //   let M_week = week.splice(weekDay,1)
-
-    //   week.unshift(M_week[0])
-    //   console.log(week)
-    // this.setData({
-    //   classJson: data,
-    //   isLoading: false
-    // })
-    // this.setData({
-    //   week: week,
-    //   isLoading: false
-
-    // })
-
-    // })
-
-
   },
   changeActiveItem: function (e) {
     var that = this;
@@ -179,8 +125,14 @@ Page({
   },
   //下拉刷新执行
   onShow: function () {
-    var _this = this;
-
+    // classJson
+    get('/system/lesson/course/table',{},{Authorization:wx.getStorageSync('Authorization')}).then(res=>{
+      this.setData({
+        schoolYear: res.data.course.schoolYear,
+        semester:res.data.course.semester,
+        classJson: res.data
+      })
+    })
   },
   onReady: function () {
     var that = this;

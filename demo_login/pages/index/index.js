@@ -7,7 +7,6 @@ const swiperList = [
   `${imageCdn}/swiper1.png`,
   '/images/3961622281214_.pic_hd.jpg',
 ];
-
 Page({
 
   
@@ -17,7 +16,6 @@ Page({
    */
   data: {
     title: "登录",
-    imgUrls:['/images/3961622281214_.pic_hd.jpg'],
     times: [
       "08:30-10:00",
       "10:15-11:45",
@@ -25,6 +23,7 @@ Page({
       "16:15-17:45",
       "19:00-20:30",
     ],
+    keyword:'',
     current: 0,
     autoplay: false,
     duration: 500,
@@ -78,6 +77,11 @@ Page({
     console.log(this.data.swiperCurrent)
   },
 
+  onInput(e){
+    this.setData({
+      keyword: e.detail
+    })
+  },
   submit(e) {
     var key = e.detail.target.dataset.key //要去的地方。
     // var verify = e.detail.target.dataset.verify; //需要的权限
@@ -133,7 +137,11 @@ Page({
       })
     }
   },
-
+  onSearch(){
+    wx.navigateTo({
+      url: '/pages/selectCourse/selectCourse?keyword='+this.data.keyword,
+    })
+  },
   previewImage: function (e) {
     var current = e.target.dataset.src;
     wx.previewImage({

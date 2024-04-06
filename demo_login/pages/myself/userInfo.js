@@ -25,6 +25,9 @@ Page({
     visitTotal: 0,
     is_bind: false,
     userInfo:{},
+    editHidden:false,
+    saveHidden:true,
+    editControl:true
   },
 
   /**
@@ -50,6 +53,39 @@ Page({
     var type = "jwc"
     wx.navigateTo({
       url: '/pages/login/login?type=' + type,
+    })
+  },
+  editInfo(){
+    this.setData({
+      editHidden:true,
+      saveHidden:false,
+      editControl:false
+    })
+    wx.showLoading({
+      title: '加载中...',
+    })
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 250)
+    wx.setNavigationBarTitle({
+      　title: "编辑资料" 
+    })
+  },
+
+  cancel(){
+    this.setData({
+      editHidden:false,
+      saveHidden:true,
+      editControl:true
+    })
+    wx.showLoading({
+      title: '加载中...',
+    })
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 250)
+    wx.setNavigationBarTitle({
+      　title: "个人信息" 
     })
   },
   unLogin() {

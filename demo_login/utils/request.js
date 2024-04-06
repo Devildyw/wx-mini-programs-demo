@@ -26,13 +26,22 @@ const request = (url, options, header = {}) => {
               console.log(request);
                 if (request.data.code === 200) {
                     resolve(request.data)
-                } else {
-                    wx.showToast({
-                      title: 'ERROR!',
-                      icon:'error',
-                      duration:2000
-                    })
-                    reject(request.data)
+                } else if(request.data.code === 401){
+                  wx.showToast({
+                    title: '用户登录已过期',
+                    icon:'error',
+                    duration:2000
+                  })
+                  wx.navigateTo({
+                    url: '/pages/login/login',
+                  }) 
+                } else{
+                  wx.showToast({
+                    title: request.data.msg,
+                    icon:'error',
+                    duration:2000
+                  })
+                  reject(request.data)
                 }
             },
             fail(error) { //返回失败也同样传入reject()方法

@@ -3,34 +3,34 @@
 
 
     <view class='avatar'>
-      <image src="https://img.yzcdn.cn/vant/cat.jpeg" mode=""/>
+      <image src="{{userInfo.avatar}}" mode="widthFix"/>
     </view>
-    <open-data type="userNickName"></open-data>
-    <text class="text-df"></text>
+    <!-- <open-data type="userNickName"></open-data> -->
+    <text class="text-df">{{userInfo.nickName}}</text>
 
     <view class="margin-top-sm">
       <text></text>
     </view>
-    <image
-      src="https://7363-schoolgzgsxy-2g07k3mh30f9fcde-1305126347.tcb.qcloud.la/system/wave.gif?sign=878472d579816f574989043298c06812&t=1614861678"
-      mode="scaleToFill" class="gif-wave"></image>
   </view>
   <view class="padding flex text-center text-grey bg-white shadow-warp">
     <view class="flex flex-sub flex-direction solid-right">
-      <view class="text-xxl text-orange">{{visitTotal}}</view>
-      <view class="margin-top-sm">
-        <text class="cuIcon-attentionfill  text-orange"></text> 浏览数</view>
+      <view class="basicInfo-Container">
+        <text>性别:{{userInfo.sex==0?'男':'女'}}</text>
+        <text>班级:{{userInfo.class==null?'无':'女'}}</text>
+        <text>身份:{{userInfo.remark==null?'无':userInfo.remark}}</text>
+        <text>手机号:{{userInfo.phonenumber==null?'无':userInfo.phonenumber}}</text>
+        <text>邮箱:{{userInfo.email==null?'无':userInfo.email}}</text>
+        </view>
     </view>
-    <view class="flex flex-sub flex-direction solid-right">
-      <view class="text-xxl text-blue">{{starCount}}</view>
+    
+    <!-- <view class="flex flex-sub flex-direction solid-right">
       <view class="margin-top-sm">
         <text class="cuIcon-favorfill  text-orange"></text> 点赞数</view>
-    </view>
-    <view class="flex flex-sub flex-direction">
-      <view class="text-xxl text-green">{{forksCount}}</view>
+    </view> -->
+    <!-- <view class="flex flex-sub flex-direction">
       <view class="margin-top-sm">
         <text class="cuIcon-commentfill  text-orange"></text> 评论数</view>
-    </view>
+    </view> -->
   </view>
 
   <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
@@ -40,16 +40,16 @@
         <text class="text-grey">{{is_bind?'解绑':"绑定"}}教务网</text>
       </button>
     </view>
+    <view class="cu-item arrow">
+      <view class="content" bindtap="showUserInfo">
+        <text class="cuIcon-appreciatefill text-red"></text>
+        <text class="text-grey">个人信息</text>
+      </view>
+    </view>
     <view class="cu-item arrow" wx:if="{{!is_bind}}">
       <view class="content" bindtap="go_my_share" >
         <text class="cuIcon-formfill text-purple"></text>
         <text class="text-grey">我的帖子</text>
-      </view>
-    </view>
-    <view class="cu-item arrow">
-      <view class="content" bindtap="showQrcode">
-        <text class="cuIcon-appreciatefill text-red"></text>
-        <text class="text-grey">合作联系</text>
       </view>
     </view>
     <view class="cu-item arrow">

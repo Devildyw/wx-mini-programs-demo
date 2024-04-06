@@ -1,10 +1,12 @@
 {
   "pages": [
-    "pages/login/login",
     "pages/index/index",
     "pages/timetable/timetable",
     "pages/selectCourse/selectCourse",
+    "pages/course/couselist",
+    "pages/login/login",
     "pages/myself/myself",
+    "pages/myself/userInfo",
     "pages/material/material",
     "pages/points/points",
     "pages/logs/logs"
@@ -55,6 +57,10 @@
     "van-field": "/miniprogram_npm/vant-weapp/field/index",
     "van-button":"/miniprogram_npm/vant-weapp/button/index",
     "cu-custom": "/colorui/components/cu-custom",
+    "t-picker": "tdesign-miniprogram/picker/picker",
+    "van-search": "/miniprogram_npm/vant-weapp/search/index",
+    "t-picker-item": "tdesign-miniprogram/picker-item/picker-item",
+    "t-cell": "tdesign-miniprogram/cell/cell",
     "t-notice-bar": "tdesign-miniprogram/notice-bar/notice-bar",
     "t-swiper": "tdesign-miniprogram/swiper/swiper"
   }

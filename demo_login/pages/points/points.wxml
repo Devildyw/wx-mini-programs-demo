@@ -1,2 +1,15 @@
-<!--pages/points/points.wxml-->
-<text>pages/points/points.wxml</text>
+<view class="top">
+    <button class="avatar-wrapper" 
+	    open-type="chooseAvatar" 
+	    bind:chooseavatar="onChooseAvatar"
+    >
+      <image class="avatar" src="{{avatarUrl}}"></image>
+    </button> 
+    <van-icon name="edit"  class="edit" />
+    <input type="nickname" 
+	    class="weui-input"  
+	    placeholder="微信用户"  
+	    bind:change="getNickname" 
+	    maxlength="10" 
+	    value="{{username}}"/>
+  </view>

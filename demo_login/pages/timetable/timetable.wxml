@@ -143,7 +143,7 @@
     </view>
     <view class="kb-info-title" wx:else>
       <text class="kb-info-week">第{{school_week}}周 周{{week_day}}</text>
-      <text class="kb-lesson-time">{{classJson.schoolYear}}学年第{{classJson.semester}}学期</text>
+      <text class="kb-lesson-time">{{schoolYear}}学年第{{semester}}学期</text>
       <!-- <text class="version-text" bindtap='refreshData'>更新</text>
       <text class="version-text" bindtap='eventDraw'>存图</text> -->
       <image class="kb-info-card-close" src="/images/down_w.png" bindtap="hideDetail"></image>

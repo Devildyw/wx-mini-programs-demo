@@ -74,17 +74,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    let token = null;
-    try {
-        token = wx.getStorageSync('Authorization')
-    } catch (e) {
-        console.log(e);
-    }
-    if (token) {
-        wx.switchTab({
-            url: '../index/index',
-        })
-    }
+    // let token = null;
+    // try {
+    //     token = wx.getStorageSync('Authorization')
+    // } catch (e) {
+    //     console.log(e);
+    // }
+    // if (token) {
+    //     wx.switchTab({
+    //         url: '../index/index',
+    //     })
+    // }
   },
 
   

@@ -1,3 +1,5 @@
+const {get,post} = require('../../utils/request')
+
 // pages/selectCourse/selectCourse.js
 Page({
 
@@ -5,16 +7,52 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    keyword:'',
+    courseList:[],
+    pageNum:1,
+    pageSize:10,
+    orderByColumn:'',
+    isAsc:'',
+    lastTotal:0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    this.setData({
+      keyword:options.keyword!=null?options.keyword:''
+    })
+    this.getList()
   },
 
+  getList(){
+    get('/system/course/page/list',{
+      pageNum:this.data.pageNum,
+      pageSize:this.data.pageSize,
+      orderByColumn:this.data.orderByColumn,
+      isAsc:this.data.isAsc,
+      keyword:this.data.keyword
+    },{Authorization:wx.getStorageSync('Authorization')}).then(res=>{
+      this.setData({
+        courseList:[...this.data.courseList,...res.rows],
+        lastTotal:res.total,
+        pageNum:this.data.pageNum+1
+      })
+    })
+  },
+
+  onSearch(){
+    this.setData({
+      courseList:[]
+    })
+    this.getList()
+  },
+  onInput(event){
+    this.setData({
+      keyword: event.detail
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -26,7 +64,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    
   },
 
   /**

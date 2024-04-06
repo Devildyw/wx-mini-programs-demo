@@ -159,7 +159,10 @@ button.form_button::after {
   flex-direction: row;
   justify-content: space-between;
 }
-
+.example-search {
+  background-color: #fff;
+  padding: 16rpx 32rpx;
+}
 .hot-course-container{
   display: flex;
   flex-direction: column;
