@@ -13,6 +13,7 @@ App({
           url: '/pages/login/login',
       })
   }
+  
     
     // 登录
     wx.login({
