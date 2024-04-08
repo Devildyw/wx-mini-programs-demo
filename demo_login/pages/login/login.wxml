@@ -19,7 +19,6 @@
       </view>
       
       <image src="{{image}}" class="t-img" bind:tap="refreshCode" mode=""></image>
-      
       <view class="t-d">新生账号会在开学后开通，由辅导员通知</view>
     <button class="t-t" bind:tap="login">立即登录</button>
     </view>
@@ -27,4 +26,5 @@
     <view class="t-e">
     </view>
   </view>
+  
 </view>

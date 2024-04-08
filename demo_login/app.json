@@ -58,12 +58,14 @@
     "van-field": "/miniprogram_npm/vant-weapp/field/index",
     "van-button":"/miniprogram_npm/vant-weapp/button/index",
     "cu-custom": "/colorui/components/cu-custom",
-    "t-picker": "tdesign-miniprogram/picker/picker",
+    "t-picker": "/miniprogram_npm/tdesign-miniprogram/picker/picker",
     "van-search": "/miniprogram_npm/vant-weapp/search/index",
-    "t-picker-item": "tdesign-miniprogram/picker-item/picker-item",
-    "t-cell": "tdesign-miniprogram/cell/cell",
-    "t-input": "tdesign-miniprogram/input/input",
-    "t-notice-bar": "tdesign-miniprogram/notice-bar/notice-bar",
-    "t-swiper": "tdesign-miniprogram/swiper/swiper"
+    "t-picker-item": "/miniprogram_npm/tdesign-miniprogram/picker-item/picker-item",
+    "t-dropdown-menu": "/miniprogram_npm/tdesign-miniprogram/dropdown-menu/dropdown-menu",
+    "t-dropdown-item": "/miniprogram_npm/tdesign-miniprogram/dropdown-item/dropdown-item",
+    "t-cell": "/miniprogram_npm/tdesign-miniprogram/cell/cell",
+    "t-input": "/miniprogram_npm/tdesign-miniprogram/input/input",
+    "t-notice-bar": "/miniprogram_npm/tdesign-miniprogram/notice-bar/notice-bar",
+    "t-swiper": "/miniprogram_npm/tdesign-miniprogram/swiper/swiper"
   }
 }

@@ -1,2 +1,39 @@
-<!--pages/material/material.wxml-->
-<text>pages/material/material.wxml</text>
+<navigator open-type="navigateBack" delta="1" />
+<van-search value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot="true" bind:search="onSearch" bind:change="onInput">
+  <view slot="action" bind:tap="onSearch">搜索</view>
+</van-search>
+<t-dropdown-menu style="height: 70rpx; align-items:center; border-top: 1rpx solid rgb(223, 223, 223);">
+  <t-dropdown-item  options="{{product.options}}" value="{{product.value}}" bindchange="onChange" />
+  <t-dropdown-item options="{{sorter.options}}" default-value="{{sorter.value}}" />
+</t-dropdown-menu>
+
+<view wx:for="{{courseList}}" wx:key="index" class="shop-list" class="shop-item">
+
+  <view class="info">
+    <view class="info-container">
+      <text class="shop-title">《{{item.courseName}}》</text>
+      <view class="basicInfo">
+        <text>老师姓名：{{item.teacherName}} </text>
+        <text>课程类型：{{item.typeName}}</text>
+
+      </view>
+      <view class="basicInfo">
+        <text>学时：{{item.period}}</text>
+        <text>学分：{{item.score}}</text>
+        <text>方式：{{item.courseType===0?'线下':'线上'}}</text>
+      </view>
+      <view class="basicInfo">
+        <text>评分：{{item.evaluateNum==0?'暂无评分':item.evaluateScore}}</text>
+        <text>评价：{{item.keywords===null||item.keywords===''?'暂无':(item.keywords)}}</text>
+      </view>
+    </view>
+    <view class="choose">
+      <view>
+        <view class="choose-top">选择</view>
+        <view class="choose-bottom">{{item.remain}}/{{item.total}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- <wxs src="../../utils/tools.wxs" module="m1"/> -->

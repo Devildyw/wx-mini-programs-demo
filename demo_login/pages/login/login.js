@@ -132,6 +132,7 @@ Page({
    */
   onShow() {
     wx.hideHomeButton();
+
     this.setData({
       account: '',
       password: '',

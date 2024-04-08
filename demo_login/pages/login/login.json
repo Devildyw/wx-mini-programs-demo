@@ -1,5 +1,7 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "t-empty": "../../miniprogram_npm/tdesign-miniprogram/empty/empty"
+  },
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTitleText": "登录",
   "navigationBarTextStyle":"black",
