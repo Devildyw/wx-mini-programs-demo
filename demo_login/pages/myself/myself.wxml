@@ -16,7 +16,9 @@
     <view class="flex flex-sub flex-direction solid-right">
       <view class="basicInfo-Container">
         <text>性别:{{userInfo.sex==0?'男':'女'}}</text>
-        <text>班级:{{userInfo.class==null?'无':'女'}}</text>
+        <text>班级:{{userInfo.gradeClass.classGradeName}}</text>
+        <text>专业:{{userInfo.gradeClass.major}}</text>
+        <text>年级:{{userInfo.gradeClass.gradeYearName}}</text>
         <text>身份:{{userInfo.remark==null?'无':userInfo.remark}}</text>
         <text>手机号:{{userInfo.phonenumber==null?'无':userInfo.phonenumber}}</text>
         <text>邮箱:{{userInfo.email==null?'无':userInfo.email}}</text>

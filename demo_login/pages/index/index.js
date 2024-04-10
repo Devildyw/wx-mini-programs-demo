@@ -42,8 +42,8 @@ Page({
         verify: ""
       }, 
       {
-        key: "material",
-        desc: "资料",
+        key: "tips",
+        desc: "小贴士",
         verify: "jwc"
       },
       {
@@ -123,6 +123,20 @@ Page({
             title: '即将开放',
             icon: 'none'
           })
+        }
+      })
+    } else if (key==='tips') {
+      wx.showModal({
+        title: '这是一条小贴士',
+        content: '内容',
+        complete: (res) => {
+          if (res.cancel) {
+            
+          }
+      
+          if (res.confirm) {
+            
+          }
         }
       })
     } else {

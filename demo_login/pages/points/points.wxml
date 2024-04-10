@@ -1,15 +1,40 @@
-<view class="top">
-    <button class="avatar-wrapper" 
-	    open-type="chooseAvatar" 
-	    bind:chooseavatar="onChooseAvatar"
-    >
-      <image class="avatar" src="{{avatarUrl}}"></image>
-    </button> 
-    <van-icon name="edit"  class="edit" />
-    <input type="nickname" 
-	    class="weui-input"  
-	    placeholder="微信用户"  
-	    bind:change="getNickname" 
-	    maxlength="10" 
-	    value="{{username}}"/>
+<navigator open-type="navigateBack" delta="1" />
+<scroll-view scroll-y class="scrollPage">
+  <view class="UCenter-bg">
+
+
+    <view class='avatar'>
+      <image src="{{userInfo.avatar===null?'../../assets/background/医院空图片.png':userInfo.avatar}}" mode="widthFix"/>
+    </view>
+    
+    <view class="points-container">
+      
+      <view class="points">
+        <text>当前积分值:</text>
+        <view class="info">
+          <text>1300</text>
+          <image class="points-icon" src="../../assets/icon/积分.png"></image>
+        </view>
+      </view>
+      <image class="icon" src="../../assets/background/金融_礼品礼盒.png" mode="aspectFill"></image>
+    </view>
+
+    <view class="margin-top-sm">
+      <text></text>
+    </view>
   </view>
+
+  <van-tabs active="{{ active }}" bind:change="onChange">
+  <van-tab title="商城">内容 1
+    <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+     内容
+    </view>
+  <view class="cu-tabbar-height"></view>
+  </van-tab>
+  <van-tab title="已兑换">内容 2</van-tab>
+  <van-tab title="明细">内容 3</van-tab>
+</van-tabs>
+  <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+  </view>
+  <view class="cu-tabbar-height"></view>
+</scroll-view>

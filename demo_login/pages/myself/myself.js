@@ -141,7 +141,6 @@ Page({
       this.setData({
         userInfo:res.user
       })
-      console.log(this.data.userInfo);
     })
 
 

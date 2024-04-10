@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/timetable/timetable",
     "pages/selectCourse/selectCourse",
-    "pages/course/couselist",
+    "pages/selectCourse/courseDetailInfo",
+    "pages/material/materialDetailInfo",
     "pages/login/login",
     "pages/login/initPassword",
     "pages/myself/myself",
@@ -65,6 +66,8 @@
     "t-dropdown-item": "/miniprogram_npm/tdesign-miniprogram/dropdown-item/dropdown-item",
     "t-cell": "/miniprogram_npm/tdesign-miniprogram/cell/cell",
     "t-input": "/miniprogram_npm/tdesign-miniprogram/input/input",
+    "van-tab": "/miniprogram_npm/vant-weapp/tab/index",
+    "van-tabs": "/miniprogram_npm/vant-weapp/tabs/index",
     "t-notice-bar": "/miniprogram_npm/tdesign-miniprogram/notice-bar/notice-bar",
     "t-swiper": "/miniprogram_npm/tdesign-miniprogram/swiper/swiper"
   }

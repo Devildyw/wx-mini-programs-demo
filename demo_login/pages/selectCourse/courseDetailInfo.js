@@ -1,4 +1,4 @@
-// pages/course/couselist.js
+// pages/selectCourse/courseDetailInfo.js
 Page({
 
   /**
@@ -12,7 +12,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    console.log("detailPage:"+options.tcourseId);
   },
 
   /**

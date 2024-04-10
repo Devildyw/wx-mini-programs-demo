@@ -2,7 +2,7 @@
 <view class='container'>
 
   <!-- 搜索框 -->
-  <van-search value="{{ keyword }}" placeholder="请输入搜索关键词" use-action-slot="true" bind:search="onSearch" bind:change="onInput">
+  <van-search value="{{ keyword }}" placeholder="请输入课程相关关键词" use-action-slot="true" bind:search="onSearch" bind:change="onInput">
     <view slot="action" bind:tap="onSearch">搜索</view>
   </van-search>
 

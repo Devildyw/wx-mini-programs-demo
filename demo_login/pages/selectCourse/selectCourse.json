@@ -1,4 +1,7 @@
 {
   "usingComponents": {
-  }
+    
+  },
+  "navigationBarTitleText": "课程选择"
+  
 }

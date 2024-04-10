@@ -7,12 +7,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    product: {
+    type: {
       value: 'all',
       options: [
         {
           value: 'all',
-          label: '全部产品',
+          label: '类型',
         },
         {
           value: 'new',
@@ -24,6 +24,40 @@ Page({
         },
       ],
     },
+    courseType: {
+      value: 'all',
+      options: [
+        {
+          value: 'all',
+          label: '方式',
+        },
+        {
+          value: '0',
+          label: '线下',
+        },
+        {
+          value: '1',
+          label: '线上',
+        },
+      ],
+    },
+    school: {
+      value: 'all',
+      options: [
+        {
+          value: 'all',
+          label: '校区',
+        },
+        {
+          value: '0',
+          label: '航空港',
+        },
+        {
+          value: '1',
+          label: '龙泉',
+        },
+      ],
+    },
     sorter: {
       value: 'default',
       options: [
@@ -32,8 +66,16 @@ Page({
           label: '默认排序',
         },
         {
-          value: 'price',
-          label: '价格从高到低',
+          value: 'markHigh',
+          label: '按评分降序排序',
+        },
+        {
+          value: 'personNumHigh',
+          label: '按评分人数降序排序',
+        },
+        {
+          value: 'personNumHigh',
+          label: '按选择人数降序排序',
         },
       ],
     },
@@ -44,12 +86,26 @@ Page({
     orderByColumn:'',
     isAsc:'',
     lastTotal:0,
+    userInfo:{},
   },
 
 
   onChange(e) {
     this.setData({
-      'product.value': e.detail.value,
+      'type.value': e.detail.value,
+    });
+  },
+
+  showCourseDetailInfo(e){
+    var tcourseId =  e.currentTarget.dataset.tcourseid;
+    wx.navigateTo({
+      url: '/pages/selectCourse/courseDetailInfo?tcourseId='+tcourseId,
+    })
+  },
+
+  onCourseTypeChange(e){
+    this.setData({
+      'courseType.value': e.detail.value,
     });
   },
   /**
@@ -59,7 +115,6 @@ Page({
     this.setData({
       keyword:options.keyword!=null?options.keyword:''
     })
-    this.getList()
   },
 
   getList(){
@@ -68,12 +123,11 @@ Page({
       pageSize:this.data.pageSize,
       orderByColumn:this.data.orderByColumn,
       isAsc:this.data.isAsc,
-      keyword:this.data.keyword
+      keyword:this.data.keyword,
+      gradeYearId:this.data.userInfo.gradeClass.gradeYearId,
     },{Authorization:wx.getStorageSync('Authorization')}).then(res=>{
       this.setData({
         courseList:[...this.data.courseList,...res.rows],
-        lastTotal:res.total,
-        pageNum:this.data.pageNum+1
       })
     })
   },
@@ -100,7 +154,45 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    
+    get("/system/category/allList",{},{Authorization:wx.getStorageSync('Authorization')}).then(res=>{
+      this.setData({
+        ['type.options']:res.data,
+        ['courseType.options']:[
+          {
+            value: 'null',
+            label: '全部',
+          },
+          {
+            value: '0',
+            label: '线下',
+          },
+          {
+            value: '1',
+            label: '线上',
+          },
+        ],
+        ['school.options']:[
+          {
+            value: 'null',
+            label: '全部',
+          },
+          {
+            value: '0',
+            label: '航空港',
+          },
+          {
+            value: '1',
+            label: '龙泉',
+          },
+        ],
+      })
+    }),
+    get('/getInfo',{},{Authorization:wx.getStorageSync('Authorization')}).then(res=>{
+      this.setData({
+        userInfo:res.user
+      })
+    })
+    this.getList();
   },
 
   /**
