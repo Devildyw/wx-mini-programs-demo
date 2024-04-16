@@ -30,7 +30,7 @@
 
 .points-container{
   width: 90%;
-  height: 400rpx;
+  height: 380rpx;
   margin-top: 10rpx;
   display: flex;
   flex-direction: row;
