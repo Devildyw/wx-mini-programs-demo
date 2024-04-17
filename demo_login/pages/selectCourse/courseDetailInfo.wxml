@@ -1,1 +1,102 @@
 <navigator open-type="navigateBack" delta="1" />
+<scroll-view scroll-y class="scrollPage">
+  <t-swiper current="{{current}}" autoplay="{{autoplay}}" duration="{{duration}}" interval="{{interval}}" navigation="{{navigation}}" list="{{swiperList}}" loop="{{true}}">
+  </t-swiper>
+
+  <van-tabs active="{{ active }}" bind:change="onChange">
+    <van-tab title="课程详情">
+      <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius info_background" style="height: 920rpx;">
+        <view class="info-background">
+          <view class="course-title-1">
+            <text>《全国性旅游性美食探讨》</text>
+          </view>
+          <view class="course-title-2">
+            <text>授课老师：小明</text>
+          </view>
+
+
+          <view class="classInfo_container">
+            <view class="line_info-1">
+              <text>课程代码：课程代码</text>
+              <text>课时：课时</text>
+              <text>校区：校区</text>
+              <text>课程类型：课程类型</text>
+              <text>课程状态：课程状态</text>
+              <text>剩余数量：剩余数量</text>
+            </view>
+            <view class="line_info-2">
+
+              <text>课程描述：课程描述</text>
+              <text>学分：学分</text>
+              <text>授课方式：授课方式</text>
+              <text>选择人数：选择人数</text>
+              <text>授课地点：授课地点</text>
+              <text>授课时间：授课时间</text>
+
+            </view>
+          </view>
+
+          <view class="keyword-container">
+            <text class="info-mark-count">评分人数：3人</text>
+            <view class="info-mark-container">
+              <text>评分：</text>
+              <van-rate readonly allow-half color="red" void-color="red" value="{{ value }}" />
+              <text>3.5</text>
+            </view>
+            <view class="info-keywords">
+              <text class="info-keyword">关键词1</text>
+              <text class="info-keyword">关键词2</text>
+              <text class="info-keyword">关键词3</text>
+              <text class="info-keyword">关键词4</text>
+              <text class="info-keyword">关键词5</text>
+            </view>
+          </view>
+        </view>
+        <t-fab icon="add" bind:click="handleClick" text="添加到课表" aria-label="增加"></t-fab>
+      </view>
+    </van-tab>
+    <van-tab title="课程资料">
+      <t-dropdown-menu style="height: 70rpx; align-items:center; border-top: 1rpx solid rgb(223, 223, 223);">
+        <t-dropdown-item options="{{materialType.options}}" value="{{materialType.value}}" bindchange="onCourseTypeChange" />
+        <t-dropdown-item options="{{sorter.options}}" default-value="{{sorter.value}}" />
+      </t-dropdown-menu>
+      <view wx:for="{{materialList}}" wx:key="index" class="shop-list" class="shop-item">
+        <view class="material-info-container">
+          <view class="material-info">
+            <text class="material-title">马克思主义理论教材</text>
+            <text class="material-type">物理科技</text>
+            <text class="material-mark">5.0</text>
+          </view>
+          <view class="exchange_button">
+            <van-button round type="info" size="small">兑换-10</van-button>
+          </view>
+        </view>
+      </view>
+      <t-fab icon="add" bind:click="handleClick" draggable="all" text="上传资料赚积分" aria-label="增加"></t-fab>
+    </van-tab>
+    <van-tab title="课程评价">
+      <view wx:for="{{materialList}}" wx:key="index" class="shop-list" class="shop-item">
+        <view class="evaluate-info-container">
+          <view class="evaluate">
+            <view class="evaluate-info">
+            <text class="evaluate-title">考勤：几乎不</text>
+            <text class="evaluate-type">成绩：80以上</text>
+            <text class="evaluate-mark">考核：不考试</text>
+          </view>
+          <view class="evaluate-content">
+            <text>评价：这是一条长长长长长长长长长长长长长长长长长长长长长长长长评价</text>
+          </view>
+          </view>
+          <view class="like_bottom">
+            <image src="{{likeImage}}"></image>
+            <text>56</text>
+          </view>
+        </view>
+      </view>
+      <t-fab icon="add" bind:click="handleClick" draggable="all" text="上传资料赚积分" aria-label="增加"></t-fab>
+    </van-tab>
+    <van-tab title="问答"></van-tab>
+  </van-tabs>
+  <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+  </view>
+</scroll-view>

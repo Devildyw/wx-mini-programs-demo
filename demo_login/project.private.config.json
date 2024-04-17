@@ -10,6 +10,13 @@
       "list": [
         {
           "name": "",
+          "pathName": "pages/selectCourse/courseDetailInfo",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
           "pathName": "pages/selectCourse/selectCourse",
           "query": "",
           "launchMode": "default",

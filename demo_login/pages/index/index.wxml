@@ -41,7 +41,7 @@
         <view class="hot-course-item">
           <view class="hot-course-item-cell">
             <view class="hot-course-item-cell-top">
-              <image src="/images/my/about.png" mode="" />
+              <image src="../../assets/icon/点赞.png" mode="" />
               <view class="hot-course-item-cell-text">
                 综合评分最高
               </view>
@@ -59,7 +59,7 @@
         <view class="hot-course-item">
           <view class="hot-course-item-cell">
             <view class="hot-course-item-cell-top">
-              <image src="/images/my/about.png" mode="" />
+              <image src="../../assets/icon/点赞.png" mode="" />
               <view class="hot-course-item-cell-text">
                 综合评分最高
               </view>
@@ -77,7 +77,7 @@
         <view class="hot-course-item">
           <view class="hot-course-item-cell">
             <view class="hot-course-item-cell-top">
-              <image src="/images/my/about.png" mode="" />
+              <image src="../../assets/icon/点赞.png" mode="" />
               <view class="hot-course-item-cell-text">
                 综合评分最高
               </view>
@@ -105,7 +105,7 @@
         <view class="hot-course-item">
           <view class="hot-course-item-cell">
             <view class="hot-course-item-cell-top">
-              <image src="/images/my/about.png" mode="" />
+              <image src="../../assets/icon/点赞.png" mode="" />
               <view class="hot-course-item-cell-text">
                 综合评分最高
               </view>
@@ -123,7 +123,7 @@
         <view class="hot-course-item">
           <view class="hot-course-item-cell">
             <view class="hot-course-item-cell-top">
-              <image src="/images/my/about.png" mode="" />
+              <image src="../../assets/icon/点赞.png" mode="" />
               <view class="hot-course-item-cell-text">
                 综合评分最高
               </view>
@@ -141,7 +141,7 @@
         <view class="hot-course-item">
           <view class="hot-course-item-cell">
             <view class="hot-course-item-cell-top">
-              <image src="/images/my/about.png" mode="" />
+              <image src="../../assets/icon/点赞.png" mode="" />
               <view class="hot-course-item-cell-text">
                 综合评分最高
               </view>
