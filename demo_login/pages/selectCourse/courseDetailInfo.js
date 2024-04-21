@@ -51,22 +51,22 @@ Page({
     },
     value: 3,
     // 资料
-    materialList: [1, 2, 3,4,5,6,7,8,9,10],
+    materialList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     materialType: {
       value: 'all',
       options: [{
-        value: 'all',
-        label: '类别',
-      },
-      {
-        value: 'new',
-        label: '最新产品',
-      },
-      {
-        value: 'hot',
-        label: '最火产品',
-      },
-    ],
+          value: 'all',
+          label: '类别',
+        },
+        {
+          value: 'new',
+          label: '最新产品',
+        },
+        {
+          value: 'hot',
+          label: '最火产品',
+        },
+      ],
     },
     sorter: {
       value: 'default',
@@ -88,7 +88,27 @@ Page({
         },
       ],
     },
-    likeImage:unLikedImage,
+    likeImage: unLikedImage,
+    evaluateSorter: {
+      value: 'default',
+      options: [{
+          value: 'default',
+          label: '默认排序',
+        },
+        {
+          value: 'markHigh',
+          label: '按评分降序排序',
+        },
+        {
+          value: 'personNumHigh',
+          label: '按评分人数降序排序',
+        },
+        {
+          value: 'personNumHigh',
+          label: '按选择人数降序排序',
+        },
+      ],
+    },
   },
 
   /**
@@ -142,15 +162,28 @@ Page({
     // })
   },
 
-  // onChange(event) {
-  //   wx.showToast({
-  //     title: `切换到标签 ${event.detail.index + 1}`,
-  //     icon: 'none'
-  //   });
-  // },
-
+  onChange(event) {
+    wx.showToast({
+      title: `切换到标签 ${event.detail.index + 1}`,
+      icon: 'none'
+    });
+    wx.pageScrollTo({
+      selector:".top",
+      duration: 300
+    })
+  },
+  handlerBackTop(e) {
+    wx.pageScrollTo({
+      selector:".top",
+      duration: 300
+    })
+  },
   onPickerChange() {
 
+  },
+
+  handleClick(e){
+    console.log(123456);
   },
   get_my_num() {
     console.log("+===>")

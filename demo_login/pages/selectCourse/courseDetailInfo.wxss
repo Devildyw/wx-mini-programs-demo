@@ -170,9 +170,9 @@ map,
   width: 90%;
   margin-left: 5%;
   display: flex;
-  border: 1rpx solid rgb(226, 144, 129);
+  border: 1rpx solid rgb(243, 236, 234);
   border-radius: 40rpx;
-  background-color: #f3e5dc;
+  background-color: #fffbf8;
   flex-direction: column;
   box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
 }
@@ -343,4 +343,21 @@ map,
   height: 60rpx;
   
 }
+
+.evaluate-keyword-container {
+  padding: 15rpx;
+  margin: 15rpx;
+  /* width: 90%; */
+  /* margin-left: 5%; */
+  display: flex;
+  border: 1rpx solid rgb(243, 236, 234);
+  border-radius: 20rpx;
+  background-color: #fffbf8;
+  flex-direction: column;
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
 /* 课程评价-end */
+
+/* 问答-start */
+
+/* 问答-end */

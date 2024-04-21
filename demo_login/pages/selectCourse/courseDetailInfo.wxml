@@ -1,9 +1,12 @@
 <navigator open-type="navigateBack" delta="1" />
-<scroll-view scroll-y class="scrollPage">
-  <t-swiper current="{{current}}" autoplay="{{autoplay}}" duration="{{duration}}" interval="{{interval}}" navigation="{{navigation}}" list="{{swiperList}}" loop="{{true}}">
-  </t-swiper>
+<view scroll-y class="scrollPage" > 
 
-  <van-tabs active="{{ active }}" bind:change="onChange">
+  <view class="top">
+    <t-swiper current="{{current}}" autoplay="{{autoplay}}" duration="{{duration}}" interval="{{interval}}" navigation="{{navigation}}" list="{{swiperList}}" loop="{{true}}">
+    </t-swiper>
+  </view>
+
+  <van-tabs active="{{ active }}" bind:change="onChange" sticky="true">
     <van-tab title="课程详情">
       <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius info_background" style="height: 920rpx;">
         <view class="info-background">
@@ -60,7 +63,8 @@
         <t-dropdown-item options="{{materialType.options}}" value="{{materialType.value}}" bindchange="onCourseTypeChange" />
         <t-dropdown-item options="{{sorter.options}}" default-value="{{sorter.value}}" />
       </t-dropdown-menu>
-      <view wx:for="{{materialList}}" wx:key="index" class="shop-list" class="shop-item">
+    
+      <scroll-view wx:for="{{materialList}}" wx:key="index" class="shop-list" class="shop-item">
         <view class="material-info-container">
           <view class="material-info">
             <text class="material-title">马克思主义理论教材</text>
@@ -71,32 +75,91 @@
             <van-button round type="info" size="small">兑换-10</van-button>
           </view>
         </view>
-      </view>
-      <t-fab icon="add" bind:click="handleClick" draggable="all" text="上传资料赚积分" aria-label="增加"></t-fab>
+      </scroll-view>
+      <t-fab icon="align-top" bind:click="handlerBackTop" aria-label="返回顶部" style="right: 16rpx; bottom: 64rpx;"></t-fab>
+      <t-fab icon="add" bind:click="handleClick" text="上传资料赚积分" aria-label="增加" style="left: 210rpx; bottom: 16rpx;"></t-fab>
     </van-tab>
     <van-tab title="课程评价">
-      <view wx:for="{{materialList}}" wx:key="index" class="shop-list" class="shop-item">
-        <view class="evaluate-info-container">
-          <view class="evaluate">
-            <view class="evaluate-info">
-            <text class="evaluate-title">考勤：几乎不</text>
-            <text class="evaluate-type">成绩：80以上</text>
-            <text class="evaluate-mark">考核：不考试</text>
-          </view>
-          <view class="evaluate-content">
-            <text>评价：这是一条长长长长长长长长长长长长长长长长长长长长长长长长评价</text>
-          </view>
-          </view>
-          <view class="like_bottom">
-            <image src="{{likeImage}}"></image>
-            <text>56</text>
+      <view class="evaluate-keyword-container">
+        <text class="info-mark-count">评分人数：3人</text>
+        <view class="info-mark-container">
+          <text>评分：</text>
+          <van-rate readonly allow-half color="red" void-color="red" value="{{ value }}" />
+          <text>3.5</text>
+        </view>
+        <view class="info-keywords">
+          <text class="info-keyword">关键词1</text>
+          <text class="info-keyword">关键词2</text>
+          <text class="info-keyword">关键词3</text>
+          <text class="info-keyword">关键词4</text>
+          <text class="info-keyword">关键词5</text>
+        </view>
+      </view>
+      <t-divider dashed />
+      <view style="margin-bottom: 120rpx;">
+        <view wx:for="{{materialList}}" wx:key="index" class="shop-list" class="shop-item">
+          <view class="evaluate-info-container">
+            <view class="evaluate">
+              <view class="evaluate-info">
+                <text class="evaluate-title">考勤：几乎不</text>
+                <text class="evaluate-type">成绩：80以上</text>
+                <text class="evaluate-mark">考核：不考试</text>
+              </view>
+              <view class="evaluate-content">
+                <text>评价：这是一条长长长长长长长长长长长长长长长长长长长长长长长长评价</text>
+              </view>
+            </view>
+            <view class="like_bottom">
+              <image src="{{likeImage}}"></image>
+              <text>56</text>
+            </view>
           </view>
         </view>
       </view>
-      <t-fab icon="add" bind:click="handleClick" draggable="all" text="上传资料赚积分" aria-label="增加"></t-fab>
+      <t-fab icon="align-top" bind:click="handlerBackTop" aria-label="返回顶部" style="right: 16rpx; bottom: 64rpx;"></t-fab>
+      <t-fab icon="add" bind:click="handleClick" text="新增评价" aria-label="增加" style="left: 240rpx; bottom: 16rpx;"></t-fab>
     </van-tab>
-    <van-tab title="问答"></van-tab>
+    <van-tab title="问答">
+      <view class="evaluate-keyword-container">
+        <text class="info-mark-count">评分人数：3人</text>
+        <view class="info-mark-container">
+          <text>评分：</text>
+          <van-rate readonly allow-half color="red" void-color="red" value="{{ value }}" />
+          <text>3.5</text>
+        </view>
+        <view class="info-keywords">
+          <text class="info-keyword">关键词1</text>
+          <text class="info-keyword">关键词2</text>
+          <text class="info-keyword">关键词3</text>
+          <text class="info-keyword">关键词4</text>
+          <text class="info-keyword">关键词5</text>
+        </view>
+      </view>
+      <t-divider dashed />
+      <view style="margin-bottom: 120rpx;">
+        <view wx:for="{{materialList}}" wx:key="index" class="shop-list" class="shop-item">
+          <view class="evaluate-info-container">
+            <view class="evaluate">
+              <view class="evaluate-info">
+                <text class="evaluate-title">考勤：几乎不</text>
+                <text class="evaluate-type">成绩：80以上</text>
+                <text class="evaluate-mark">考核：不考试</text>
+              </view>
+              <view class="evaluate-content">
+                <text>评价：这是一条长长长长长长长长长长长长长长长长长长长长长长长长评价</text>
+              </view>
+            </view>
+            <view class="like_bottom">
+              <image src="{{likeImage}}"></image>
+              <text>56</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <t-fab icon="align-top" bind:click="handlerBackTop" aria-label="返回顶部" style="right: 16rpx; bottom: 64rpx;"></t-fab>
+      <t-fab icon="add" bind:click="handleClick" text="新增提问" aria-label="增加" style="left: 240rpx; bottom: 16rpx;"></t-fab>
+    </van-tab>
   </van-tabs>
   <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
   </view>
-</scroll-view>
+</view>
