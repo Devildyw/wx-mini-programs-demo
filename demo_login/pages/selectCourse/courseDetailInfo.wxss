@@ -359,5 +359,80 @@ map,
 /* 课程评价-end */
 
 /* 问答-start */
+.QA-item {
+  display: flex;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 5rpx;
+  width: 96%;
+  height: 300rpx;
+  margin-left: 2%;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.outermost-container{
+  margin-top: 20rpx;
+  margin-bottom: 120rpx;
+  width: 100%;
+}
+.QA-container{
+  padding: 15rpx;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+
+}
+.QA-basic-info{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 80%;
+}
+.QA-info{
+ display: flex;
+ flex-direction: row;
+}
+
+
+
+.QA-title{
+  font-size: large;
+  font-weight: bold;
+}
+
+.QA-info-left{
+  width: 35%;
+  display: flex;
+  flex-direction: row;
+}
+.QA-info-left image{
+  width: 40rpx;
+  height: 40rpx;
+}
+.QA-info-left-item{
+  display: flex;
+  flex-direction: row;
+  margin-right: 25rpx;
+}
+.QA-info-left-item view{
+  margin-left: 15rpx;
+}
+.QA-info-right-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+.QA-info-right{
+  width: 65%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.QA-info-right-Date{
+  width: 160rpx;
+  margin-left: 20rpx;
+}
 
 /* 问答-end */

@@ -39,7 +39,7 @@ Page({
     visitTotal: 0,
     is_bind: false,
     userInfo: {},
-    active: 2,
+    active: 3,
     current: 1,
     autoplay: true,
     duration: 500,
@@ -163,10 +163,6 @@ Page({
   },
 
   onChange(event) {
-    wx.showToast({
-      title: `切换到标签 ${event.detail.index + 1}`,
-      icon: 'none'
-    });
     wx.pageScrollTo({
       selector:".top",
       duration: 300

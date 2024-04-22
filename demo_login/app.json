@@ -74,6 +74,8 @@
     "t-slider": "/miniprogram_npm/tdesign-miniprogram/slider/slider",
     "van-rate": "/miniprogram_npm/vant-weapp/rate/index",
     "t-fab": "/miniprogram_npm/tdesign-miniprogram/fab/fab",
-    "t-sticky": "/miniprogram_npm/tdesign-miniprogram/sticky/sticky"
+    "t-sticky": "/miniprogram_npm/tdesign-miniprogram/sticky/sticky",
+    "t-avatar": "tdesign-miniprogram/avatar/avatar",
+    "t-avatar-group": "tdesign-miniprogram/avatar-group/avatar-group"
   }
 }
