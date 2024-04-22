@@ -123,7 +123,7 @@
     </van-tab>
     <van-tab title="问答">
       <view class="outermost-container">
-        <view wx:for="{{materialList}}" wx:key="index" class="QA-list" class="QA-item">
+        <view wx:for="{{QAList}}" wx:key="index" class="QA-list" class="QA-item" data-questionId="{{item.questionId}}" bind:tap="showQADetail">
           <view class="QA-container">
             <view class="QA-basic-info">
                 <text class="QA-title">这是一个长长标题长长标题不超过15字</text>

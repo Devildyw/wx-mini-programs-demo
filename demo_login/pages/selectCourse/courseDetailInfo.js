@@ -109,6 +109,8 @@ Page({
         },
       ],
     },
+    QAList:[{questionId:1},{questionId:2},{questionId:3},{questionId:4},5,6,7,8,9,10],
+
   },
 
   /**
@@ -306,6 +308,14 @@ Page({
   showUserInfo() {
     wx.navigateTo({
       url: '/pages/myself/userInfo',
+    })
+  },
+
+
+  showQADetail(e){
+    var questionId = e.currentTarget.dataset.questionid;
+    wx.navigateTo({
+      url: '/pages/selectCourse/QADetailInfo?questionId='+questionId,
     })
   },
   /**

@@ -4,6 +4,7 @@
     "pages/timetable/timetable",
     "pages/selectCourse/selectCourse",
     "pages/selectCourse/courseDetailInfo",
+    "pages/selectCourse/QADetailInfo",
     "pages/material/materialDetailInfo",
     "pages/login/login",
     "pages/login/initPassword",
