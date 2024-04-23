@@ -1,5 +1,5 @@
 <navigator open-type="navigateBack" delta="1" />
-<view scroll-y class="scrollPage" > 
+<view scroll-y class="scrollPage">
 
   <view class="top">
     <t-swiper current="{{current}}" autoplay="{{autoplay}}" duration="{{duration}}" interval="{{interval}}" navigation="{{navigation}}" list="{{swiperList}}" loop="{{true}}">
@@ -63,19 +63,19 @@
         <t-dropdown-item options="{{materialType.options}}" value="{{materialType.value}}" bindchange="onCourseTypeChange" />
         <t-dropdown-item options="{{sorter.options}}" default-value="{{sorter.value}}" />
       </t-dropdown-menu>
-    
+
       <view style="margin-bottom: 140rpx;">
-        <scroll-view wx:for="{{materialList}}" wx:key="index" class="shop-list" class="shop-item" >
-        <view class="material-info-container">
-          <view class="material-info">
-            <text class="material-title">马克思主义理论教材</text>
-            <text class="material-type">物理科技</text>
-            <text class="material-mark">5.0</text>
+        <scroll-view wx:for="{{materialList}}" wx:key="index" class="shop-list" class="shop-item">
+          <view class="material-info-container">
+            <view class="material-info">
+              <text class="material-title">马克思主义理论教材</text>
+              <text class="material-type">物理科技</text>
+              <text class="material-mark">5.0</text>
+            </view>
+            <view class="exchange_button">
+              <van-button round type="info" size="small">兑换-10</van-button>
+            </view>
           </view>
-          <view class="exchange_button">
-            <van-button round type="info" size="small">兑换-10</van-button>
-          </view>
-        </view>
         </scroll-view>
       </view>
       <t-fab icon="align-top" bind:click="handlerBackTop" aria-label="返回顶部" style="right: 16rpx; bottom: 64rpx;"></t-fab>
@@ -123,11 +123,11 @@
     </van-tab>
     <van-tab title="问答">
       <view class="outermost-container">
-        <view wx:for="{{QAList}}" wx:key="index" class="QA-list" class="QA-item" data-questionId="{{item.questionId}}" bind:tap="showQADetail">
+        <view wx:for="{{QAList}}" wx:key="index" class="QA-list" class="QA-item">
           <view class="QA-container">
-            <view class="QA-basic-info">
-                <text class="QA-title">这是一个长长标题长长标题不超过15字</text>
-                <text class="QA-content">这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容（不超过50字）</text>
+            <view class="QA-basic-info" data-questionId="{{item.questionId}}" bind:tap="showQADetail">
+              <text class="QA-title">这是一个长长标题长长标题不超过15字</text>
+              <text class="QA-content">这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容（不超过50字）</text>
             </view>
             <view class="QA-info">
               <view class="QA-info-left">
@@ -140,12 +140,15 @@
                   <view>12</view>
                 </view>
               </view>
-              
+
               <view class="QA-info-right">
                 <view class="QA-info-right-item">
-                <text>昵称不超过九个字符</text>
-                <text class="QA-info-right-Date">2024-04-22</text>
-              </view>
+                  <view class="QA-info-right-item-avatar">
+                    <t-avatar class="avatar-example" size="42rpx" image="{{image}}" />
+                  </view>
+                  <text class="QA-info-right-item-name">不过六个字符</text>
+                  <text class="QA-info-right-Date">2024-04-22</text>
+                </view>
               </view>
             </view>
           </view>

@@ -375,7 +375,7 @@ map,
   width: 100%;
 }
 .QA-container{
-  padding: 15rpx;
+  padding: 20rpx;
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -434,5 +434,7 @@ map,
   width: 160rpx;
   margin-left: 20rpx;
 }
-
+.QA-info-right-item-avatar{
+  margin-right: 10rpx;
+}
 /* 问答-end */

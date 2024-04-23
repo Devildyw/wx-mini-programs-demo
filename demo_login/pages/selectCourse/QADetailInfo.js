@@ -6,6 +6,10 @@ Page({
    */
   data: {
     questionId:'',
+    image: 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/QQ%E5%9B%BE%E7%89%8720230608220001.png',
+    style: 'height: 248rpx',
+    activeValues: [0],
+    ReplyList:[1,2,3,4,5,6,7,8],
   },
 
   /**
@@ -22,6 +26,12 @@ Page({
    */
   onReady() {
 
+  },
+
+  handleChange(e) {
+    this.setData({
+      activeValues: e.detail.value,
+    });
   },
 
   /**
