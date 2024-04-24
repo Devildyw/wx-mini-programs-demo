@@ -36,11 +36,16 @@
       <t-collapse-panel value="{{0}}" expand-icon="false">
         <view class="textarea-example">
           <t-avatar class="avatar-example" size="60rpx" shape="round" image="{{image}}" style="--td-collapse-title-font-size:28rpx" />
-          <t-textarea t-class="external-class" placeholderStyle="font-size:28rpx" placeholder="请输入文字" bordered maxlength="250" disableDefaultPadding="{{true}}" indicator style="height: 248rpx; --td-textarea-background-color:rgb(247,249,251); --td-collapse-content-font-size:28rpx; --td-collapse-content-line-height:1" />
+          <t-textarea t-class="external-class" placeholderStyle="font-size:28rpx" placeholder="请输入回答" bordered maxlength="250" disableDefaultPadding="{{true}}" indicator style="height: 248rpx; --td-textarea-background-color:rgb(247,249,251); --td-collapse-content-font-size:28rpx; --td-collapse-content-line-height:1" />
+        </view>
+        <view class="submit-button">
+          <text style="line-height: 60rpx; margin-left: 80rpx; font-size: 24rpx; color: gray;">回答问题得积分</text>
+          <van-button type="info" size="small" style="margin-right: 10rpx;">回答</van-button>
         </view>
       </t-collapse-panel>
     </t-collapse>
   </view>
+
   <scroll-view>
     <view class="line">回答/评论</view>
     <view class="reply-outermost-container">
@@ -65,7 +70,7 @@
           <view class="reply-info">
 
             <view class="reply-info-left">
-              <view class="reply-info-left-item">
+              <view class="reply-info-left-item" bind:tap="handlePopup">
                 <image src="../../assets/icon/回答.png"></image>
                 <view>26</view>
               </view>
@@ -77,13 +82,15 @@
 
           </view>
         </view>
-        <view class="reply-wrapper">
-            <t-collapse value="{{activeValues}}" bind:change="handleChange" style="--td-collapse-header-height:0rpx">
-              <t-collapse-panel value="{{0}}" expandIcon>
-
-              </t-collapse-panel>
-            </t-collapse>
+        <t-popup visible="{{visible}}" bind:visible-change="onVisibleChange" placement="bottom">
+          <view class="block">
+            <view class="header">
+              <view class="btn btn--cancel" aria-role="button">取消</view>
+              <view class="title">标题文字</view>
+              <view class="btn btn--confirm" aria-role="button">确定</view>
+            </view>
           </view>
+        </t-popup>
       </view>
     </view>
     <t-fab icon="align-top" bind:click="handlerBackTop" aria-label="返回顶部" style="right: 16rpx; bottom: 12rpx;"></t-fab>

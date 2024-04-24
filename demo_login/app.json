@@ -77,6 +77,8 @@
     "t-fab": "/miniprogram_npm/tdesign-miniprogram/fab/fab",
     "t-sticky": "/miniprogram_npm/tdesign-miniprogram/sticky/sticky",
     "t-avatar": "/miniprogram_npm/tdesign-miniprogram/avatar/avatar",
-    "t-avatar-group": "/miniprogram_npm/tdesign-miniprogram/avatar-group/avatar-group"
+    "t-avatar-group": "/miniprogram_npm/tdesign-miniprogram/avatar-group/avatar-group",
+    "t-popup": "/miniprogram_npm/tdesign-miniprogram/popup/popup",
+    "t-button": "/miniprogram_npm/tdesign-miniprogram/button/button"
   }
 }
