@@ -8,7 +8,7 @@ Page({
     questionId:'',
     image: 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/QQ%E5%9B%BE%E7%89%8720230608220001.png',
     style: 'height: 248rpx',
-    activeValues: [0],
+    activeValues: [],
     ReplyList:[1,2,3,4,5,6,7,8],
     show: false,
     cur: {},
@@ -60,6 +60,7 @@ Page({
   },
 
   handleChange(e) {
+    console.log(e.detail.value);
     this.setData({
       activeValues: e.detail.value,
     });
@@ -100,6 +101,16 @@ Page({
 
   },
 
+  onClose() {
+    this.setData({ show: false });
+  },
+
+  onOpen(){
+    this.setData({
+      show:true
+    })
+  },
+  
   /**
    * 用户点击右上角分享
    */

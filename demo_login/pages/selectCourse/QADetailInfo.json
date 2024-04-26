@@ -3,7 +3,8 @@
   "usingComponents": {
     "t-textarea": "tdesign-miniprogram/textarea/textarea",
     "t-collapse": "tdesign-miniprogram/collapse/collapse",
-    "t-collapse-panel": "tdesign-miniprogram/collapse-panel/collapse-panel"
+    "t-collapse-panel": "tdesign-miniprogram/collapse-panel/collapse-panel",
+    "van-popup": "/miniprogram_npm/vant-weapp/popup/index"
   },
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTextStyle":"black",

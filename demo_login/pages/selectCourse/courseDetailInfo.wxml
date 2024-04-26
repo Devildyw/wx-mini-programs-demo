@@ -127,18 +127,28 @@
           <view class="QA-container">
             <view class="QA-basic-info" data-questionId="{{item.questionId}}" bind:tap="showQADetail">
               <text class="QA-title">这是一个长长标题长长标题不超过15字</text>
-              <text class="QA-content">这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容（不超过50字）</text>
+              <text class="QA-content">这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个......</text>
+              
             </view>
+            <view class="recent-reply">
+                <view class="QA-info-right-item" style="margin-left: 16rpx;">
+                  <view class="QA-info-right-item-avatar">
+                    <t-avatar class="avatar-example" size="42rpx" image="{{image}}"  style="margin-top: 18rpx;"/>
+                  </view>
+                  <text class="QA-info-right-item-name">不过六个字符</text>
+                  <text style="margin-left: 10rpx;">最近回复了: 回复内容如下如下...</text>
+                </view>
+              </view>
             <view class="QA-info">
               <view class="QA-info-left">
                 <view class="QA-info-left-item">
                   <image src="../../assets/icon/回答.png"></image>
                   <view>26</view>
                 </view>
-                <view class="QA-info-left-item">
+                <!-- <view class="QA-info-left-item">
                   <image src="../../assets/icon/赞.png"></image>
                   <view>12</view>
-                </view>
+                </view> -->
               </view>
 
               <view class="QA-info-right">

@@ -364,7 +364,7 @@ map,
   border: 1rpx solid #e0e0e0;
   border-radius: 5rpx;
   width: 96%;
-  height: 300rpx;
+  height: 318rpx;
   margin-left: 2%;
   background-color: rgb(255, 255, 255);
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -436,5 +436,16 @@ map,
 }
 .QA-info-right-item-avatar{
   margin-right: 10rpx;
+}
+
+.recent-reply{
+  height: 80rpx;
+
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+  /* border: 0.5rpx solid rgb(34, 121, 161); */
+  border-radius: 50rpx;
+  line-height: 80rpx;
+  margin-top: 8rpx;
+  margin-bottom: 10rpx;
 }
 /* 问答-end */

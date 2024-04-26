@@ -6,16 +6,25 @@
           <text class="QA-title">这是一个长长标题长长标题不超过15字</text>
           <text class="QA-content">这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容（不超过50字）</text>
         </view>
+        <view class="recent-reply">
+          <view class="QA-info-right-item" style="margin-left: 16rpx;">
+            <view class="QA-info-right-item-avatar">
+              <t-avatar class="avatar-example" size="42rpx" image="{{image}}" style="margin-top: 18rpx;" />
+            </view>
+            <text class="QA-info-right-item-name">不过六个字符</text>
+            <text style="margin-left: 10rpx;">最近回复了: 回复内容如下如下...</text>
+          </view>
+        </view>
         <view class="QA-info">
           <view class="QA-info-left">
             <view class="QA-info-left-item">
               <image src="../../assets/icon/回答.png"></image>
               <view>26</view>
             </view>
-            <view class="QA-info-left-item">
+            <!-- <view class="QA-info-left-item">
               <image src="../../assets/icon/赞.png"></image>
               <view>12</view>
-            </view>
+            </view> -->
           </view>
 
           <view class="QA-info-right">
@@ -32,8 +41,8 @@
     </view>
   </view>
   <view class="wrapper" style="width: 96%; margin-left: 2%;">
-    <t-collapse value="{{activeValues}}" bind:change="handleChange" expand-icon="false" style="--td-collapse-header-height:0rpx">
-      <t-collapse-panel value="{{0}}" expand-icon="false">
+    <t-collapse  bind:change="handleChange" expand-icon="false" expand-mutex="true" style="--td-collapse-header-height:0rpx">
+      <t-collapse-panel value="{{0}}" header="回答" expand-icon="false">
         <view class="textarea-example">
           <t-avatar class="avatar-example" size="60rpx" shape="round" image="{{image}}" style="--td-collapse-title-font-size:28rpx" />
           <t-textarea t-class="external-class" placeholderStyle="font-size:28rpx" placeholder="请输入回答" bordered maxlength="250" disableDefaultPadding="{{true}}" indicator style="height: 248rpx; --td-textarea-background-color:rgb(247,249,251); --td-collapse-content-font-size:28rpx; --td-collapse-content-line-height:1" />
@@ -45,9 +54,9 @@
       </t-collapse-panel>
     </t-collapse>
   </view>
+  <!-- <view class="line">回答/评论</view> -->
+  <scroll-view style="height: 750rpx;" scroll-y="true">
 
-  <scroll-view>
-    <view class="line">回答/评论</view>
     <view class="reply-outermost-container">
       <view wx:for="{{ReplyList}}" wx:key="index" class="reply-list" class="reply-item">
         <view class="reply-container">
@@ -70,7 +79,7 @@
           <view class="reply-info">
 
             <view class="reply-info-left">
-              <view class="reply-info-left-item" bind:tap="handlePopup">
+              <view class="reply-info-left-item" bind:tap="onOpen">
                 <image src="../../assets/icon/回答.png"></image>
                 <view>26</view>
               </view>
@@ -82,18 +91,125 @@
 
           </view>
         </view>
-        <t-popup visible="{{visible}}" bind:visible-change="onVisibleChange" placement="bottom">
-          <view class="block">
-            <view class="header">
-              <view class="btn btn--cancel" aria-role="button">取消</view>
-              <view class="title">标题文字</view>
-              <view class="btn btn--confirm" aria-role="button">确定</view>
-            </view>
-          </view>
-        </t-popup>
+
       </view>
     </view>
-    <t-fab icon="align-top" bind:click="handlerBackTop" aria-label="返回顶部" style="right: 16rpx; bottom: 12rpx;"></t-fab>
 
   </scroll-view>
+
+
 </view>
+<van-popup show="{{ show }}" position="bottom" overlay="{{ true }}" bind:close="onClose" safe-area-inset-top="true" custom-style="background-color:white; height:1100rpx; border-top-left-radius: 16rpx; border-top-right-radius: 16rpx;">
+  <view class="block">
+    <view class="header">
+      <view class="title">评论详情</view>
+    </view>
+  </view>
+  <view class="body" style="background-color: rgb(241, 247, 251)">
+    <view style="border: 1rpx solid #e0e0e0;">
+      <view class="comment-outermost-container">
+        <view class="comment-list" class="comment-item">
+          <view class="comment-container">
+            <view class="comment-info">
+              <view class="comment-list-info-right">
+                <view class="reply-info-right-item">
+                  <view class="reply-info-right-item-avatar">
+                    <t-avatar class="avatar-example" shape="round" size="64rpx" image="{{image}}" />
+                  </view>
+                  <text class="reply-info-right-item-name">不过六个字符</text>
+
+                </view>
+                <text class="reply-info-right-Date">2024-04-22</text>
+              </view>
+
+            </view>
+            <view class="reply-basic-info">
+              <text class="reply-content">这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容（不超过50字）</text>
+            </view>
+            <view class="reply-info">
+
+              <view class="reply-info-left">
+                <view class="reply-info-left-item" bind:tap="onOpen">
+                  <image src="../../assets/icon/回答.png"></image>
+                  <view>26</view>
+                </view>
+                <view class="reply-info-left-item">
+                  <image src="../../assets/icon/赞.png"></image>
+                  <view>12</view>
+                </view>
+              </view>
+
+            </view>
+          </view>
+
+        </view>
+      </view>
+      <view class="wrapper">
+        <!--style="width: 96%; margin-left: 2%;"-->
+        <t-collapse bind:change="handleChange" expand-icon="false" expand-mutex="true"  style="--td-collapse-header-height:0rpx;">
+          <t-collapse-panel value="{{0}}" expand-icon="false">
+            <view class="textarea-example">
+              <t-avatar class="avatar-example" size="60rpx" shape="round" image="{{image}}" style="--td-collapse-title-font-size:28rpx" />
+              <t-textarea t-class="external-class" placeholderStyle="font-size:28rpx" placeholder="来评论试试吧" bordered maxlength="50" disableDefaultPadding="{{true}}" indicator style="height: 248rpx; --td-textarea-background-color:rgb(247,249,251); --td-collapse-content-font-size:28rpx; --td-collapse-content-line-height:1" />
+            </view>
+            <view class="submit-button">
+              <text style="line-height: 60rpx; margin-left: 80rpx; font-size: 24rpx; color: gray;"></text>
+              <van-button type="info" size="small" style="margin-right: 10rpx;">回答</van-button>
+            </view>
+          </t-collapse-panel>
+        </t-collapse>
+      </view>
+    </view>
+    <scroll-view style="height:600rpx; margin-top: 8rpx;" scroll-y="true">
+      <view class="comment-list-outermost-container">
+        <view wx:for="{{ReplyList}}" wx:key="index" class="comment-list-list" class="comment-list-item">
+          <view>
+            <view style="display: flex; width: 100%;">
+              <view class="comment-list-info-right-item-avatar">
+                <t-avatar class="avatar-example" shape="round" size="64rpx" image="{{image}}" />
+              </view>
+              <view class="comment-list-container">
+                <view class="comment-list-info">
+                  <view class="comment-list-info-right">
+                    <view class="comment-list-info-right-item">
+                      <text class="comment-list-info-right-item-name">不过六个字符</text>
+                    </view>
+                    <text class="comment-list-info-right-Date">2024-04-22</text>
+                  </view>
+                </view>
+                <view class="comment-list-basic-info">
+                  <text class="comment-list-content">这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容（不超过50字）</text>
+                </view>
+                <view class="comment-list-info">
+                  <view class="comment-list-info-left">
+                    <view class="comment-list-info-left-item">
+                      <image src="../../assets/icon/赞.png"></image>
+                      <view>12</view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+
+            </view>
+            <view class="wrapper">
+              <!--style="width: 96%; margin-left: 2%;"-->
+              <t-collapse bind:change="handleChange" expand-icon="false" expand-mutex="true"  style="--td-collapse-header-height:0rpx;">
+                <t-collapse-panel value="{{0}}" expand-icon="false">
+                  <view class="textarea-example">
+                    <t-avatar class="avatar-example" size="60rpx" shape="round" image="{{image}}" style="--td-collapse-title-font-size:28rpx" />
+                    <t-textarea t-class="external-class" placeholderStyle="font-size:28rpx" placeholder="来评论试试吧" bordered maxlength="50" disableDefaultPadding="{{true}}" indicator style="height: 248rpx; --td-textarea-background-color:rgb(247,249,251); --td-collapse-content-font-size:28rpx; --td-collapse-content-line-height:1" />
+                  </view>
+                  <view class="submit-button">
+                    <text style="line-height: 60rpx; margin-left: 80rpx; font-size: 24rpx; color: gray;"></text>
+                    <van-button type="info" size="small" style="margin-right: 10rpx;">评论</van-button>
+                  </view>
+                </t-collapse-panel>
+              </t-collapse>
+            </view>
+          </view>
+
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</van-popup>
