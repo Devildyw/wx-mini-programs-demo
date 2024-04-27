@@ -25,7 +25,9 @@ Page({
     visitTotal: 0,
     is_bind: false,
     userInfo:{},
-    active: 1,
+    active: 0,
+    shopGiftList:[1,2,3,4,5,6,7,8,9],
+    imageSrc: 'https://tdesign.gtimg.com/mobile/demos/image1.jpeg',
   },
 
   /**
@@ -80,10 +82,17 @@ Page({
   },
 
   onChange(event) {
-    wx.showToast({
-      title: `切换到标签 ${event.detail.index + 1}`,
-      icon: 'none'
-    });
+    
+  },
+  showTips(){
+    
+      wx.showModal({
+        title: 'Tips',
+        content: '兑换的礼品可在当前校区体育馆负一楼领取！！！',
+    
+        complete: (res) => {
+        }
+      })
   },
   get_my_num() {
     console.log("+===>")
@@ -205,6 +214,45 @@ Page({
     })
   },
   
+
+  /*
+    兑换礼品
+  */
+  exchangeGift(e){
+    wx.showModal({
+      title: '确认兑换',
+      content: '是否确认兑换该物品，一但兑换不支持退还！！！',
+      complete: (res) => {
+        if (res.cancel) {
+          console.log("取消");
+        }
+    
+        if (res.confirm) {
+          console.log("确定");
+          // 接口
+        }
+      }
+    })
+  },
+  /**
+   * 领取
+   */
+  getGift(e){
+    wx.showModal({
+      title: '确认领取',
+      content: '一定是在线下指定地点领取了才点击哦！！！',
+      complete: (res) => {
+        if (res.cancel) {
+          console.log("取消");
+        }
+    
+        if (res.confirm) {
+          console.log("确定");
+          // 接口
+        }
+      }
+    })
+  },
   showUserInfo(){
     wx.navigateTo({
       url: '/pages/myself/userInfo',

@@ -1,7 +1,7 @@
 .UCenter-bg {
-  background-image: url('https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/wallhaven-rrw56m_2560x1440.png');
+  background-image: url(https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E8%AF%BE%E5%A0%82%E7%94%9F%E6%B4%BB.png);
   background-size: cover;
-  height: 550rpx;
+  height: 510rpx;
   display: flex;
   justify-content: center;
   padding-top: 40rpx;
@@ -22,6 +22,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 } 
 
 .UCenter-bg text {
@@ -59,8 +60,9 @@ map,
 }
 
 .text-df {
-  font-size: large;
+  font-size: 48rpx;
   font-weight: bold;
+  color: rgb(0, 0, 0);
 }
 .basicInfo-Container {
   display: flex;
@@ -76,3 +78,12 @@ map,
   margin-right: 5%;
 }
 
+.detail-info-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: large;
+  font-weight: bold;
+}

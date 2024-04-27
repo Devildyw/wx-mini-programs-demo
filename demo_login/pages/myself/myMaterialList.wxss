@@ -1,0 +1,66 @@
+.shop-item {
+  display: flex;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 30rpx;
+  /* margin: 15rpx; */
+  width: 98%;
+  margin-left: 1%;
+  margin-top: 15rpx;
+  margin-bottom: 15rpx;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.material-info-container {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100rpx;
+}
+
+.material-info {
+  display: flex;
+  width: 80%;
+  flex-direction: row;
+  justify-content: space-around;
+  line-height: 100rpx;
+}
+
+.material-title {
+  /* padding-left: 20rpx; */
+  display: flex;
+  padding-left: 20rpx;
+  flex-direction: row;
+  justify-content: start;
+  text-align: center;
+  width: 400rpx;
+}
+
+.material-type {
+  text-align: center;
+  width: 150rpx;
+}
+
+.material-mark {
+  text-align: center;
+  width: 150rpx;
+}
+
+.exchange_button {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10rpx;
+}
+
+.detail-info-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: large;
+  font-weight: bold;
+}

@@ -6,6 +6,8 @@
     "pages/selectCourse/courseDetailInfo",
     "pages/selectCourse/QADetailInfo",
     "pages/material/materialDetailInfo",
+    "pages/myself/myCourseList",
+    "pages/myself/myMaterialList",
     "pages/login/login",
     "pages/login/initPassword",
     "pages/myself/myself",
@@ -81,6 +83,7 @@
     "t-popup": "/miniprogram_npm/tdesign-miniprogram/popup/popup",
     "t-button": "/miniprogram_npm/tdesign-miniprogram/button/button",
     "t-swipe-cell": "/miniprogram_npm/tdesign-miniprogram/swipe-cell/swipe-cell",
-    "van-dialog": "/miniprogram_npm/vant-weapp/dialog/index"
+    "van-dialog": "/miniprogram_npm/vant-weapp/dialog/index",
+    "t-upload": "/miniprogram_npm/tdesign-miniprogram/upload/upload"
   }
 }

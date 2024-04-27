@@ -1,18 +1,15 @@
 const {get,post} = require('../../utils/request')
-
-// pages/selectCourse/selectCourse.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    type: {
+    product: {
       value: 'all',
-      options: [
-        {
+      options: [{
           value: 'all',
-          label: '类型',
+          label: '学期',
         },
         {
           value: 'new',
@@ -24,58 +21,15 @@ Page({
         },
       ],
     },
-    courseType: {
-      value: 'all',
-      options: [
-        {
-          value: 'all',
-          label: '方式',
-        },
-        {
-          value: '0',
-          label: '线下',
-        },
-        {
-          value: '1',
-          label: '线上',
-        },
-      ],
-    },
-    school: {
-      value: 'all',
-      options: [
-        {
-          value: 'all',
-          label: '校区',
-        },
-        {
-          value: '0',
-          label: '航空港',
-        },
-        {
-          value: '1',
-          label: '龙泉',
-        },
-      ],
-    },
     sorter: {
       value: 'default',
-      options: [
-        {
+      options: [{
           value: 'default',
           label: '默认排序',
         },
         {
-          value: 'markHigh',
-          label: '按评分降序排序',
-        },
-        {
-          value: 'personNumHigh',
-          label: '按评分人数降序排序',
-        },
-        {
-          value: 'personNumHigh',
-          label: '按选择人数降序排序',
+          value: 'price',
+          label: '价格从高到低',
         },
       ],
     },
@@ -89,10 +43,6 @@ Page({
     userInfo:{},
     right: [
       {
-        text: '编辑',
-        className: 'btn edit-btn',
-      },
-      {
         text: '删除',
         className: 'btn delete-btn',
       },
@@ -103,14 +53,8 @@ Page({
     wx.showToast({ title: `你点击了${detail.text}`, icon: 'none' });
   },
 
-  onChoice() {
+  onReFund() {
     wx.showToast({ title: '你点击了选择', icon: 'none' });
-  },
-
-  onChange(e) {
-    this.setData({
-      'type.value': e.detail.value,
-    });
   },
 
   showCourseDetailInfo(e){
@@ -190,20 +134,6 @@ Page({
           {
             value: '1',
             label: '线上',
-          },
-        ],
-        ['school.options']:[
-          {
-            value: 'null',
-            label: '全部',
-          },
-          {
-            value: '0',
-            label: '航空港',
-          },
-          {
-            value: '1',
-            label: '龙泉',
           },
         ],
       })

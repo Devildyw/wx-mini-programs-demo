@@ -3,40 +3,47 @@
   <view slot="action" bind:tap="onSearch">搜索</view>
 </van-search>
 <t-dropdown-menu style="height: 70rpx; align-items:center; border-top: 1rpx solid rgb(223, 223, 223);">
-  <t-dropdown-item  options="{{courseType.options}}" value="{{courseType.value}}" bindchange="onCourseTypeChange" />
-  <t-dropdown-item  options="{{type.options}}" value="{{type.value}}" bindchange="onChange" />
-  <t-dropdown-item  options="{{school.options}}" default-value="{{school.value}}" />
+  <t-dropdown-item options="{{courseType.options}}" value="{{courseType.value}}" bindchange="onCourseTypeChange" />
+  <t-dropdown-item options="{{type.options}}" value="{{type.value}}" bindchange="onChange" />
+  <t-dropdown-item options="{{school.options}}" default-value="{{school.value}}" />
   <t-dropdown-item options="{{sorter.options}}" default-value="{{sorter.value}}" />
 </t-dropdown-menu>
 
 <view wx:for="{{courseList}}" wx:key="index" class="shop-list" class="shop-item">
 
-  <view class="info">
-    <view class="info-container" data-tcourseId="{{item.teacherCourseId}}" bind:tap="showCourseDetailInfo">
-      <text class="shop-title">《{{item.courseName}}》</text>
-      <view class="basicInfo">
-        <text>老师姓名：{{item.teacherName}} </text>
-        <text>课程类型：{{item.typeName}}</text>
 
+  <t-swipe-cell>
+    <view class="info">
+      <view class="info-container" data-tcourseId="{{item.teacherCourseId}}" bind:tap="showCourseDetailInfo">
+        <text class="shop-title ">《{{item.courseName}}》</text>
+        <view class="basicInfo">
+          <text style="font-weight: bold;">老师姓名：{{item.teacherName}} </text>
+          <text style="margin-left: 80rpx; font-weight: bold;">课程类型：{{item.typeName}}</text>
+        </view>
+        <view class="basicInfo">
+          <text style="width: 20%;">学时：{{item.period}}</text>
+          <text style="width: 20%;">学分：{{item.score}}</text>
+          <text style="width: 30%;">方式：{{item.courseType===0?'线下':'线上'}}</text>
+        </view>
+        <view class="basicInfo">
+          <text style="width: 32%;">评分人数:<text  style="color: rgb(15, 79, 98); font-weight: bold;">{{item.evaluateNum==0?'暂无':item.evaluateNum}}</text></text>
+          <text style="width: 32%;">评分:<text style="color: rgb(15, 79, 98); font-weight: bold;">{{item.evaluateNum==0?'暂无评分':item.evaluateScore}}</text></text>
+          <text style="width: 100%;">评价:<text style="color: rgb(15, 79, 98); font-weight: bold;">{{item.keywords===null||item.keywords===''?'暂无':(item.keywords)}}</text></text>
+        </view>
       </view>
-      <view class="basicInfo">
-        <text>学时：{{item.period}}</text>
-        <text>学分：{{item.score}}</text>
-        <text>方式：{{item.courseType===0?'线下':'线上'}}</text>
-      </view>
-      <view class="basicInfo">
-        <text>评分人数：{{item.evaluateNum==0?'暂无':item.evaluateNum}}</text>
-        <text>评分：{{item.evaluateNum==0?'暂无评分':item.evaluateScore}}</text>
-        <text>评价：{{item.keywords===null||item.keywords===''?'暂无':(item.keywords)}}</text>
-      </view>
+
+
     </view>
-    <view class="choose">
-      <view>
-        <view class="choose-top">选择</view>
-        <view class="choose-bottom">{{item.remain}}/{{item.total}}</view>
+    <view slot="right" class="btn-wrapper" style="height: 100%;">
+      <view class="btn favor-btn" bind:tap="onChoice">
+        <view style="display: flex; flex-direction: column; justify-content: center;">
+          <view>选择</view>
+          <view>1/10</view>
+        </view>
       </view>
+
     </view>
-  </view>
+  </t-swipe-cell>
 </view>
 
 <!-- <wxs src="../../utils/tools.wxs" module="m1"/> -->

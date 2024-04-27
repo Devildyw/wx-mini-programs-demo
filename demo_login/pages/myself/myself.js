@@ -25,6 +25,7 @@ Page({
     visitTotal: 0,
     is_bind: false,
     userInfo:{},
+    onFeedBackShow:false,
   },
 
   /**
@@ -50,6 +51,15 @@ Page({
     var type = "jwc"
     wx.navigateTo({
       url: '/pages/login/login?type=' + type,
+    })
+  },
+
+  onFeedBackClose() {
+    this.setData({ onFeedBackShow:false });
+  },
+  onFeedBackShow(){
+    this.setData({
+      onFeedBackShow:true
     })
   },
   unLogin() {
@@ -160,6 +170,17 @@ Page({
 
   },
 
+  showMyCourse(){
+    wx.navigateTo({
+      url: '/pages/myself/myCourseList',
+    })
+  },
+
+  showMyMaterial(){
+    wx.navigateTo({
+      url: '/pages/myself/myMaterialList',
+    })
+  },
   /**
    * 生命周期函数--监听页面卸载
    */

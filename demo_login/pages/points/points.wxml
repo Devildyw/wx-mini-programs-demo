@@ -4,11 +4,11 @@
 
 
     <view class='avatar'>
-      <image src="{{userInfo.avatar===null?'../../assets/background/医院空图片.png':userInfo.avatar}}" mode="widthFix"/>
+      <image src="{{userInfo.avatar===null?'../../assets/background/医院空图片.png':userInfo.avatar}}" mode="widthFix" />
     </view>
-    
+
     <view class="points-container">
-      
+
       <view class="points">
         <text>当前积分值:</text>
         <view class="info">
@@ -16,7 +16,7 @@
           <image class="points-icon" src="../../assets/icon/积分.png"></image>
         </view>
       </view>
-      <image class="icon" src="../../assets/background/金融_礼品礼盒.png" mode="aspectFill"></image>
+      <image class="icon" src="../../assets/background/金融_礼品礼盒.png" mode="aspectFill" bind:tap="showTips"></image>
     </view>
 
     <view class="margin-top-sm">
@@ -25,16 +25,74 @@
   </view>
 
   <van-tabs active="{{ active }}" bind:change="onChange">
-  <van-tab title="商城">内容 1
-    <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-     内容
-    </view>
-  <view class="cu-tabbar-height"></view>
-  </van-tab>
-  <van-tab title="已兑换">内容 2</van-tab>
-  <van-tab title="明细">内容 3</van-tab>
-</van-tabs>
-  <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-  </view>
-  <view class="cu-tabbar-height"></view>
+    <van-tab title="商城">
+      <scroll-view style="height: 1100rpx;" scroll-y="true">
+        <view class="outermost-container">
+          <view wx:for="{{shopGiftList}}" wx:key="index" class="gift-list" class="gift-item">
+            <view class="gift-container">
+              <view class="gift-image">
+                <t-image src="{{imageSrc}}" mode="aspectFill" width="230rpx" height="230rpx" style="--td-image-round-radius:16rpx" aria-label="一个放置在墙角的黄色行李箱" />
+              </view>
+              <view class="gift-info">
+                <view class="gift-header">
+                  <view class="gift-title">
+                    <text>礼品名称</text>
+                  </view>
+                  <view class="gift-discription">
+                    <text>这是一个哥哥哥哥哥哥哥哥哥描述这是一个哥哥哥哥哥哥哥哥哥描述这是一个哥哥哥哥哥哥哥哥哥描述</text>
+                  </view>
+                </view>
+                <view style="display: flex; flex-direction: row; margin-top: 10rpx; margin-bottom: 10rpx; justify-content: space-between; margin-right: 10rpx; ">
+                  <view style="height: 54rpx;  border-radius: 2rpx;"><text style="font-size: 28rpx;">消耗积分 :</text>
+                    <text style="line-height: 54rpx; color: #1767b6; font-size: 40rpx; font-weight: bold;">100</text>
+                    <image class="neetpoints-icon" src="../../assets/icon/积分.png"></image>
+                  </view>
+                  <view>
+                    <van-button disabled="{{false}}" type="info" size="small" bind:tap="exchangeGift">兑换11/20</van-button>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </van-tab>
+    <van-tab title="明细">
+      <scroll-view style="height: 1100rpx;" scroll-y="true">
+        <view class="outermost-container">
+          <view wx:for="{{shopGiftList}}" wx:key="index" class="gift-list" class="gift-item">
+            <view class="gift-container">
+              <view class="gift-image">
+                <t-image src="{{imageSrc}}" mode="aspectFill" width="230rpx" height="230rpx" style="--td-image-round-radius:16rpx" aria-label="一个放置在墙角的黄色行李箱" />
+              </view>
+              <view class="gift-info">
+                <view class="gift-header">
+                  <view class="gift-title">
+                    <text>礼品名称</text>
+                  </view>
+                  <view class="gift-discription">
+                    <text>这是一个哥哥哥哥哥哥哥哥哥描述这是一个哥哥哥哥哥哥哥哥哥描述这是一个哥哥哥哥哥哥哥哥哥描述</text>
+                  </view>
+                </view>
+                <view style="display: flex; flex-direction: row; margin-top: 10rpx; margin-bottom: 10rpx; justify-content: space-between; margin-right: 10rpx; ">
+                  <view style="height: 54rpx;  border-radius: 2rpx;"><text style="font-size: 28rpx;">消耗积分 :</text>
+                    <text style="line-height: 54rpx; color: #1767b6; font-size: 40rpx; font-weight: bold;">100</text>
+                    <image class="neetpoints-icon" src="../../assets/icon/积分.png"></image>
+                  </view>
+                  <view hidden="">
+                    <van-button disabled="{{false}}" type="warning" size="small" bind:tap="getGift">领取</van-button>
+                  </view>
+                  <view hidden="true">
+                    <van-button disabled="{{true}}" type="warning" size="small" >已领取</van-button>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </van-tab>
+  </van-tabs>
+  <!-- <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius"> -->
+  <!-- </view> -->
 </scroll-view>

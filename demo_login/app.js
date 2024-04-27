@@ -12,7 +12,7 @@ App({
       wx.switchTab({
           url: '/pages/login/login',
       })
-  }
+    }
   
     
     // 登录

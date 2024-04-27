@@ -10,7 +10,10 @@
 
  */
 var app = getApp()
-const {get,post} = require('../../utils/request')
+const {
+  get,
+  post
+} = require('../../utils/request')
 Page({
 
   /**
@@ -24,11 +27,94 @@ Page({
     forksCount: 0,
     visitTotal: 0,
     is_bind: false,
-    userInfo:{},
-    editHidden:false,
-    saveHidden:true,
-    editControl:true
+    userInfo: {},
+    editHidden: false,
+    saveHidden: true,
+    editControl: true,
+    fileList: [],
+    onAvatarShow:false,
+    gridConfig: {
+      column: 1,
+      width: 300,
+      height: 300,
+    },
   },
+
+  /*------------------------*/
+  handleAdd(e) {
+    const {
+      fileList
+    } = this.data;
+    const {
+      files
+    } = e.detail;
+
+    // 方法1：选择完所有图片之后，统一上传，因此选择完就直接展示
+    this.setData({
+      fileList: [...fileList, ...files], // 此时设置了 fileList 之后才会展示选择的图片
+    });
+
+    // 方法2：每次选择图片都上传，展示每次上传图片的进度
+    // files.forEach(file => this.uploadFile(file))
+  },
+
+  onAvatarClose() {
+    this.setData({ onAvatarShow:false });
+  },
+  onAvatarShow(){
+    this.setData({
+      onAvatarShow:true
+    })
+  },
+
+  onUpload(file) {
+    const {
+      fileList
+    } = this.data;
+
+    this.setData({
+      fileList: [...fileList, {
+        ...file,
+        status: 'loading'
+      }],
+    });
+    const {
+      length
+    } = fileList;
+
+    const task = wx.uploadFile({
+      url: 'https://example.weixin.qq.com/upload', // 仅为示例，非真实的接口地址
+      filePath: file.url,
+      name: 'file',
+      formData: {
+        user: 'test'
+      },
+      success: () => {
+        this.setData({
+          [`fileList[${length}].status`]: 'done',
+        });
+      },
+    });
+    task.onProgressUpdate((res) => {
+      this.setData({
+        [`fileList[${length}].percent`]: res.progress,
+      });
+    });
+  },
+  handleRemove(e) {
+    const {
+      index
+    } = e.detail;
+    const {
+      fileList
+    } = this.data;
+
+    fileList.splice(index, 1);
+    this.setData({
+      fileList,
+    });
+  },
+  /*-----------------------*/
 
   /**
    * 生命周期函数--监听页面加载
@@ -41,7 +127,7 @@ Page({
       title: '数据加载中',
       mask: true,
     })
-   
+
     that.setData({
       starCount: that.coutNum(that.data.starCount),
       forksCount: that.coutNum(that.data.forksCount),
@@ -55,11 +141,11 @@ Page({
       url: '/pages/login/login?type=' + type,
     })
   },
-  editInfo(){
+  editInfo() {
     this.setData({
-      editHidden:true,
-      saveHidden:false,
-      editControl:false
+      editHidden: true,
+      saveHidden: false,
+      editControl: false
     })
     wx.showLoading({
       title: '加载中...',
@@ -68,15 +154,15 @@ Page({
       wx.hideLoading()
     }, 250)
     wx.setNavigationBarTitle({
-      　title: "编辑资料" 
+      title: "编辑资料"
     })
   },
 
-  cancel(){
+  cancel() {
     this.setData({
-      editHidden:false,
-      saveHidden:true,
-      editControl:true
+      editHidden: false,
+      saveHidden: true,
+      editControl: true
     })
     wx.showLoading({
       title: '加载中...',
@@ -85,7 +171,7 @@ Page({
       wx.hideLoading()
     }, 250)
     wx.setNavigationBarTitle({
-      　title: "个人信息" 
+      title: "个人信息"
     })
   },
   unLogin() {
@@ -97,21 +183,6 @@ Page({
     })
     wx.setStorageSync('is_bind', false)
     wx.hideLoading()
-    //云函数中将用户记录的状态表示设置为解绑状态，同时本地更新绑定缓存
-
-    // wx.cloud.callFunction({
-    //   name: 'user',
-    //   data: {
-    //     action: 'un_bind'
-    //   }
-    // }).then(res => {
-    //   console.log(res);
-    //   wx.hideLoading()
-    //   //app.globalData.is_bind = false;
-
-    // }).catch(err => {
-    //   wx.hideLoading()
-    // })
   },
   get_my_num() {
     console.log("+===>")
@@ -128,32 +199,6 @@ Page({
         forksCount: app.globalData.user_data.comment_num
       })
     }
-
-
-    //下边是获取用户数据的云函数，同样根据学校自行定义,仅提供思路
-    //如果用户没有绑定就按0算
-
-    // wx.cloud.callFunction({
-    //   name: 'user',
-    //   data: {
-    //     action: 'my_data'
-    //   }
-    // }).then(res => {
-    //   if(res.result===null){
-    //     this.setData({
-    //       starCount: 0,
-    //       visitTotal: 0,
-    //       forksCount: 0
-    //     })
-    //   }else{
-    //     this.setData({
-    //       starCount: res.result.star_num,
-    //       visitTotal: res.result.view_num,
-    //       forksCount: res.result.comment_num
-    //     })
-    //   }
-    //   console.log(res);
-    // })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -173,9 +218,11 @@ Page({
       is_bind: tem,
     })
 
-    get('/getInfo',{},{Authorization:wx.getStorageSync('Authorization')}).then(res=>{
+    get('/getInfo', {}, {
+      Authorization: wx.getStorageSync('Authorization')
+    }).then(res => {
       this.setData({
-        userInfo:res.user
+        userInfo: res.user
       })
     })
 
@@ -232,8 +279,8 @@ Page({
       modalName: null
     })
   },
-  
-  showUserInfo(){
+
+  showUserInfo() {
     wx.navigateTo({
       url: '/pages/myself/userInfo',
     })

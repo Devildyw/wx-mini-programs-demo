@@ -1,0 +1,54 @@
+<!--pages/myself/myMaterialList.wxml-->
+<van-tabs active="{{ active }}" bind:change="onChange" sticky="true">
+  <van-tab title="已兑换">
+
+    <view style="margin-bottom: 140rpx;">
+      <scroll-view wx:for="{{exchangedMaterialList}}" wx:key="index" class="shop-list" class="shop-item">
+        <view class="material-info-container">
+          <view class="material-info">
+            <text class="material-title">马克思主义理论教材</text>
+            <text class="material-type">物理科技</text>
+            <text class="material-mark">5.0</text>
+          </view>
+          <view class="exchange_button">
+
+            <view>
+              <van-button round type="warning" size="small" bind:tap="onMaterialInfoShow">详情</van-button>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </van-tab>
+  <van-tab title="我的上传">
+    <view style="margin-bottom: 140rpx;">
+      <scroll-view wx:for="{{uploadMaterialList}}" wx:key="index" class="shop-list" class="shop-item">
+        <view class="material-info-container">
+          <view class="material-info">
+            <text class="material-title">马克思主义理论教材</text>
+            <text class="material-type">物理科技</text>
+            <text class="material-mark">5.0</text>
+          </view>
+          <view class="exchange_button">
+            <view>
+              <van-button round type="warning" size="small" bind:tap="onMaterialInfoShow">详情</van-button>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    
+  </van-tab>
+</van-tabs>
+
+<van-dialog use-slot show="{{ onMaterialInfoShow }}" show-cancel-button="true" show-confirm-button="false" bind:close="onMaterialInfoClose" transition="fade">
+      <view class="detail-info-header">资料详情</view>
+      <view class="student-detail-info-container">
+        <view style="display: flex; flex-direction: row; justify-content: center; margin-top: 20rpx;">
+          <text>手机号 :<text style="color: rgb(22, 134, 199);">17318968638</text></text>
+        </view>
+        <view style="display: flex; flex-direction: row; justify-content: center;">
+          <text>邮件 :<text style="color: rgb(22, 134, 199);">1842501760@qq.com</text></text>
+        </view>
+      </view>
+    </van-dialog>

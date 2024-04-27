@@ -1,0 +1,42 @@
+<!-- 两段式 -->
+
+<t-dropdown-menu>
+  <t-dropdown-item options="{{product.options}}" value="{{product.value}}" bindchange="onChange" />
+</t-dropdown-menu>
+
+
+<view wx:for="{{courseList}}" wx:key="index" class="shop-list" class="shop-item">
+
+
+<t-swipe-cell>
+  <view class="info">
+    <view class="info-container" data-tcourseId="{{item.teacherCourseId}}" bind:tap="showCourseDetailInfo">
+      <text class="shop-title ">《{{item.courseName}}》</text>
+      <view class="basicInfo">
+        <text style="font-weight: bold;">老师姓名：{{item.teacherName}} </text>
+        <text style="margin-left: 80rpx; font-weight: bold;">课程类型：{{item.typeName}}</text>
+      </view>
+      <view class="basicInfo">
+        <text style="width: 20%;">学时：{{item.period}}</text>
+        <text style="width: 20%;">学分：{{item.score}}</text>
+        <text style="width: 30%;">方式：{{item.courseType===0?'线下':'线上'}}</text>
+      </view>
+      <view class="basicInfo">
+        <text style="width: 32%;">评分人数:<text  style="color: rgb(15, 79, 98); font-weight: bold;">{{item.evaluateNum==0?'暂无':item.evaluateNum}}</text></text>
+        <text style="width: 32%;">评分:<text style="color: rgb(15, 79, 98); font-weight: bold;">{{item.evaluateNum==0?'暂无评分':item.evaluateScore}}</text></text>
+        <text style="width: 100%;">评价:<text style="color: rgb(15, 79, 98); font-weight: bold;">{{item.keywords===null||item.keywords===''?'暂无':(item.keywords)}}</text></text>
+      </view>
+    </view>
+
+
+  </view>
+  <view slot="right" class="btn-wrapper" style="height: 100%;">
+    <view class="btn delete-btn" bind:tap="onReFund">
+      <view style="display: flex; flex-direction: column; justify-content: center;">
+        <view>退选</view>
+      </view>
+    </view>
+
+  </view>
+</t-swipe-cell>
+</view>

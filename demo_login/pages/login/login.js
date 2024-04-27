@@ -78,7 +78,9 @@ Page({
               }
             })
           } else {
-            console.log("跳转");
+            get('/getInfo',{},{Authorization:wx.getStorageSync('Authorization')}).then(res=>{
+              wx.setStorageSync("userInfo",res.user);
+            });
             wx.switchTab({
               url: '/pages/index/index',
             })

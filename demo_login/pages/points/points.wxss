@@ -60,7 +60,11 @@
   height: 50rpx;
   margin-left: 20rpx;
 }
-
+.neetpoints-icon{
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 5rpx;
+}
 .points-container .icon{
   width: 300rpx;
   height: 300rpx;
@@ -118,3 +122,73 @@ map,
   margin-right: 5%;
 }
 
+.outermost-container{
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  width: 100%;
+}
+
+.gift-item{
+  width: 96%;
+  margin-left: 2%;
+  height: 260rpx;
+  margin-top: 20rpx;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+/**/
+.tr {
+  display: flex;
+}
+
+.col {
+  margin: 0 32rpx;
+}
+
+.tr+.tr {
+  margin-top: 48rpx;
+}
+
+.text {
+  font-size: 28rpx;
+  color: var(--td-text-color-secondary);
+  line-height: 44rpx;
+  margin-bottom: 32rpx;
+}
+
+/**/
+
+.gift-container{
+  /* border: 1rpx solid red; */
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: row;
+}
+
+.gift-image{
+  height: 96%;
+  margin-top: 2.5%;
+  margin-left: 16rpx;
+  justify-content: center;
+
+  border: 1rpx solid #2768d89d; 
+}
+
+.gift-info{
+  margin-left: 20rpx;
+  margin-right: 10rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.gift-header{
+  height: 180rpx;
+  margin-top: 10rpx;
+}
+.gift-header .gift-title{
+  font-size: large;
+  font-weight: bold;
+}
+.gift-header .gift-discription{
+  margin-top: 5rpx;
+}

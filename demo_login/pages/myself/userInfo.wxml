@@ -6,27 +6,35 @@
     <view class='avatar'>
       <image src="{{userInfo.avatar}}" mode="widthFix" />
     </view>
+    <view class="editIcon" bind:tap="onAvatarShow">
+      <image src="../../assets/icon/修改.png" mode="widthFix" />
+    </view>
   </view>
+  <!-- <view class="wrapper">
+
+  </view> -->
 
 
-
-  <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+  <view class="cu-list menu card-menu margin-bottom-xl shadow-lg radius">
     <van-cell-group>
-      <view class="margin-top-sm margin-bottom-sm margin-left-sm">
-        <text>基本信息</text>
+      <view class="margin-top-sm margin-bottom-sm" style="text-align: center;">
+        <text style="font-weight: bold; font-size: 36rpx; color: rgb(18, 54, 88); ">基本信息</text>
       </view>
-      <van-field value="{{ userInfo.nickName }}" left-icon="user-o" label="姓名" readonly="{{true}}" placeholder="暂无" border="{{ true }}" />
-      <van-field value="{{ userINfo.remark }}" left-icon="contact" label="身份" readonly="{{true}}" placeholder="暂无" border="{{ true }}" />
-      <van-field value="{{ userInfo.class }}" left-icon="friends-o" label="班级" readonly="{{true}}" placeholder="暂无" border="{{ true }}" />
-      <van-field value="{{ userInfo.entryDate }}" left-icon="tosend" label="入学日期" readonly="{{true}}" placeholder="1970-01-01" border="{{ true }}" />
-      <view class="margin-top-sm margin-bottom-sm margin-left-sm">
-        <text>其他信息</text>
+      <van-field value="{{ userInfo.nickName }}" disabled="{{!editControl}}" left-icon="user-o" label="姓名:" readonly="{{true}}" placeholder="暂无" border="{{ true }}" />
+      <van-field value="{{ userInfo.userName }}" disabled="{{!editControl}}" left-icon="user-o" label="学号/工号:" readonly="{{true}}" placeholder="暂无" border="{{ true }}" />
+      <van-field value="{{ userInfo.roles[0].roleName }}" disabled="{{!editControl}}" left-icon="contact" label="身份:" readonly="{{true}}" placeholder="暂无" border="{{ true }}" />
+      <van-field value="{{ userInfo.gradeClass.major}}-{{userInfo.gradeClass.classGradeName}}" disabled="{{!editControl}}" left-icon="friends-o" label="班级:" readonly="{{true}}" placeholder="暂无" border="{{ true }}" />
+      <van-field value="{{ userInfo.entryDate }}" left-icon="tosend" disabled="{{!editControl}}" label="入学日期:" readonly="{{true}}" placeholder="1970-01-01" border="{{ true }}" />
+      <van-field value="{{ userInfo.birthday }}" left-icon="tosend" label="出生日期:" disabled="{{!editControl}}" readonly="{{true}}" placeholder="1970-01-01" border="{{ true }}" />
+      <van-field value="{{ userInfo.graduationDate }}" left-icon="tosend" label="毕业日期:" disabled="{{!editControl}}" readonly="{{true}}" placeholder="1970-01-01" border="{{ true }}" />
+      <view class="margin-top-sm margin-bottom-sm" style="text-align: center;">
+        <text style="font-weight: bold; font-size: 36rpx; color: rgb(18, 54, 88); ">其他信息</text>
       </view>
-      <van-field value="{{ userInfo.phonenumber }}" left-icon="phone-o" label="手机号" readonly="{{editControl}}" placeholder="暂无" border="{{ true }}" />
-      <van-field value="{{ userInfo.sex==0?'男':'女' }}" left-icon="closed-eye" label="性别" readonly="{{editControl}}" placeholder="未知" border="{{ true }}" />
-      <van-field value="{{ userInfo.brithDay }}" left-icon="tosend" label="出生日期" readonly="{{editControl}}" placeholder="1970-01-01" border="{{ true }}" />
-      
-      <van-field value="{{ userInfo.email }}" left-icon="envelop-o" label="邮箱" readonly="{{editControl}}" placeholder="暂无" border="{{ true }}" />
+      <van-field value="{{ userInfo.phonenumber }}" left-icon="phone-o" label="手机号:" readonly="{{editControl}}" placeholder="暂无" border="{{ true }}" />
+      <van-field value="{{ userInfo.sex==0?'男':'女' }}" left-icon="closed-eye" label="性别:" readonly="{{editControl}}" placeholder="未知" border="{{ true }}" />
+
+      <van-field value="{{ userInfo.points }}" left-icon="tosend" label="积分:" disabled="{{!editControl}}" readonly="{{true}}" placeholder="1970-01-01" border="{{ true }}" />
+      <van-field value="{{ userInfo.email }}" left-icon="envelop-o" label="邮箱:" readonly="{{editControl}}" placeholder="暂无" border="{{ true }}" />
     </van-cell-group>
   </view>
 
@@ -41,3 +49,11 @@
 
 
 </scroll-view>
+
+<van-dialog use-slot show="{{ onAvatarShow }}" show-cancel-button="true" show-confirm-button="false" bind:close="onAvatarClose" transition="fade" style="width: 100%;">
+  <view class="detail-info-header">上传头像</view>
+  <view class="detail-info-container">
+    <t-upload mediaType="{{['image']}}" gridConfig="{{gridConfig}}" max="{{1}}"  files="{{fileList}}" bind:add="handleAdd" bind:remove="handleRemove" style="width: 100%; margin-top: 40rpx; --td-upload-add-bg-color:rgb(228, 230, 231);" >
+    </t-upload>
+  </view>
+</van-dialog>
