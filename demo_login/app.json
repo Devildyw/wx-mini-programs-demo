@@ -79,6 +79,8 @@
     "t-avatar": "/miniprogram_npm/tdesign-miniprogram/avatar/avatar",
     "t-avatar-group": "/miniprogram_npm/tdesign-miniprogram/avatar-group/avatar-group",
     "t-popup": "/miniprogram_npm/tdesign-miniprogram/popup/popup",
-    "t-button": "/miniprogram_npm/tdesign-miniprogram/button/button"
+    "t-button": "/miniprogram_npm/tdesign-miniprogram/button/button",
+    "t-swipe-cell": "/miniprogram_npm/tdesign-miniprogram/swipe-cell/swipe-cell",
+    "van-dialog": "/miniprogram_npm/vant-weapp/dialog/index"
   }
 }

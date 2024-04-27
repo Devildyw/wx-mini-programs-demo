@@ -10,8 +10,8 @@
       "list": [
         {
           "name": "",
-          "pathName": "pages/selectCourse/QADetailInfo",
-          "query": "questionId=1",
+          "pathName": "pages/selectCourse/courseDetailInfo",
+          "query": "",
           "launchMode": "default",
           "scene": null
         },

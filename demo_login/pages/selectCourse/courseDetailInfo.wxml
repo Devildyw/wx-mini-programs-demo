@@ -73,11 +73,28 @@
               <text class="material-mark">5.0</text>
             </view>
             <view class="exchange_button">
-              <van-button round type="info" size="small">兑换-10</van-button>
+            <!-- 更改状态 -->
+              <view hidden="">
+                <van-button round type="info" size="small" bind:tap="exchangeMaterial">消耗99</van-button>
+              </view>
+              <view hidden="true">
+                <van-button round type="info" size="small" bind:tap="onMaterialInfoShow">详情</van-button>
+              </view>
             </view>
           </view>
         </scroll-view>
       </view>
+      <van-dialog use-slot show="{{ onMaterialInfoShow }}" show-cancel-button="true" show-confirm-button="false" bind:close="onMaterialInfoClose" transition="fade">
+        <view class="detail-info-header">资料详情</view>
+        <view class="student-detail-info-container">
+          <view style="display: flex; flex-direction: row; justify-content: center; margin-top: 20rpx;">
+            <text>手机号 :<text style="color: rgb(22, 134, 199);">17318968638</text></text>
+          </view>
+          <view style="display: flex; flex-direction: row; justify-content: center;">
+            <text>邮件 :<text style="color: rgb(22, 134, 199);">1842501760@qq.com</text></text>
+          </view>
+        </view>
+      </van-dialog>
       <t-fab icon="align-top" bind:click="handlerBackTop" aria-label="返回顶部" style="right: 16rpx; bottom: 64rpx;"></t-fab>
       <t-fab icon="add" bind:click="handleClick" text="上传资料赚积分" aria-label="增加" style="left: 210rpx; bottom: 16rpx;"></t-fab>
     </van-tab>
@@ -100,22 +117,28 @@
       <t-divider dashed />
       <view style="margin-bottom: 120rpx;">
         <view wx:for="{{materialList}}" wx:key="index" class="shop-list" class="shop-item">
-          <view class="evaluate-info-container">
-            <view class="evaluate">
-              <view class="evaluate-info">
-                <text class="evaluate-title">考勤：几乎不</text>
-                <text class="evaluate-type">成绩：80以上</text>
-                <text class="evaluate-mark">考核：不考试</text>
+          <t-swipe-cell>
+            <view class="evaluate-info-container">
+              <view class="evaluate">
+                <view class="evaluate-info">
+                  <text class="evaluate-title">考勤：几乎不</text>
+                  <text class="evaluate-type">成绩：80以上</text>
+                  <text class="evaluate-mark">考核：不考试</text>
+                </view>
+                <view class="evaluate-content">
+                  <text>评价：这是一条长长长长长长长长长长长长长长长长长长长长长长长长评价</text>
+                </view>
               </view>
-              <view class="evaluate-content">
-                <text>评价：这是一条长长长长长长长长长长长长长长长长长长长长长长长长评价</text>
+              <view class="like_bottom">
+                <image src="{{likeImage}}"></image>
+                <text>56</text>
               </view>
             </view>
-            <view class="like_bottom">
-              <image src="{{likeImage}}"></image>
-              <text>56</text>
+            <view slot="right" class="btn-wrapper" style="height: 100%;">
+              <view class="btn delete-btn" bind:tap="onDelete">删除</view>
             </view>
-          </view>
+          </t-swipe-cell>
+
         </view>
       </view>
       <t-fab icon="align-top" bind:click="handlerBackTop" aria-label="返回顶部" style="right: 16rpx; bottom: 64rpx;"></t-fab>
@@ -124,48 +147,87 @@
     <van-tab title="问答">
       <view class="outermost-container">
         <view wx:for="{{QAList}}" wx:key="index" class="QA-list" class="QA-item">
-          <view class="QA-container">
-            <view class="QA-basic-info" data-questionId="{{item.questionId}}" bind:tap="showQADetail">
-              <text class="QA-title">这是一个长长标题长长标题不超过15字</text>
-              <text class="QA-content">这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个......</text>
-              
-            </view>
-            <view class="recent-reply">
+          <t-swipe-cell>
+            <view class="QA-container">
+              <view class="QA-basic-info" data-questionId="{{item.questionId}}" bind:tap="showQADetail">
+                <text class="QA-title">这是一个长长标题长长标题不超过15字</text>
+                <text class="QA-content">这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个......</text>
+
+              </view>
+              <view class="recent-reply">
                 <view class="QA-info-right-item" style="margin-left: 16rpx;">
                   <view class="QA-info-right-item-avatar">
-                    <t-avatar class="avatar-example" size="42rpx" image="{{image}}"  style="margin-top: 18rpx;"/>
+                    <t-avatar class="avatar-example" size="42rpx" image="{{image}}" style="margin-top: 18rpx;" />
                   </view>
                   <text class="QA-info-right-item-name">不过六个字符</text>
                   <text style="margin-left: 10rpx;">最近回复了: 回复内容如下如下...</text>
                 </view>
               </view>
-            <view class="QA-info">
-              <view class="QA-info-left">
-                <view class="QA-info-left-item">
-                  <image src="../../assets/icon/回答.png"></image>
-                  <view>26</view>
-                </view>
-                <!-- <view class="QA-info-left-item">
+              <view class="QA-info">
+                <view class="QA-info-left">
+                  <view class="QA-info-left-item">
+                    <image src="../../assets/icon/回答.png"></image>
+                    <view>26</view>
+                  </view>
+                  <!-- <view class="QA-info-left-item">
                   <image src="../../assets/icon/赞.png"></image>
                   <view>12</view>
                 </view> -->
-              </view>
+                </view>
 
-              <view class="QA-info-right">
-                <view class="QA-info-right-item">
-                  <view class="QA-info-right-item-avatar">
-                    <t-avatar class="avatar-example" size="42rpx" image="{{image}}" />
+                <view class="QA-info-right">
+                  <view class="QA-info-right-item">
+                    <view class="QA-info-right-item-avatar">
+                      <t-avatar class="avatar-example" size="42rpx" image="{{image}}" />
+                    </view>
+                    <text class="QA-info-right-item-name">不过六个字符</text>
+                    <text class="QA-info-right-Date">2024-04-22</text>
                   </view>
-                  <text class="QA-info-right-item-name">不过六个字符</text>
-                  <text class="QA-info-right-Date">2024-04-22</text>
                 </view>
               </view>
             </view>
-          </view>
+            <view slot="right" class="btn-wrapper" style="height: 100%;">
+              <view class="btn delete-btn" bind:tap="onDelete">删除</view>
+            </view>
+          </t-swipe-cell>
         </view>
       </view>
       <t-fab icon="align-top" bind:click="handlerBackTop" aria-label="返回顶部" style="right: 16rpx; bottom: 64rpx;"></t-fab>
       <t-fab icon="add" bind:click="handleClick" text="新增提问" aria-label="增加" style="left: 240rpx; bottom: 16rpx;"></t-fab>
+    </van-tab>
+    <van-tab title="学生列表" disabled="{{false}}">
+      <view style="margin-bottom: 140rpx;">
+        <scroll-view wx:for="{{materialList}}" wx:key="index" class="shop-list" class="shop-item" bind:tap="onStudentInfoShow">
+          <view class="student-info-container">
+            <view class="student-info">
+              <view style="display: flex; flex-direction: row; width: 300rpx;">
+                <view class="student-info-right-item-avatar">
+                  <t-avatar class="avatar-example" shape="round" size="64rpx" image="{{image}}" style="margin-top: 18rpx;" />
+                </view>
+                <text class="student-title">冯小强</text>
+              </view>
+              <text class="student-mark">男</text>
+              <text class="student-type">计算机电子信息与技术201</text>
+            </view>
+            <!-- <view class="exchange_button">
+              <van-button round type="info" size="small">兑换-10</van-button>
+            </view> -->
+          </view>
+        </scroll-view>
+      </view>
+      <van-dialog use-slot show="{{ onStudentInfoShow }}" show-cancel-button="true" show-confirm-button="false" bind:close="onStudentInfoClose" transition="fade">
+        <view class="detail-info-header">联系方式</view>
+        <view class="student-detail-info-container">
+          <view style="display: flex; flex-direction: row; justify-content: center; margin-top: 20rpx;">
+            <text>手机号 :<text style="color: rgb(22, 134, 199);">17318968638</text></text>
+          </view>
+          <view style="display: flex; flex-direction: row; justify-content: center;">
+            <text>邮件 :<text style="color: rgb(22, 134, 199);">1842501760@qq.com</text></text>
+          </view>
+        </view>
+      </van-dialog>
+      <t-fab icon="align-top" bind:click="handlerBackTop" aria-label="返回顶部" style="right: 16rpx; bottom: 64rpx;"></t-fab>
+      <t-fab icon="add" bind:click="handleClick" text="上传资料赚积分" aria-label="增加" style="left: 210rpx; bottom: 16rpx;"></t-fab>
     </van-tab>
   </van-tabs>
   <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">

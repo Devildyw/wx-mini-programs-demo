@@ -223,7 +223,11 @@ map,
   display: flex;
   border: 1rpx solid #e0e0e0;
   border-radius: 30rpx;
-  margin: 15rpx;
+  /* margin: 15rpx; */
+  width: 98%;
+  margin-left: 1%;
+  margin-top: 15rpx;
+  margin-bottom: 15rpx;
   background-color: rgb(255, 255, 255);
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
@@ -339,8 +343,9 @@ map,
 }
 
 .like_bottom image{
-  width: 60rpx;
-  height: 60rpx;
+  margin-top: 25rpx;
+  width: 50rpx;
+  height: 50rpx;
   
 }
 
@@ -449,3 +454,89 @@ map,
   margin-bottom: 10rpx;
 }
 /* 问答-end */
+
+/* 滑动操作 */
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 120rpx;
+  height: 100%;
+  /* line-height: 310rpx; */
+  color: white;
+}
+
+.delete-btn {
+  background-color: #e34d59;
+}
+
+.edit-btn {
+  background-color: #ed7b2f;
+}
+
+.favor-btn {
+  background-color: var(--td-brand-color, #0052d9);
+}
+/* 滑动操作 */
+
+/* student-list start */
+
+
+.student-info-container {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100rpx;
+}
+
+.student-info {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  line-height: 100rpx;
+}
+
+.student-title {
+  /* padding-left: 20rpx; */
+  display: flex;
+  margin-left: 30rpx;
+  flex-direction: row;
+  justify-content: start;
+  text-align: center;
+  font-weight: bold;
+  /* width: 150rpx; */
+}
+
+.student-type {
+  text-align: center;
+  width: 500rpx;
+}
+
+.student-mark {
+  text-align: center;
+  /* width: 150rpx; */
+}
+
+.student-info-right-item-avatar{
+  margin-left: 20rpx;
+  width: 64rpx;
+}
+.student-detail-info-container{
+  height: 180rpx;
+  width: 98%;
+  margin-left: 1%;
+  display: flex;
+  flex-direction: column;
+}
+.detail-info-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: large;
+  font-weight: bold;
+}
+/* student-list end */

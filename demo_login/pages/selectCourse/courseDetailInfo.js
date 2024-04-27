@@ -39,7 +39,7 @@ Page({
     visitTotal: 0,
     is_bind: false,
     userInfo: {},
-    active: 3,
+    active: 1,
     current: 1,
     autoplay: true,
     duration: 500,
@@ -89,6 +89,7 @@ Page({
       ],
     },
     likeImage: unLikedImage,
+    image:'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/QQ%E5%9B%BE%E7%89%8720230608220001.png',
     evaluateSorter: {
       value: 'default',
       options: [{
@@ -110,7 +111,19 @@ Page({
       ],
     },
     QAList:[{questionId:1},{questionId:2},{questionId:3},{questionId:4},5,6,7,8,9,10],
-
+    right: [
+      {
+        text: '编辑',
+        className: 'btn edit-btn',
+      },
+      {
+        text: '删除',
+        className: 'btn delete-btn',
+      },
+    ],
+    studentList:[{questionId:1},{questionId:2},{questionId:3},{questionId:4},5,6,7,8,9,10],
+    onStudentInfoShow: false,
+    onMaterialInfoShow: false,
   },
 
   /**
@@ -138,6 +151,17 @@ Page({
       url: '/pages/login/login?type=' + type,
     })
   },
+  onActionClick({ detail }) {
+    wx.showToast({ title: `你点击了${detail.text}`, icon: 'none' });
+  },
+
+  onDelete() {
+    wx.showToast({ title: '你点击了删除', icon: 'none' });
+  },
+  onEdit() {
+    wx.showToast({ title: '你点击了编辑', icon: 'none' });
+  },
+  
   unLogin() {
     wx.showLoading({
       title: '解绑中...',
@@ -164,6 +188,27 @@ Page({
     // })
   },
 
+  onStudentInfoClose() {
+    this.setData({ onStudentInfoShow:false });
+  },
+  onStudentInfoShow(){
+    this.setData({
+      onStudentInfoShow:true
+    })
+  },
+
+  onMaterialInfoClose() {
+    this.setData({ onMaterialInfoShow:false });
+  },
+  onMaterialInfoShow(){
+    this.setData({
+      onMaterialInfoShow:true
+    })
+  },
+
+  exchangeMaterial(){
+
+  },
   onChange(event) {
     wx.pageScrollTo({
       selector:".top",

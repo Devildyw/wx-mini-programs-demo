@@ -426,7 +426,7 @@ page{
   margin-right: 5rpx;
   display: flex;
   justify-content: center;
-  margin-top: 20rpx;
+  margin-top: 30rpx;
 }
 /***/
 

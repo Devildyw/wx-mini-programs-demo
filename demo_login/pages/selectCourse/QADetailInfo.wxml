@@ -6,12 +6,12 @@
           <text class="QA-title">这是一个长长标题长长标题不超过15字</text>
           <text class="QA-content">这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容（不超过50字）</text>
         </view>
-        <view class="recent-reply">
-          <view class="QA-info-right-item" style="margin-left: 16rpx;">
+        <view class="recent-reply" bind:tap="onOpen">
+          <view class="QA-info-right-item" style="margin-left: 16rpx;" >
             <view class="QA-info-right-item-avatar">
               <t-avatar class="avatar-example" size="42rpx" image="{{image}}" style="margin-top: 18rpx;" />
             </view>
-            <text class="QA-info-right-item-name">不过六个字符</text>
+            <text class="QA-info-right-item-name" style="color: rgb(15, 94, 146); font-weight: bold;">不过六个字符</text>
             <text style="margin-left: 10rpx;">最近回复了: 回复内容如下如下...</text>
           </view>
         </view>
@@ -42,7 +42,7 @@
   </view>
   <view class="wrapper" style="width: 96%; margin-left: 2%;">
     <t-collapse  bind:change="handleChange" expand-icon="false" expand-mutex="true" style="--td-collapse-header-height:0rpx">
-      <t-collapse-panel value="{{0}}" header="回答" expand-icon="false">
+      <t-collapse-panel value="{{0}}" expand-icon="false">
         <view class="textarea-example">
           <t-avatar class="avatar-example" size="60rpx" shape="round" image="{{image}}" style="--td-collapse-title-font-size:28rpx" />
           <t-textarea t-class="external-class" placeholderStyle="font-size:28rpx" placeholder="请输入回答" bordered maxlength="250" disableDefaultPadding="{{true}}" indicator style="height: 248rpx; --td-textarea-background-color:rgb(247,249,251); --td-collapse-content-font-size:28rpx; --td-collapse-content-line-height:1" />
@@ -154,7 +154,7 @@
             </view>
             <view class="submit-button">
               <text style="line-height: 60rpx; margin-left: 80rpx; font-size: 24rpx; color: gray;"></text>
-              <van-button type="info" size="small" style="margin-right: 10rpx;">回答</van-button>
+              <van-button type="info" size="small" style="margin-right: 10rpx;">评论</van-button>
             </view>
           </t-collapse-panel>
         </t-collapse>
@@ -178,7 +178,7 @@
                   </view>
                 </view>
                 <view class="comment-list-basic-info">
-                  <text class="comment-list-content">这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容（不超过50字）</text>
+                  <text class="comment-list-content">回复<text style="color: rgb(36, 162, 212);">@冯小强</text> :这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容（不超过50字）</text>
                 </view>
                 <view class="comment-list-info">
                   <view class="comment-list-info-left">
