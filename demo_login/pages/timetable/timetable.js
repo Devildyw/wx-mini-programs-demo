@@ -65,6 +65,8 @@ Page({
     ],
     schoolYear:'',
     semester:'',
+    schoolWeek:'',
+    weekDay:'',
     classJson: '',
     targetLessons: [],
     targetX: 0, //target x轴top距离
@@ -77,13 +79,6 @@ Page({
     is_vacation: false, // 是否为假期
   },
   onLoad: function (options) {
-    console.log('options:', options)
-    this.setData({
-      week_day: app.globalData.week_day,
-      school_week: app.globalData.school_week,
-      windowHeight: app.globalData.windowHeight,
-      screenHeight: app.globalData.screenHeight
-    })
     this.setInfo();
     this.getTable();
 
@@ -130,6 +125,9 @@ Page({
       this.setData({
         schoolYear: res.data.course.schoolYear,
         semester:res.data.course.semester,
+        schoolWeek:res.data.course.schoolWeek,
+        weekDay:res.data.course.weekDay,
+        is_vacation:res.data.course.is_vacation,
         classJson: res.data
       })
     })

@@ -145,7 +145,7 @@ Page({
       isLogin: app.globalData.isLogin,
       xh: wx.getStorageSync('user'),
       is_bind: tem,
-    })
+    }),
 
     get('/getInfo',{},{Authorization:wx.getStorageSync('Authorization')}).then(res=>{
       this.setData({

@@ -142,8 +142,10 @@
       <image class="kb-info-card-close" src="/images/down_w.png" bindtap="hideDetail"></image>
     </view>
     <view class="kb-info-title" wx:else>
-      <text class="kb-info-week">第{{school_week}}周 周{{week_day}}</text>
-      <text class="kb-lesson-time">{{schoolYear}}学年第{{semester}}学期</text>
+      <text class="kb-info-week" style="margin-left: 20rpx;">第{{schoolWeek}}周 周{{weekDay}}</text>
+      <text class="kb-lesson-time" style="margin-top: 5rpx; width: 200rpx;">{{schoolYear}}学年第{{semester}}学期</text>
+      
+      <text class="kb-info-week">{{is_vacation?"学期已结束":""}}</text>
       <!-- <text class="version-text" bindtap='refreshData'>更新</text>
       <text class="version-text" bindtap='eventDraw'>存图</text> -->
       <image class="kb-info-card-close" src="/images/down_w.png" bindtap="hideDetail"></image>

@@ -97,9 +97,7 @@
 
     <!-- 资料 -->
     <view class="hot-course-container">
-      <view class="grid-course-hot-container">
-        <view class="card-desc text-caption hot-course-title">热门资料</view>
-        <view class="card-desc text-caption hot-course-more">查看更多></view>
+      <view class="grid-course-hot-container" style="margin-top: 30rpx;">
       </view>
       <view class="hot-course">
         <view class="hot-course-item">

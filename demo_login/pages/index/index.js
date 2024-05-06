@@ -1,12 +1,15 @@
-const imageCdn = 'https://tdesign.gtimg.com/mobile/demos';
+const imageCdn = 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images';
 const swiperList = [
-  `${imageCdn}/swiper1.png`,
-  `${imageCdn}/swiper2.png`,
-  `${imageCdn}/swiper1.png`,
-  `${imageCdn}/swiper2.png`,
-  `${imageCdn}/swiper1.png`,
-  '/images/3961622281214_.pic_hd.jpg',
+  `${imageCdn}/3961622281214_.pic_hd.jpg`,
+  `${imageCdn}/课堂 (1).png`,
+  `${imageCdn}/图书馆.png`,
 ];
+
+const {
+  get,
+  post
+} = require('../../utils/request')
+
 Page({
 
   
@@ -53,7 +56,7 @@ Page({
       }
     ],
     is_bind:'',
-    notice:"这是一条很长长长长长长长长长长长长长长长长长长长长长长长长长的公告"
+    notice:'',
   },
 
   confirmTap(e){
@@ -75,6 +78,17 @@ Page({
   //轮播图点击事件
   swipclick: function (e) {
     console.log(this.data.swiperCurrent)
+  },
+
+  getNotice(){
+    get('/system/notice/new', {}, {
+      Authorization: wx.getStorageSync('Authorization')
+    }).then(res => {
+      console.log(res)
+      this.setData({
+        notice:res.data.noticeTitle,
+      })
+    })
   },
 
   onInput(e){
@@ -167,7 +181,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.getNotice()
   },
 
   navigatetokb: function () {
