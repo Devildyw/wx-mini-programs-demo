@@ -21,7 +21,6 @@ const swiperList = [
   `${imageCdn}/swiper1.png`,
   `${imageCdn}/swiper2.png`,
   `${imageCdn}/swiper1.png`,
-  '/images/3961622281214_.pic_hd.jpg',
 ];
 const likedImage = '../../assets/icon/点赞图标.png';
 const unLikedImage = '../../assets/icon/未点赞图标.png';
@@ -39,7 +38,8 @@ Page({
     visitTotal: 0,
     is_bind: false,
     userInfo: {},
-    active: 1,
+    courseDetailInfo:{},
+    active: 0,
     current: 1,
     autoplay: true,
     duration: 500,
@@ -49,7 +49,7 @@ Page({
       type: '',
       showControls: true
     },
-    value: 3,
+    tcourseId: '',
     // 资料
     materialList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     materialType: {
@@ -89,7 +89,7 @@ Page({
       ],
     },
     likeImage: unLikedImage,
-    image:'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/QQ%E5%9B%BE%E7%89%8720230608220001.png',
+    image: 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/QQ%E5%9B%BE%E7%89%8720230608220001.png',
     evaluateSorter: {
       value: 'default',
       options: [{
@@ -110,9 +110,16 @@ Page({
         },
       ],
     },
-    QAList:[{questionId:1},{questionId:2},{questionId:3},{questionId:4},5,6,7,8,9,10],
-    right: [
-      {
+    QAList: [{
+      questionId: 1
+    }, {
+      questionId: 2
+    }, {
+      questionId: 3
+    }, {
+      questionId: 4
+    }, 5, 6, 7, 8, 9, 10],
+    right: [{
         text: '编辑',
         className: 'btn edit-btn',
       },
@@ -121,7 +128,15 @@ Page({
         className: 'btn delete-btn',
       },
     ],
-    studentList:[{questionId:1},{questionId:2},{questionId:3},{questionId:4},5,6,7,8,9,10],
+    studentList: [{
+      questionId: 1
+    }, {
+      questionId: 2
+    }, {
+      questionId: 3
+    }, {
+      questionId: 4
+    }, 5, 6, 7, 8, 9, 10],
     onStudentInfoShow: false,
     onMaterialInfoShow: false,
   },
@@ -130,8 +145,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(this.data.swiperList);
-    console.log("success")
+    this.setData({
+      tcourseId: options.tcourseId
+    });
+    this.getCourseDetailInfo();
     let that = this;
     wx.showLoading({
       title: '数据加载中',
@@ -151,17 +168,36 @@ Page({
       url: '/pages/login/login?type=' + type,
     })
   },
-  onActionClick({ detail }) {
-    wx.showToast({ title: `你点击了${detail.text}`, icon: 'none' });
+  onActionClick({
+    detail
+  }) {
+    wx.showToast({
+      title: `你点击了${detail.text}`,
+      icon: 'none'
+    });
   },
-
+  getCourseDetailInfo() {
+    get("/system/course/info/" + this.data.tcourseId, {}, {
+      Authorization: wx.getStorageSync('Authorization')
+    }).then(res => {
+      this.setData({
+        courseDetailInfo:res.data
+      })
+    })
+  },
   onDelete() {
-    wx.showToast({ title: '你点击了删除', icon: 'none' });
+    wx.showToast({
+      title: '你点击了删除',
+      icon: 'none'
+    });
   },
   onEdit() {
-    wx.showToast({ title: '你点击了编辑', icon: 'none' });
+    wx.showToast({
+      title: '你点击了编辑',
+      icon: 'none'
+    });
   },
-  
+
   unLogin() {
     wx.showLoading({
       title: '解绑中...',
@@ -189,35 +225,39 @@ Page({
   },
 
   onStudentInfoClose() {
-    this.setData({ onStudentInfoShow:false });
-  },
-  onStudentInfoShow(){
     this.setData({
-      onStudentInfoShow:true
+      onStudentInfoShow: false
+    });
+  },
+  onStudentInfoShow() {
+    this.setData({
+      onStudentInfoShow: true
     })
   },
 
   onMaterialInfoClose() {
-    this.setData({ onMaterialInfoShow:false });
-  },
-  onMaterialInfoShow(){
     this.setData({
-      onMaterialInfoShow:true
+      onMaterialInfoShow: false
+    });
+  },
+  onMaterialInfoShow() {
+    this.setData({
+      onMaterialInfoShow: true
     })
   },
 
-  exchangeMaterial(){
+  exchangeMaterial() {
 
   },
   onChange(event) {
     wx.pageScrollTo({
-      selector:".top",
+      selector: ".top",
       duration: 300
     })
   },
   handlerBackTop(e) {
     wx.pageScrollTo({
-      selector:".top",
+      selector: ".top",
       duration: 300
     })
   },
@@ -225,7 +265,7 @@ Page({
 
   },
 
-  handleClick(e){
+  handleClick(e) {
     console.log(123456);
   },
   get_my_num() {
@@ -357,10 +397,10 @@ Page({
   },
 
 
-  showQADetail(e){
+  showQADetail(e) {
     var questionId = e.currentTarget.dataset.questionid;
     wx.navigateTo({
-      url: '/pages/selectCourse/QADetailInfo?questionId='+questionId,
+      url: '/pages/selectCourse/QADetailInfo?questionId=' + questionId,
     })
   },
   /**

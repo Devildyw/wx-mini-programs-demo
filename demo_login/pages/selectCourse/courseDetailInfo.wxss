@@ -126,7 +126,7 @@ map,
 }
 
 .classInfo_container {
-  margin-top: 50rpx;
+  margin-top: 10rpx;
   display: flex;
   flex-direction: row;
   padding: 15rpx;
@@ -166,7 +166,7 @@ map,
 
 .keyword-container {
   padding: 15rpx;
-  margin-top: 80rpx;
+  margin-top: 30rpx;
   width: 90%;
   margin-left: 5%;
   display: flex;
@@ -215,7 +215,7 @@ map,
 .info-background {
   background-color: #fff;
   border-radius: 35rpx;
-  height: 900rpx;
+  height: 1000rpx;
 }
 
 /* 课程资料 */

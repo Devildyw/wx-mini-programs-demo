@@ -8,50 +8,55 @@
 
   <van-tabs active="{{ active }}" bind:change="onChange" sticky="true">
     <van-tab title="课程详情">
-      <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius info_background" style="height: 920rpx;">
+      <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius info_background" style="height: 1000rpx;">
         <view class="info-background">
           <view class="course-title-1">
-            <text>《全国性旅游性美食探讨》</text>
+            <text>《{{courseDetailInfo.courseName}}》</text>
           </view>
           <view class="course-title-2">
-            <text>授课老师：小明</text>
+            <text>授课老师：{{courseDetailInfo.teacherName===null?'未知':courseDetailInfo.teacherName}}</text>
+            <view style="height: 80rpx;">
+            <text>课程描述：{{courseDetailInfo.description===null?'':courseDetailInfo.description}}</text></view>
           </view>
-
+          
 
           <view class="classInfo_container">
             <view class="line_info-1">
-              <text>课程代码：课程代码</text>
-              <text>课时：课时</text>
-              <text>校区：校区</text>
-              <text>课程类型：课程类型</text>
-              <text>课程状态：课程状态</text>
-              <text>剩余数量：剩余数量</text>
+              <text>课程代码：{{courseDetailInfo.courseCode===null?'未知':courseDetailInfo.courseCode}}</text>
+              <text>课时：{{courseDetailInfo.period===null?'未知':courseDetailInfo.period}}</text>
+              <text>校区：{{courseDetailInfo.schoolName===null?'未知':courseDetailInfo.schoolName}}</text>
+              <text>课程类型：{{courseDetailInfo.typeName===null?'未知':courseDetailInfo.typeName}}</text>
+              <text>课程状态：{{courseDetailInfo.status===0?'有效':'无效'}}</text>
+              
             </view>
             <view class="line_info-2">
 
-              <text>课程描述：课程描述</text>
-              <text>学分：学分</text>
-              <text>授课方式：授课方式</text>
-              <text>选择人数：选择人数</text>
-              <text>授课地点：授课地点</text>
-              <text>授课时间：授课时间</text>
-
+              
+              <text>学分：{{courseDetailInfo.score===null?'未知':courseDetailInfo.score}}</text>
+              <text>授课方式：{{courseDetailInfo.courseType===0?'线下':'线上'}}</text>
+              <text>选择人数：{{courseDetailInfo.selectCount===null?'未知':courseDetailInfo.selectCount}}</text>
+              <text>授课地点：{{courseDetailInfo.classRoom===null?'未知':courseDetailInfo.classRoom}}</text>
+              <text>总量/余量：{{courseDetailInfo.total===null?'未知':courseDetailInfo.total}}/{{courseDetailInfo.remain===null?'未知':courseDetailInfo.remain}}</text>
             </view>
+            
           </view>
-
+          <view style="padding: 15rpx; padding-left: 25rpx; font-size: 30rpx;"><text>授课时间：{{courseDetailInfo.day1===null||courseDetailInfo.day1===''?" ":"周一:"+courseDetailInfo.day1+"节"}} {{courseDetailInfo.day2===null||courseDetailInfo.day2===''?" ":"周二:"+courseDetailInfo.day2+"节"}} {{courseDetailInfo.day3===null||courseDetailInfo.day3===''?" ":"周三:"+courseDetailInfo.day3+"节"}} {{courseDetailInfo.day4===null||courseDetailInfo.day4===''?" ":"周四:"+courseDetailInfo.day4+"节"}} {{courseDetailInfo.day5===null||courseDetailInfo.day5===''?" ":"周五:"+courseDetailInfo.day5+"节"}}</text></view>
           <view class="keyword-container">
-            <text class="info-mark-count">评分人数：3人</text>
+            <text class="info-mark-count">评分人数：{{courseDetailInfo.evaluateNum===0?'暂无':courseDetailInfo.evaluateNum+"人"}}</text>
             <view class="info-mark-container">
               <text>评分：</text>
-              <van-rate readonly allow-half color="red" void-color="red" value="{{ value }}" />
-              <text>3.5</text>
+              <van-rate readonly allow-half color="red" void-color="red" value="{{ courseDetailInfo.evaluateScore }}" />
+              <text style="margin-left: 10rpx;">{{courseDetailInfo.evaluateNum===0?'暂无评分':courseDetailInfo.evaluateScore+"分"}}</text>
             </view>
-            <view class="info-keywords">
-              <text class="info-keyword">关键词1</text>
-              <text class="info-keyword">关键词2</text>
+            <view class="info-keywords" hidden="{{courseDetailInfo.keywordList===null}}">
+            <view wx:for="{{courseDetailInfo.keywordList}}" wx:key="index">
+              <text class="info-keyword">{{item}}</text>
+            </view>
+              
+              <!-- <text class="info-keyword">关键词2</text>
               <text class="info-keyword">关键词3</text>
               <text class="info-keyword">关键词4</text>
-              <text class="info-keyword">关键词5</text>
+              <text class="info-keyword">关键词5</text> -->
             </view>
           </view>
         </view>

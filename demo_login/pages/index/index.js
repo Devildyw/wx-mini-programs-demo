@@ -79,7 +79,11 @@ Page({
   swipclick: function (e) {
     console.log(this.data.swiperCurrent)
   },
-
+  showMore(){
+    wx.navigateTo({
+      url: '/pages/selectCourse/selectCourse',
+    })
+  },
   getNotice(){
     get('/system/notice/new', {}, {
       Authorization: wx.getStorageSync('Authorization')

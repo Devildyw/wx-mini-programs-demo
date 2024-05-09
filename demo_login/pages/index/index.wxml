@@ -35,7 +35,7 @@
     <view class="hot-course-container">
       <view class="grid-course-hot-container">
         <view class="card-desc text-caption hot-course-title">热门课程</view>
-        <view class="card-desc text-caption hot-course-more">查看更多></view>
+        <view class="card-desc text-caption hot-course-more" bind:tap="showMore">查看更多></view>
       </view>
       <view class="hot-course">
         <view class="hot-course-item">

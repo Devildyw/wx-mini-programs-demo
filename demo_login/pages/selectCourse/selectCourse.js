@@ -87,6 +87,7 @@ Page({
     isAsc:'',
     lastTotal:0,
     userInfo:{},
+    semester:'',
     right: [
       {
         text: '编辑',
@@ -143,9 +144,10 @@ Page({
       orderByColumn:this.data.orderByColumn,
       isAsc:this.data.isAsc,
       keyword:this.data.keyword,
-      gradeYearId:this.data.userInfo.gradeClass.gradeYearId,
+      gradeYearId:this.data.userInfo.gradeClass.gradeYearId
     },{Authorization:wx.getStorageSync('Authorization')}).then(res=>{
       this.setData({
+        
         courseList:[...this.data.courseList,...res.rows],
       })
     })
