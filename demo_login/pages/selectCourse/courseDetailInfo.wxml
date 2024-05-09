@@ -22,25 +22,25 @@
 
           <view class="classInfo_container">
             <view class="line_info-1">
-              <text>课程代码：{{courseDetailInfo.courseCode===null?'未知':courseDetailInfo.courseCode}}</text>
-              <text>课时：{{courseDetailInfo.period===null?'未知':courseDetailInfo.period}}</text>
-              <text>校区：{{courseDetailInfo.schoolName===null?'未知':courseDetailInfo.schoolName}}</text>
-              <text>课程类型：{{courseDetailInfo.typeName===null?'未知':courseDetailInfo.typeName}}</text>
-              <text>课程状态：{{courseDetailInfo.status===0?'有效':'无效'}}</text>
+              <text>课程代码：<text style="font-weight: bold;">{{courseDetailInfo.courseCode===null?'未知':courseDetailInfo.courseCode}}</text></text>
+              <text>课时：<text style="font-weight: bold;">{{courseDetailInfo.period===null?'未知':courseDetailInfo.period}}</text></text>
+              <text>校区：<text style="font-weight: bold;">{{courseDetailInfo.schoolName===null?'未知':courseDetailInfo.schoolName}}</text></text>
+              <text>课程类型：<text style="font-weight: bold;">{{courseDetailInfo.typeName===null?'未知':courseDetailInfo.typeName}}</text></text>
+              <text>课程状态：<text style="font-weight: bold;">{{courseDetailInfo.status===0?'有效':'无效'}}</text></text>
               
             </view>
             <view class="line_info-2">
 
               
-              <text>学分：{{courseDetailInfo.score===null?'未知':courseDetailInfo.score}}</text>
-              <text>授课方式：{{courseDetailInfo.courseType===0?'线下':'线上'}}</text>
-              <text>选择人数：{{courseDetailInfo.selectCount===null?'未知':courseDetailInfo.selectCount}}</text>
-              <text>授课地点：{{courseDetailInfo.classRoom===null?'未知':courseDetailInfo.classRoom}}</text>
-              <text>总量/余量：{{courseDetailInfo.total===null?'未知':courseDetailInfo.total}}/{{courseDetailInfo.remain===null?'未知':courseDetailInfo.remain}}</text>
+              <text>学分：<text style="font-weight: bold;">{{courseDetailInfo.score===null?'未知':courseDetailInfo.score}}</text></text>
+              <text>授课方式：<text style="font-weight: bold;">{{courseDetailInfo.courseType===0?'线下':'线上'}}</text></text>
+              <text>选择人数：<text style="font-weight: bold;">{{courseDetailInfo.selectCount===null?'未知':courseDetailInfo.selectCount}}</text></text>
+              <text>授课地点：<text style="font-weight: bold;">{{courseDetailInfo.classRoom===null?'未知':courseDetailInfo.classRoom}}</text></text>
+              <text>总量/余量：<text style="font-weight: bold;">{{courseDetailInfo.total===null?'未知':courseDetailInfo.total}}/{{courseDetailInfo.remain===null?'未知':courseDetailInfo.remain}}</text></text>
             </view>
             
           </view>
-          <view style="padding: 15rpx; padding-left: 25rpx; font-size: 30rpx;"><text>授课时间：{{courseDetailInfo.day1===null||courseDetailInfo.day1===''?" ":"周一:"+courseDetailInfo.day1+"节"}} {{courseDetailInfo.day2===null||courseDetailInfo.day2===''?" ":"周二:"+courseDetailInfo.day2+"节"}} {{courseDetailInfo.day3===null||courseDetailInfo.day3===''?" ":"周三:"+courseDetailInfo.day3+"节"}} {{courseDetailInfo.day4===null||courseDetailInfo.day4===''?" ":"周四:"+courseDetailInfo.day4+"节"}} {{courseDetailInfo.day5===null||courseDetailInfo.day5===''?" ":"周五:"+courseDetailInfo.day5+"节"}}</text></view>
+          <view style="padding: 15rpx; padding-left: 25rpx; font-size: 30rpx;"><text>授课时间：<text style="font-weight: bold;">{{courseDetailInfo.day1===null||courseDetailInfo.day1===''?" ":"周一:"+courseDetailInfo.day1+"节"}} {{courseDetailInfo.day2===null||courseDetailInfo.day2===''?" ":"周二:"+courseDetailInfo.day2+"节"}} {{courseDetailInfo.day3===null||courseDetailInfo.day3===''?" ":"周三:"+courseDetailInfo.day3+"节"}} {{courseDetailInfo.day4===null||courseDetailInfo.day4===''?" ":"周四:"+courseDetailInfo.day4+"节"}} {{courseDetailInfo.day5===null||courseDetailInfo.day5===''?" ":"周五:"+courseDetailInfo.day5+"节"}}</text></text></view>
           <view class="keyword-container">
             <text class="info-mark-count">评分人数：{{courseDetailInfo.evaluateNum===0?'暂无':courseDetailInfo.evaluateNum+"人"}}</text>
             <view class="info-mark-container">
@@ -52,18 +52,13 @@
             <view wx:for="{{courseDetailInfo.keywordList}}" wx:key="index">
               <text class="info-keyword">{{item}}</text>
             </view>
-              
-              <!-- <text class="info-keyword">关键词2</text>
-              <text class="info-keyword">关键词3</text>
-              <text class="info-keyword">关键词4</text>
-              <text class="info-keyword">关键词5</text> -->
             </view>
           </view>
         </view>
-        <t-fab icon="add" bind:click="handleClick" text="添加到课表" aria-label="增加"></t-fab>
+          <t-fab icon="add" bind:click="handleClick" text="添加到课表" aria-label="增加" style="{{courseDetailInfo.hasTag!=1?'':'display:none'}}"></t-fab>
       </view>
     </van-tab>
-    <van-tab title="课程资料">
+    <van-tab title="课程资料" disabled="{{courseDetailInfo.hasTag!=1}}">
       <t-dropdown-menu style="height: 70rpx; align-items:center; border-top: 1rpx solid rgb(223, 223, 223);">
         <t-dropdown-item options="{{materialType.options}}" value="{{materialType.value}}" bindchange="onCourseTypeChange" />
         <t-dropdown-item options="{{sorter.options}}" default-value="{{sorter.value}}" />
@@ -73,23 +68,23 @@
         <scroll-view wx:for="{{materialList}}" wx:key="index" class="shop-list" class="shop-item">
           <view class="material-info-container">
             <view class="material-info">
-              <text class="material-title">马克思主义理论教材</text>
-              <text class="material-type">物理科技</text>
-              <text class="material-mark">5.0</text>
+              <text class="material-title">{{item.filename}}</text>
+              <text class="material-type">{{item.type}}</text>
+              <text class="material-mark">{{item.mark===null?'暂无评分':item.mark}}</text>
             </view>
             <view class="exchange_button">
             <!-- 更改状态 -->
-              <view hidden="">
-                <van-button round type="info" size="small" bind:tap="exchangeMaterial">消耗99</van-button>
+              <view hidden="{{(item.hasTag===1||courseDetailInfo.teacherId===userInfo.userId||userInfo.roles[0].roleKey==='admin')?true:''}}">
+                <van-button round type="info" size="small" data-materialId="{{item.id}}"  bind:tap="onExchangeMaterialShow">消耗{{item.needPoints}}分</van-button>
               </view>
-              <view hidden="true">
+              <view hidden="{{!(item.hasTag===1||courseDetailInfo.teacherId===userInfo.userId||userInfo.roles[0].roleKey==='admin')?true:''}}">
                 <van-button round type="info" size="small" bind:tap="onMaterialInfoShow">详情</van-button>
               </view>
             </view>
           </view>
         </scroll-view>
       </view>
-      <van-dialog use-slot show="{{ onMaterialInfoShow }}" show-cancel-button="true" show-confirm-button="false" bind:close="onMaterialInfoClose" transition="fade">
+      <van-dialog use-slot show="{{ onMaterialInfoShow }}" show-cancel-button="true" show-confirm-button="false" bind:close="onMaterialInfoClose"  transition="fade">
         <view class="detail-info-header">资料详情</view>
         <view class="student-detail-info-container">
           <view style="display: flex; flex-direction: row; justify-content: center; margin-top: 20rpx;">
@@ -100,10 +95,18 @@
           </view>
         </view>
       </van-dialog>
+      <van-dialog use-slot show="{{ onExchangeMaterialShow }}" show-cancel-button="true" show-confirm-button="false" bind:close="onExchangeMaterialClose" bind:confirm="exchangeMaterial" transition="fade">
+        <view class="detail-info-header">兑换提醒</view>
+        <view class="student-detail-info-container">
+          <view style="display: flex; flex-direction: row; justify-content: center; margin-top: 40rpx;">
+            <text>确认花费积分兑换这份资料吗</text>
+          </view>
+        </view>
+      </van-dialog>
       <t-fab icon="align-top" bind:click="handlerBackTop" aria-label="返回顶部" style="right: 16rpx; bottom: 64rpx;"></t-fab>
-      <t-fab icon="add" bind:click="handleClick" text="上传资料赚积分" aria-label="增加" style="left: 210rpx; bottom: 16rpx;"></t-fab>
+      <t-fab icon="add" bind:click="handleClick" text="上传资料{{!(userInfo.roles[0].roleKey==='admin'||userInfo.roles[0].roleKey==='teacher')?'赚积分':''}}" aria-label="增加" style="left: 210rpx; bottom: 16rpx;"></t-fab>
     </van-tab>
-    <van-tab title="课程评价">
+    <van-tab title="课程评价" disabled="{{courseDetailInfo.hasTag!=1}}">
       <view class="evaluate-keyword-container">
         <text class="info-mark-count">评分人数：3人</text>
         <view class="info-mark-container">
@@ -149,7 +152,7 @@
       <t-fab icon="align-top" bind:click="handlerBackTop" aria-label="返回顶部" style="right: 16rpx; bottom: 64rpx;"></t-fab>
       <t-fab icon="add" bind:click="handleClick" text="新增评价" aria-label="增加" style="left: 240rpx; bottom: 16rpx;"></t-fab>
     </van-tab>
-    <van-tab title="问答">
+    <van-tab title="问答" disabled="{{courseDetailInfo.hasTag!=1}}">
       <view class="outermost-container">
         <view wx:for="{{QAList}}" wx:key="index" class="QA-list" class="QA-item">
           <t-swipe-cell>
@@ -200,7 +203,7 @@
       <t-fab icon="align-top" bind:click="handlerBackTop" aria-label="返回顶部" style="right: 16rpx; bottom: 64rpx;"></t-fab>
       <t-fab icon="add" bind:click="handleClick" text="新增提问" aria-label="增加" style="left: 240rpx; bottom: 16rpx;"></t-fab>
     </van-tab>
-    <van-tab title="学生列表" disabled="{{false}}">
+    <van-tab title="学生列表" disabled="{{!((courseDetailInfo.hasTag===1 && courseDetailInfo.teacherId===userInfo.userId)||userInfo.roles[0].roleKey==='admin')}}">
       <view style="margin-bottom: 140rpx;">
         <scroll-view wx:for="{{materialList}}" wx:key="index" class="shop-list" class="shop-item" bind:tap="onStudentInfoShow">
           <view class="student-info-container">

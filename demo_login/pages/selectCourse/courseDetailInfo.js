@@ -10,6 +10,7 @@
 
  */
 var app = getApp()
+
 const {
   get,
   post
@@ -38,7 +39,7 @@ Page({
     visitTotal: 0,
     is_bind: false,
     userInfo: {},
-    courseDetailInfo:{},
+    courseDetailInfo: {},
     active: 0,
     current: 1,
     autoplay: true,
@@ -49,9 +50,9 @@ Page({
       type: '',
       showControls: true
     },
-    tcourseId: '',
+    tcourseId: 1,
     // 资料
-    materialList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    materialList: [],
     materialType: {
       value: 'all',
       options: [{
@@ -89,6 +90,7 @@ Page({
       ],
     },
     likeImage: unLikedImage,
+    onExchangeMaterialShow:false,
     image: 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/QQ%E5%9B%BE%E7%89%8720230608220001.png',
     evaluateSorter: {
       value: 'default',
@@ -139,15 +141,18 @@ Page({
     }, 5, 6, 7, 8, 9, 10],
     onStudentInfoShow: false,
     onMaterialInfoShow: false,
+    pageNum: 1,
+    pageSize: 10,
+    materialid:'',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      tcourseId: options.tcourseId
-    });
+    // this.setData({
+    //   tcourseId: options.tcourseId
+    // });
     this.getCourseDetailInfo();
     let that = this;
     wx.showLoading({
@@ -181,7 +186,7 @@ Page({
       Authorization: wx.getStorageSync('Authorization')
     }).then(res => {
       this.setData({
-        courseDetailInfo:res.data
+        courseDetailInfo: res.data
       })
     })
   },
@@ -234,6 +239,17 @@ Page({
       onStudentInfoShow: true
     })
   },
+  onExchangeMaterialShow(event) {
+    this.setData({
+      onExchangeMaterialShow: true,
+      materialid:event.currentTarget.dataset.materialid
+    });
+  },
+  onExchangeMaterialClose() {
+    this.setData({
+      onStudentInfoShow: false
+    })
+  },
 
   onMaterialInfoClose() {
     this.setData({
@@ -246,21 +262,75 @@ Page({
     })
   },
 
-  exchangeMaterial() {
-
-  },
   onChange(event) {
     wx.pageScrollTo({
       selector: ".top",
       duration: 300
     })
+    let index = event.detail.index;
+    if (index === 0) {
+      this.getCourseDetailInfo();
+    } else if (index === 1) {
+      console.log("index===1");
+      this.refreshCourseMaterial()
+    } else if (index === 2) {
+      this.getCourseEvaluateList();
+    } else if (index === 3) {
+      this.getCourseQAList();
+    } else if (index === 4) {
+      this.getCourseStudentList();
+    }
   },
+
   handlerBackTop(e) {
     wx.pageScrollTo({
       selector: ".top",
       duration: 300
     })
   },
+
+  /**
+   * 获取课程资料列表分页
+   */
+  getCourseMaterialList() {
+    get("/system/originMaterial/page/list", {
+      pageNum: this.data.pageNum,
+      pageSize: this.data.pageSize,
+      orderByColumn: '',
+      isAsc: '',
+      keyword: '',
+      courseId: this.data.courseDetailInfo.courseId + "-" + this.data.courseDetailInfo.teacherId,
+    }, {
+      Authorization: wx.getStorageSync('Authorization')
+    }).then(res => {
+      this.setData({
+        materialList: [...this.data.materialList, ...res.rows]
+
+      })
+    })
+  },
+
+  /**
+   * 获取课程评价列表分页
+   */
+  getCourseEvaluateList() {
+
+  },
+
+  /**
+   * 获取课程问答列表分页
+   */
+  getCourseQAList() {
+
+  },
+
+  /**
+   * 获取课程学生课表分页
+   */
+  getCourseStudentList() {
+
+  },
+
   onPickerChange() {
 
   },
@@ -284,6 +354,7 @@ Page({
       })
     }
 
+   
 
     //下边是获取用户数据的云函数，同样根据学校自行定义,仅提供思路
     //如果用户没有绑定就按0算
@@ -316,7 +387,39 @@ Page({
   onReady: function () {
 
   },
-
+ /**
+     * 兑换资料
+     */
+    exchangeMaterial(){
+      post("/system/material/exchange/material",{
+        id:this.data.materialid
+      },{
+        Authorization: wx.getStorageSync('Authorization')
+      }).then(res => {
+        if (res.code===200) {
+          wx.showModal({
+            title: '兑换成功',
+            content: '',
+            complete: (res) => {
+              if (res.cancel) {
+                
+              }
+          
+              if (res.confirm) {
+                
+              }
+            }
+          })
+          this.refreshCourseMaterial()
+          this.setData({
+            onExchangeMaterialShow:false
+          })
+        }
+      })
+    },
+    confirm(){
+      
+    },
   /**
    * 生命周期函数--监听页面显示
    */
@@ -353,6 +456,14 @@ Page({
 
   },
 
+  refreshCourseMaterial(){
+    this.setData({
+      pageNum:1,
+      pageSize:10,
+      materialList:[]
+    })
+    this.getCourseMaterialList()
+  },
   /**
    * 生命周期函数--监听页面卸载
    */
