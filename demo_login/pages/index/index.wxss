@@ -200,9 +200,10 @@ button.form_button::after {
 .hot-course-item-cell-top{
   height: 50%;
   display: flex;
+  margin-top: 20rpx;
   flex-direction: column;
   align-items: center;
-  background-color: #E1F5F7;
+  background-color: rgba(38, 144, 226, 0.52);
   border-radius:20rpx 20rpx 0rpx 0rpx;
 }
 
@@ -226,4 +227,14 @@ button.form_button::after {
 }
 .hot-course-item-cell-title{
   margin: 10rpx;
+  width: 200rpx;
+  line-height: 40rpx;
+  text-align: center;
+  font-size: 26rpx;
+  font-weight: bold;
+  height: 40rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  
 }

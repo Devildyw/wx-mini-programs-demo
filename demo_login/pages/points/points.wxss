@@ -18,19 +18,19 @@
 
 .avatar{
   width: 180rpx;
-  height: 180rpx;
-  background-color: grey;
-  /* overflow: hidden; */
+  height: 40%;
+  overflow: hidden;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   border: 4px outset #FF6600; 
 } 
 
 .points-container{
   width: 90%;
-  height: 380rpx;
+  height: 60%;
   margin-top: 10rpx;
   display: flex;
   flex-direction: row;

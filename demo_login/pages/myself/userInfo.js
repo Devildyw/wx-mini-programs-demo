@@ -38,6 +38,7 @@ Page({
       width: 300,
       height: 300,
     },
+    newAvatarUrl:'',
   },
 
   /*------------------------*/
@@ -54,8 +55,25 @@ Page({
       fileList: [...fileList, ...files], // 此时设置了 fileList 之后才会展示选择的图片
     });
 
+    console.log(this.data.fileList);
+
     // 方法2：每次选择图片都上传，展示每次上传图片的进度
     // files.forEach(file => this.uploadFile(file))
+    wx.uploadFile({
+      url:'http://localhost:8080/common/upload',
+      filePath: e.detail.files[0].url,
+      name:'file',
+      header:{
+        Authorization: wx.getStorageSync('Authorization')
+      },
+      success:res =>{
+        const data = JSON.parse(res.data)
+        this.setData({
+          newAvatarUrl:data.data.url
+        })
+      }
+    })
+    
   },
 
   onAvatarClose() {
@@ -67,40 +85,40 @@ Page({
     })
   },
 
-  onUpload(file) {
-    const {
-      fileList
-    } = this.data;
+  // onUpload(file) {
+  //   const {
+  //     fileList
+  //   } = this.data;
 
-    this.setData({
-      fileList: [...fileList, {
-        ...file,
-        status: 'loading'
-      }],
-    });
-    const {
-      length
-    } = fileList;
+  //   this.setData({
+  //     fileList: [...fileList, {
+  //       ...file,
+  //       status: 'loading'
+  //     }],
+  //   });
+  //   const {
+  //     length
+  //   } = fileList;
 
-    const task = wx.uploadFile({
-      url: 'https://example.weixin.qq.com/upload', // 仅为示例，非真实的接口地址
-      filePath: file.url,
-      name: 'file',
-      formData: {
-        user: 'test'
-      },
-      success: () => {
-        this.setData({
-          [`fileList[${length}].status`]: 'done',
-        });
-      },
-    });
-    task.onProgressUpdate((res) => {
-      this.setData({
-        [`fileList[${length}].percent`]: res.progress,
-      });
-    });
-  },
+  //   const task = wx.uploadFile({
+  //     url: 'https://example.weixin.qq.com/upload', // 仅为示例，非真实的接口地址
+  //     filePath: file.url,
+  //     name: 'file',
+  //     formData: {
+  //       user: 'test'
+  //     },
+  //     success: () => {
+  //       this.setData({
+  //         [`fileList[${length}].status`]: 'done',
+  //       });
+  //     },
+  //   });
+  //   task.onProgressUpdate((res) => {
+  //     this.setData({
+  //       [`fileList[${length}].percent`]: res.progress,
+  //     });
+  //   });
+  // },
   handleRemove(e) {
     const {
       index
@@ -158,6 +176,20 @@ Page({
     })
   },
 
+  uploadAvatar(){
+    console.log(this.data.newAvatarUrl);
+    post("/system/user/updateAvatar", {
+      avatar:this.data.newAvatarUrl
+    }, {
+      Authorization: wx.getStorageSync('Authorization')
+    }).then(res => {
+      this.getUserInfo()
+      
+    })
+  },
+  uploadImage(event){
+    console.log("123"+event);
+  },
   cancel() {
     this.setData({
       editHidden: false,
@@ -218,13 +250,7 @@ Page({
       is_bind: tem,
     })
 
-    get('/getInfo', {}, {
-      Authorization: wx.getStorageSync('Authorization')
-    }).then(res => {
-      this.setData({
-        userInfo: res.user
-      })
-    })
+    this.getUserInfo()
 
 
 
@@ -236,6 +262,17 @@ Page({
     })
   },
 
+  getUserInfo(){
+    get('/getInfo', {}, {
+      Authorization: wx.getStorageSync('Authorization')
+    }).then(res => {
+      console.log(res);
+      wx.setStorageSync('userInfo', res.user)
+      this.setData({
+        userInfo: res.user
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

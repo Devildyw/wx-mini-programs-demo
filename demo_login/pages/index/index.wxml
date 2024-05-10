@@ -34,122 +34,24 @@
 
     <view class="hot-course-container">
       <view class="grid-course-hot-container">
-        <view class="card-desc text-caption hot-course-title">热门课程</view>
-        <view class="card-desc text-caption hot-course-more" bind:tap="showMore">查看更多></view>
+        <view class="card-desc text-caption hot-course-title" style="font-size: 30rpx;">热门课程</view>
+        <view class="card-desc text-caption hot-course-more" style="font-size: 30rpx;" bind:tap="showMore">查看更多></view>
       </view>
       <view class="hot-course">
-        <view class="hot-course-item">
+        <view wx:for="{{hotCourseList}}" wx:key="index" class="hot-course-item" data-teacherCourseId="{{item.teacherCourseId}}" bind:tap="showCourseDetail">
           <view class="hot-course-item-cell">
             <view class="hot-course-item-cell-top">
               <image src="../../assets/icon/点赞.png" mode="" />
               <view class="hot-course-item-cell-text">
-                综合评分最高
+                <text style=" color: rgb(250, 243, 243);"><text style="font-weight: bold; color: rgb(71, 47, 2);">No.{{index + 1}}</text></text>
               </view>
             </view>
             <view class="hot-course-item-cell-bottom">
               <view class="hot-course-item-cell-title">
-                Java程序设计
+                <text>{{item.courseName}}</text>
               </view>
               <view class="hot-course-item-cell-2thtitle">
-                老师
-              </view>
-            </view>
-          </view>
-        </view>
-        <view class="hot-course-item">
-          <view class="hot-course-item-cell">
-            <view class="hot-course-item-cell-top">
-              <image src="../../assets/icon/点赞.png" mode="" />
-              <view class="hot-course-item-cell-text">
-                综合评分最高
-              </view>
-            </view>
-            <view class="hot-course-item-cell-bottom">
-              <view class="hot-course-item-cell-title">
-                Java程序设计
-              </view>
-              <view class="hot-course-item-cell-2thtitle">
-                老师
-              </view>
-            </view>
-          </view>
-        </view>
-        <view class="hot-course-item">
-          <view class="hot-course-item-cell">
-            <view class="hot-course-item-cell-top">
-              <image src="../../assets/icon/点赞.png" mode="" />
-              <view class="hot-course-item-cell-text">
-                综合评分最高
-              </view>
-            </view>
-            <view class="hot-course-item-cell-bottom">
-              <view class="hot-course-item-cell-title">
-                Java程序设计
-              </view>
-              <view class="hot-course-item-cell-2thtitle">
-                老师
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
-
-    <!-- 资料 -->
-    <view class="hot-course-container">
-      <view class="grid-course-hot-container" style="margin-top: 30rpx;">
-      </view>
-      <view class="hot-course">
-        <view class="hot-course-item">
-          <view class="hot-course-item-cell">
-            <view class="hot-course-item-cell-top">
-              <image src="../../assets/icon/点赞.png" mode="" />
-              <view class="hot-course-item-cell-text">
-                综合评分最高
-              </view>
-            </view>
-            <view class="hot-course-item-cell-bottom">
-              <view class="hot-course-item-cell-title">
-                Java程序设计
-              </view>
-              <view class="hot-course-item-cell-2thtitle">
-                老师
-              </view>
-            </view>
-          </view>
-        </view>
-        <view class="hot-course-item">
-          <view class="hot-course-item-cell">
-            <view class="hot-course-item-cell-top">
-              <image src="../../assets/icon/点赞.png" mode="" />
-              <view class="hot-course-item-cell-text">
-                综合评分最高
-              </view>
-            </view>
-            <view class="hot-course-item-cell-bottom">
-              <view class="hot-course-item-cell-title">
-                Java程序设计
-              </view>
-              <view class="hot-course-item-cell-2thtitle">
-                老师
-              </view>
-            </view>
-          </view>
-        </view>
-        <view class="hot-course-item">
-          <view class="hot-course-item-cell">
-            <view class="hot-course-item-cell-top">
-              <image src="../../assets/icon/点赞.png" mode="" />
-              <view class="hot-course-item-cell-text">
-                综合评分最高
-              </view>
-            </view>
-            <view class="hot-course-item-cell-bottom">
-              <view class="hot-course-item-cell-title">
-                Java程序设计
-              </view>
-              <view class="hot-course-item-cell-2thtitle">
-                老师
+                <text>{{item.teacherName}}</text>
               </view>
             </view>
           </view>

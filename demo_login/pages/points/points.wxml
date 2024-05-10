@@ -4,7 +4,7 @@
 
 
     <view class='avatar'>
-      <image src="{{userInfo.avatar===null?'../../assets/background/医院空图片.png':userInfo.avatar}}" mode="widthFix" />
+      <image src="{{userInfo.avatar===null?'../../assets/background/医院空图片.png':userInfo.avatar}}" mode="widthFix"  />
     </view>
 
     <view class="points-container">
@@ -12,16 +12,16 @@
       <view class="points">
         <text>当前积分值:</text>
         <view class="info">
-          <text>1300</text>
+          <text>{{userInfo.points}}</text>
           <image class="points-icon" src="../../assets/icon/积分.png"></image>
         </view>
       </view>
       <image class="icon" src="../../assets/background/金融_礼品礼盒.png" mode="aspectFill" bind:tap="showTips"></image>
     </view>
 
-    <view class="margin-top-sm">
+    <!-- <view class="margin-top-sm">
       <text></text>
-    </view>
+    </view> -->
   </view>
 
   <van-tabs active="{{ active }}" bind:change="onChange">

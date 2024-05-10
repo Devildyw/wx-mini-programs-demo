@@ -26,6 +26,7 @@ Page({
       "16:15-17:45",
       "19:00-20:30",
     ],
+    hotCourseList:[],
     keyword:'',
     current: 0,
     autoplay: false,
@@ -186,7 +187,27 @@ Page({
    */
   onLoad: function (options) {
     this.getNotice()
+    this.getHotCourseList()
   },
+
+  getHotCourseList(){
+    get("/system/course/hot/list",{},{
+      Authorization: wx.getStorageSync('Authorization')
+    }).then(res => {
+      this.setData({
+        hotCourseList:res.data
+      })
+      
+    })
+  },
+
+  showCourseDetail(event){
+    let tcourseId = event.currentTarget.dataset.teachercourseid;
+    wx.navigateTo({
+      url: '/pages/selectCourse/courseDetailInfo?tcourseId='+tcourseId,
+    })
+  },
+
 
   navigatetokb: function () {
     wx.switchTab({

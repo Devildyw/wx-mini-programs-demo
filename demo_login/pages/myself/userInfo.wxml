@@ -4,10 +4,10 @@
 
 
     <view class='avatar'>
-      <image src="{{userInfo.avatar}}" mode="widthFix" />
+      <image src="{{userInfo.avatar}}" mode="aspectFill" />
     </view>
     <view class="editIcon" bind:tap="onAvatarShow">
-      <image src="../../assets/icon/修改.png" mode="widthFix" />
+      <image src="https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E4%BF%AE%E6%94%B9.png" mode="heightFix" />
     </view>
   </view>
   <!-- <view class="wrapper">
@@ -50,7 +50,7 @@
 
 </scroll-view>
 
-<van-dialog use-slot show="{{ onAvatarShow }}" show-cancel-button="true" show-confirm-button="false" bind:close="onAvatarClose" transition="fade" style="width: 100%;">
+<van-dialog use-slot show="{{ onAvatarShow }}" show-cancel-button="true" show-confirm-button="false" bind:close="onAvatarClose" bind:confirm="uploadAvatar" transition="fade" style="width: 100%;">
   <view class="detail-info-header">上传头像</view>
   <view class="detail-info-container">
     <t-upload mediaType="{{['image']}}" gridConfig="{{gridConfig}}" max="{{1}}"  files="{{fileList}}" bind:add="handleAdd" bind:remove="handleRemove" style="width: 100%; margin-top: 40rpx; --td-upload-add-bg-color:rgb(228, 230, 231);" >

@@ -25,6 +25,7 @@ Page({
     visitTotal: 0,
     is_bind: false,
     userInfo:{},
+    
     active: 0,
     shopGiftList:[1,2,3,4,5,6,7,8,9],
     imageSrc: 'https://tdesign.gtimg.com/mobile/demos/image1.jpeg',

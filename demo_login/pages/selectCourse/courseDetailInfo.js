@@ -90,7 +90,7 @@ Page({
       ],
     },
     likeImage: unLikedImage,
-    onExchangeMaterialShow:false,
+    onExchangeMaterialShow: false,
     image: 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/QQ%E5%9B%BE%E7%89%8720230608220001.png',
     evaluateSorter: {
       value: 'default',
@@ -143,16 +143,16 @@ Page({
     onMaterialInfoShow: false,
     pageNum: 1,
     pageSize: 10,
-    materialid:'',
+    materialid: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // this.setData({
-    //   tcourseId: options.tcourseId
-    // });
+    this.setData({
+      tcourseId: options.tcourseId
+    });
     this.getCourseDetailInfo();
     let that = this;
     wx.showLoading({
@@ -242,7 +242,7 @@ Page({
   onExchangeMaterialShow(event) {
     this.setData({
       onExchangeMaterialShow: true,
-      materialid:event.currentTarget.dataset.materialid
+      materialid: event.currentTarget.dataset.materialid
     });
   },
   onExchangeMaterialClose() {
@@ -354,7 +354,7 @@ Page({
       })
     }
 
-   
+
 
     //下边是获取用户数据的云函数，同样根据学校自行定义,仅提供思路
     //如果用户没有绑定就按0算
@@ -387,39 +387,39 @@ Page({
   onReady: function () {
 
   },
- /**
-     * 兑换资料
-     */
-    exchangeMaterial(){
-      post("/system/material/exchange/material",{
-        id:this.data.materialid
-      },{
-        Authorization: wx.getStorageSync('Authorization')
-      }).then(res => {
-        if (res.code===200) {
-          wx.showModal({
-            title: '兑换成功',
-            content: '',
-            complete: (res) => {
-              if (res.cancel) {
-                
-              }
-          
-              if (res.confirm) {
-                
-              }
+  /**
+   * 兑换资料
+   */
+  exchangeMaterial() {
+    post("/system/material/exchange/material", {
+      id: this.data.materialid
+    }, {
+      Authorization: wx.getStorageSync('Authorization')
+    }).then(res => {
+      if (res.code === 200) {
+        wx.showModal({
+          title: '兑换成功',
+          content: '',
+          complete: (res) => {
+            if (res.cancel) {
+
             }
-          })
-          this.refreshCourseMaterial()
-          this.setData({
-            onExchangeMaterialShow:false
-          })
-        }
-      })
-    },
-    confirm(){
-      
-    },
+
+            if (res.confirm) {
+
+            }
+          }
+        })
+        this.refreshCourseMaterial()
+        this.setData({
+          onExchangeMaterialShow: false
+        })
+      }
+    })
+  },
+  confirm() {
+
+  },
   /**
    * 生命周期函数--监听页面显示
    */
@@ -456,11 +456,11 @@ Page({
 
   },
 
-  refreshCourseMaterial(){
+  refreshCourseMaterial() {
     this.setData({
-      pageNum:1,
-      pageSize:10,
-      materialList:[]
+      pageNum: 1,
+      pageSize: 10,
+      materialList: []
     })
     this.getCourseMaterialList()
   },
