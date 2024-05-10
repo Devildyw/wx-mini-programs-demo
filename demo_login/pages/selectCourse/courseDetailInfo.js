@@ -15,13 +15,8 @@ const {
   get,
   post
 } = require('../../utils/request')
-const imageCdn = 'https://tdesign.gtimg.com/mobile/demos';
 const swiperList = [
-  `${imageCdn}/swiper1.png`,
-  `${imageCdn}/swiper2.png`,
-  `${imageCdn}/swiper1.png`,
-  `${imageCdn}/swiper2.png`,
-  `${imageCdn}/swiper1.png`,
+  
 ];
 const likedImage = '../../assets/icon/点赞图标.png';
 const unLikedImage = '../../assets/icon/未点赞图标.png';
@@ -150,9 +145,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      tcourseId: options.tcourseId
-    });
+    // this.setData({
+    //   tcourseId: options.tcourseId
+    // });
     this.getCourseDetailInfo();
     let that = this;
     wx.showLoading({
@@ -186,7 +181,8 @@ Page({
       Authorization: wx.getStorageSync('Authorization')
     }).then(res => {
       this.setData({
-        courseDetailInfo: res.data
+        courseDetailInfo: res.data,
+        swiperList:[res.data.coverUrl]
       })
     })
   },
@@ -525,7 +521,9 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    if (active==1) {
+      //资料下拉 刷新
+    }
   },
 
   /**

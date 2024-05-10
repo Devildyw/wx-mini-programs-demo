@@ -2,7 +2,7 @@
 <view scroll-y class="scrollPage">
 
   <view class="top">
-    <t-swiper current="{{current}}" autoplay="{{autoplay}}" duration="{{duration}}" interval="{{interval}}" navigation="{{navigation}}" list="{{swiperList}}" loop="{{true}}">
+    <t-swiper current="{{current}}" autoplay="{{autoplay}}" height="450rpx" duration="{{duration}}" interval="{{interval}}" navigation="{{ { type: 'dots' } }}" list="{{swiperList}}" loop="{{true}}" style="--td-swiper-radius:0rpx">
     </t-swiper>
   </view>
 
