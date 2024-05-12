@@ -16,7 +16,7 @@ const {
   post
 } = require('../../utils/request')
 const swiperList = [
-  
+
 ];
 const likedImage = '../../assets/icon/点赞图标.png';
 const unLikedImage = '../../assets/icon/未点赞图标.png';
@@ -36,7 +36,7 @@ Page({
     userInfo: {},
     courseDetailInfo: {},
     active: 0,
-    current: 1,
+    // current: 1,
     autoplay: true,
     duration: 500,
     interval: 5000,
@@ -135,12 +135,87 @@ Page({
       questionId: 4
     }, 5, 6, 7, 8, 9, 10],
     onStudentInfoShow: false,
-    onMaterialInfoShow: false,
+    onMaterialUploadShow: false,
     pageNum: 1,
     pageSize: 10,
+    total: 0,
     materialid: '',
+    materialType: '',
+    materialTypeValue: [],
+    materialTypeTitle: '',
+    types: [{
+        label: '北京市',
+        value: '北京市'
+      },
+      {
+        label: '上海市',
+        value: '上海市'
+      },
+      {
+        label: '广州市',
+        value: '广州市'
+      },
+      {
+        label: '深圳市',
+        value: '深圳市'
+      },
+      {
+        label: '成都市',
+        value: '成都市'
+      },
+    ],
   },
 
+
+  /****************************** */
+  onColumnChange(e) {
+    console.log('picker pick:', e);
+  },
+
+  onPickerChange(e) {
+    const {
+      key
+    } = e.currentTarget.dataset;
+    const {
+      value
+    } = e.detail;
+
+    console.log('picker change:', e.detail);
+    this.setData({
+      [`${key}Visible`]: false,
+      [`${key}Value`]: value,
+      [`${key}Text`]: value.join(' '),
+    });
+  },
+
+  onPickerCancel(e) {
+    const {
+      key
+    } = e.currentTarget.dataset;
+    console.log(e, '取消');
+    console.log('picker1 cancel:');
+    this.setData({
+      [`${key}Visible`]: false,
+    });
+  },
+
+  onTitlePicker() {
+    this.setData({
+      cityVisible: true,
+      cityTitle: '选择城市'
+    });
+  },
+
+  onWithoutTitlePicker() {
+    this.setData({
+      materialTypeVisible: true,
+      materialTypeTitle: ''
+    });
+    //加载types
+  },
+
+
+  /***************************** */
   /**
    * 生命周期函数--监听页面加载
    */
@@ -168,9 +243,15 @@ Page({
       url: '/pages/login/login?type=' + type,
     })
   },
+  showMaterialDetail(event) {
+    wx.navigateTo({
+      url: '/pages/material/materialDetailInfo?materialid=' + event.currentTarget.dataset.materialid,
+    })
+  },
   onActionClick({
     detail
   }) {
+
     wx.showToast({
       title: `你点击了${detail.text}`,
       icon: 'none'
@@ -182,7 +263,7 @@ Page({
     }).then(res => {
       this.setData({
         courseDetailInfo: res.data,
-        swiperList:[res.data.coverUrl]
+        swiperList: [res.data.coverUrl]
       })
     })
   },
@@ -198,7 +279,6 @@ Page({
       icon: 'none'
     });
   },
-
   unLogin() {
     wx.showLoading({
       title: '解绑中...',
@@ -247,14 +327,14 @@ Page({
     })
   },
 
-  onMaterialInfoClose() {
+  onMaterialUploadClose() {
     this.setData({
-      onMaterialInfoShow: false
+      onMaterialUploadShow: false
     });
   },
-  onMaterialInfoShow() {
+  onMaterialUploadShow() {
     this.setData({
-      onMaterialInfoShow: true
+      onMaterialUploadShow: true
     })
   },
 
@@ -276,6 +356,9 @@ Page({
     } else if (index === 4) {
       this.getCourseStudentList();
     }
+    this.setData({
+      active: index
+    })
   },
 
   handlerBackTop(e) {
@@ -300,8 +383,9 @@ Page({
       Authorization: wx.getStorageSync('Authorization')
     }).then(res => {
       this.setData({
-        materialList: [...this.data.materialList, ...res.rows]
-
+        materialList: [...this.data.materialList, ...res.rows],
+        total: res.total,
+        pageNum: this.data.pageNum + 1
       })
     })
   },
@@ -324,10 +408,6 @@ Page({
    * 获取课程学生课表分页
    */
   getCourseStudentList() {
-
-  },
-
-  onPickerChange() {
 
   },
 
@@ -521,9 +601,21 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    if (active==1) {
-      //资料下拉 刷新
+    if (this.data.active === 0) {
+      return
     }
+
+    if (this.data.pageSize * this.data.pageNum >= this.data.total) {
+      wx.showToast({
+        title: '已经到底了',
+      })
+    } else {
+      if (this.data.active === 1) {
+        //资料上拉触底
+        this.getCourseMaterialList()
+      }
+    }
+
   },
 
   /**

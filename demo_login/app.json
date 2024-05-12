@@ -23,7 +23,8 @@
     "enablePullDownRefresh": true,
     "backgroundTextStyle": "dark",
     "backgroundColor": "#efefef",
-    "backgroundColorBottom":"#efefef"
+    "backgroundColorBottom":"#efefef",
+    "onReachBottomDistance": 0
   },
   
   "tabBar": {

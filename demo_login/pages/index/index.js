@@ -201,6 +201,22 @@ Page({
     })
   },
 
+  showNotice(){
+    wx.showModal({
+      title: '公告通知',
+      content: this.data.notice,
+      complete: (res) => {
+        if (res.cancel) {
+          
+        }
+    
+        if (res.confirm) {
+          
+        }
+      }
+    })
+  },
+
   showCourseDetail(event){
     let tcourseId = event.currentTarget.dataset.teachercourseid;
     wx.navigateTo({

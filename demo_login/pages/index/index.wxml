@@ -27,7 +27,7 @@
 
 
 
-  <van-notice-bar mode="closeable" text="{{notice}}" class="notice-bar" />
+  <van-notice-bar mode="closeable" text="{{notice}}" class="notice-bar" bind:tap="showNotice" />
 
   <view class='card animation-fade'>
 
