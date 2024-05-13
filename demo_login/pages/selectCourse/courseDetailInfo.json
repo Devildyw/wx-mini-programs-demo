@@ -3,6 +3,9 @@
   "component": true,
   "usingComponents": {
       "cu-custom":"/colorui/components/cu-custom",
-      "t-swiper": "../../miniprogram_npm/tdesign-miniprogram/swiper/swiper"
+      "t-swiper": "../../miniprogram_npm/tdesign-miniprogram/swiper/swiper",
+      "t-upload": "tdesign-miniprogram/upload/upload",
+      "t-textarea": "tdesign-miniprogram/textarea/textarea",
+      "t-rate": "../../miniprogram_npm/tdesign-miniprogram/rate/rate"
   }
 }

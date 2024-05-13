@@ -36,11 +36,24 @@ const request = (url, options, header = {}) => {
                     url: '/pages/login/login',
                   }) 
                 } else{
-                  wx.showToast({
-                    title: request.data.msg,
-                    icon:'error',
-                    duration:2000
+                  wx.showModal({
+                    title: '错误提示',
+                    content: request.data.msg,
+                    complete: (res) => {
+                      if (res.cancel) {
+                        
+                      }
+                  
+                      if (res.confirm) {
+                        
+                      }
+                    }
                   })
+                  // wx.showToast({
+                  //   title: request.data.msg,
+                  //   icon:'error',
+                  //   duration:2000
+                  // })
                   reject(request.data)
                 }
             },

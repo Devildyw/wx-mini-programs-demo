@@ -18,6 +18,9 @@
             <view style="height: 80rpx;">
               <text>课程描述：{{courseDetailInfo.description===null?'':courseDetailInfo.description}}</text>
             </view>
+            <view>
+              <text>联系邮箱：{{courseDetailInfo.email===null?'暂无信息':courseDetailInfo.email}}</text>
+            </view>
           </view>
 
 
@@ -71,7 +74,7 @@
             <view class="material-info">
               <text class="material-title">{{item.filename}}</text>
               <text class="material-type">{{item.type}}</text>
-              <text class="material-mark">{{item.mark===null?'暂无评分':item.mark}}</text>
+              <text class="material-mark">{{item.mark===null?'暂无':item.mark}}</text>
             </view>
             <view class="exchange_button">
               <!-- 更改状态 -->
@@ -85,20 +88,20 @@
           </view>
         </scroll-view>
       </view>
-      <van-dialog use-slot show="{{ onMaterialUploadShow }}" show-cancel-button="true" show-confirm-button="false" bind:close="onMaterialUploadClose" transition="fade">
+      <van-dialog use-slot show="{{ onMaterialUploadShow }}" show-cancel-button="true" show-confirm-button="false" bind:close="onMaterialUploadClose" bind:confirm="onMaterialUpload" transition="fade">
         <view class="detail-info-header">上传资料</view>
-        <view class="student-detail-info-container" style="height:500rpx;">
-          <view>上传资料文件</view>
-          <view>上传资料封面图片</view>
-          <t-input label="资料名称" placeholder="请输入文字"></t-input>
+        <view class="student-detail-info-container" style="height:850rpx;">
+          <t-input label="上传资料" value="{{ tempMaterialFileName }}" disabled="true">
+            <t-button slot="suffix" theme="primary" size="extra-small" bind:tap="onSelectMaterialFile"> 上传文件 </t-button>
+          </t-input>
+          <t-cell title="选择资料封面" note="选填" />
+          <t-upload mediaType="{{['image']}}" gridConfig="{{gridConfig}}" max="{{1}}" files="{{fileList}}" bind:add="handleAdd" bind:remove="handleRemove" style="width: 100%; margin-top: 10rpx; --td-upload-add-bg-color:rgb(228, 230, 231);">
+          </t-upload>
+          <t-input label="资料名称" placeholder="请输入文字" bind:change="inputMaterialName" value="{{material_name}}"></t-input>
           <t-cell title="类型" arrow hover note="{{materialTypeText}}" bind:click="onWithoutTitlePicker" />
-          <t-input label="所需积分" placeholder="请输入积分额度1~99"></t-input>
-          <!-- <view style="display: flex; flex-direction: row; justify-content: center; margin-top: 20rpx;">
-            <text>手机号 :<text style="color: rgb(22, 134, 199);">17318968638</text></text>
-          </view>
-          <view style="display: flex; flex-direction: row; justify-content: center;">
-            <text>邮件 :<text style="color: rgb(22, 134, 199);">1842501760@qq.com</text></text>
-          </view> -->
+          <t-input label="所需积分" type="number" placeholder="请输入所需积分0~99" bind:change="inputMaterialPoints" value="{{material_points}}"></t-input>
+          <t-textarea t-class="external-class" t-class-label="{{skylineRender?'skyline-label':''}}" maxcharacter="50" disableDefaultPadding="{{true}}" label="描述" placeholder="选填" value="{{material_desc}}" bind:change="inputMaterialDesc" disableDefaultPadding="{{true}}" />
+
           <t-picker visible="{{materialTypeVisible}}" value="{{materialTypeValue}}" data-key="materialType" title="{{materialTypeTitle}}" cancelBtn="取消" confirmBtn="确认" usingCustomNavbar bindchange="onPickerChange" bindpick="onColumnChange" bindcancel="onPickerCancel">
             <t-picker-item options="{{types}}"></t-picker-item>
           </t-picker>
@@ -117,49 +120,88 @@
     </van-tab>
     <van-tab title="课程评价" disabled="{{courseDetailInfo.hasTag!=1}}">
       <view class="evaluate-keyword-container">
-        <text class="info-mark-count">评分人数：3人</text>
+        <text class="info-mark-count">评分人数：{{courseDetailInfo.evaluateNum===0?'暂无':courseDetailInfo.evaluateNum+"人"}}</text>
         <view class="info-mark-container">
           <text>评分：</text>
-          <van-rate readonly allow-half color="red" void-color="red" value="{{ value }}" />
-          <text>3.5</text>
+          <van-rate readonly allow-half color="red" void-color="red" value="{{ courseDetailInfo.evaluateScore }}" />
+          <text style="margin-left: 10rpx;">{{courseDetailInfo.evaluateNum===0?'暂无评分':courseDetailInfo.evaluateScore+"分"}}</text>
         </view>
-        <view class="info-keywords">
-          <text class="info-keyword">关键词1</text>
-          <text class="info-keyword">关键词2</text>
-          <text class="info-keyword">关键词3</text>
-          <text class="info-keyword">关键词4</text>
-          <text class="info-keyword">关键词5</text>
+        <view class="info-keywords" hidden="{{courseDetailInfo.keywordList===null}}">
+          <view wx:for="{{courseDetailInfo.keywordList}}" wx:key="index">
+            <text class="info-keyword">{{item}}</text>
+          </view>
         </view>
       </view>
       <t-divider dashed />
       <view style="margin-bottom: 120rpx;">
-        <view wx:for="{{materialList}}" wx:key="index" class="shop-list" class="shop-item">
+        <view wx:for="{{evaluateList}}" wx:key="index" class="shop-list" class="shop-item" style="display: block;">
           <t-swipe-cell>
             <view class="evaluate-info-container">
               <view class="evaluate">
-                <view class="evaluate-info">
-                  <text class="evaluate-title">考勤：几乎不</text>
-                  <text class="evaluate-type">成绩：80以上</text>
-                  <text class="evaluate-mark">考核：不考试</text>
+                <view class="evaluate-info font-f">
+                  <text class="evaluate-title">考勤：<text style="font-weight: bold;">{{item.attendanceFrequency!=null&&item.attendanceFrequency!=''?item.attendanceFrequency:'未知'}}</text> </text>
+                  <text class="evaluate-type">成绩：<text style="font-weight: bold;">{{item.finalScore!=null?item.finalScore:'未知'}}</text></text>
+                  <text class="evaluate-mark">考核：<text style="font-weight: bold;">{{item.examType!=null&&item.examType!=''?item.examType:'未知'}}</text></text>
+                  <text class="evaluate-points">评分：<text style="font-weight: bold;">{{item.points}}</text></text>
                 </view>
                 <view class="evaluate-content">
-                  <text>评价：这是一条长长长长长长长长长长长长长长长长长长长长长长长长评价</text>
+                  <text>评价：{{item.content}}</text>
                 </view>
               </view>
-              <view class="like_bottom">
-                <image src="{{likeImage}}"></image>
-                <text>56</text>
+              <view class="QA-info" style="margin-left: 20rpx; width: 94%; margin-top: 10rpx;">
+                <view class="QA-info-left">
+                  <view class="QA-info-left-item">
+                    <image src="{{item.liked?likedImage:unLikedImage}}" data-item="{{item}}" data-index="{{index}}" bind:tap="likeForEvaluate"></image>
+                    <view>{{item.likedTimes}}</view>
+                  </view>
+                  <!-- <view class="QA-info-left-item">
+                  <image src="../../assets/icon/赞.png"></image>
+                  <view>12</view>
+                </view> -->
+                </view>
+
+                <view class="QA-info-right">
+                  <view class="QA-info-right-item">
+                    <text class="QA-info-right-Date">{{item.createTime}}</text>
+                  </view>
+                </view>
               </view>
             </view>
-            <view slot="right" class="btn-wrapper" style="height: 100%;">
-              <view class="btn delete-btn" bind:tap="onDelete">删除</view>
+
+            <view slot="right" hidden="{{!(userInfo.userId===item.userId)}}" class="btn-wrapper" style="height: 100%;">
+              <view class="btn delete-btn" data-evaluateid="{{item.id}}" bind:tap="deleteForEvaluate">删除</view>
             </view>
           </t-swipe-cell>
 
         </view>
       </view>
+      <van-dialog use-slot show="{{ onEvaluateAddShow }}" show-cancel-button="true" show-confirm-button="false" bind:close="onEvaluateAddClose" bind:confirm="addCourseEvaluate" transition="fade">
+        <view class="detail-info-header">发布评价</view>
+        <view class="student-detail-info-container" style="height:850rpx;">
+          <t-cell title="考勤频率" arrow hover note="{{frequencyText}}" bind:click="onFrequencyPicker" />
+          <t-cell title="成绩" arrow hover note="{{gradeText}}" bind:click="onGradePicker" />
+          <t-cell title="考核方式" arrow hover note="{{wayText}}" bind:click="onWayPicker" />
+          <view class="demo-rate">
+            <view class="demo-rate__title">评分</view>
+
+            <t-rate value="{{rate}}" bind:change="onRateChange" />
+          </view>
+          <t-textarea t-class="external-class" t-class-label="{{skylineRender?'skyline-label':''}}" maxcharacter="250" disableDefaultPadding="{{true}}" label="评价内容" placeholder="请输入评价，至少输入15个字" value="{{evaluateContent}}" bind:change="inputEvaluateContent" disableDefaultPadding="{{true}}" />
+
+
+          <t-picker visible="{{frequencyVisible}}" value="{{frequencyValue}}" data-key="frequency" cancelBtn="取消" confirmBtn="确认" usingCustomNavbar bindchange="onPickerChange" bindpick="onColumnChange" bindcancel="onPickerCancel">
+            <t-picker-item options="{{frequencyTypes}}"></t-picker-item>
+          </t-picker>
+          <t-picker visible="{{gradeVisible}}" value="{{gradeValue}}" data-key="grade" cancelBtn="取消" confirmBtn="确认" usingCustomNavbar bindchange="onPickerChange" bindpick="onColumnChange" bindcancel="onPickerCancel">
+            <t-picker-item options="{{gradeTypes}}"></t-picker-item>
+          </t-picker>
+          <t-picker visible="{{wayVisible}}" value="{{wayValue}}" data-key="way" cancelBtn="取消" confirmBtn="确认" usingCustomNavbar bindchange="onPickerChange" bindpick="onColumnChange" bindcancel="onPickerCancel">
+            <t-picker-item options="{{wayTypes}}"></t-picker-item>
+          </t-picker>
+        </view>
+      </van-dialog>
       <t-fab icon="align-top" bind:click="handlerBackTop" aria-label="返回顶部" style="right: 16rpx; bottom: 64rpx;"></t-fab>
-      <t-fab icon="add" bind:click="handleClick" text="新增评价" aria-label="增加" style="left: 240rpx; bottom: 16rpx;"></t-fab>
+      <t-fab icon="add" bind:click="onEvaluateAddShow" text="新增评价" aria-label="增加" style="left: 240rpx; bottom: 16rpx;"></t-fab>
     </van-tab>
     <van-tab title="问答" disabled="{{courseDetailInfo.hasTag!=1}}">
       <view class="outermost-container">
@@ -169,7 +211,6 @@
               <view class="QA-basic-info" data-questionId="{{item.questionId}}" bind:tap="showQADetail">
                 <text class="QA-title">这是一个长长标题长长标题不超过15字</text>
                 <text class="QA-content">这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个......</text>
-
               </view>
               <view class="recent-reply">
                 <view class="QA-info-right-item" style="margin-left: 16rpx;">

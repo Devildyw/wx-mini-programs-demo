@@ -1,4 +1,6 @@
-
+.font-f{
+  font-family: "microsoft yahei";
+}
 .UCenter-bg {
   /* background-image: linear-gradient(to top, #305ca8 100%, #1e3c72 1%, #1e3c72 0%); */
   background-size: cover;
@@ -16,7 +18,9 @@
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 
 }
-
+.external-class{
+  height: 200rpx;
+}
 .mb-16 {
   margin-bottom: 32rpx;
 }
@@ -287,10 +291,9 @@ map,
 
 .evaluate-info-container {
   display: flex;
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 200rpx;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  height: 268rpx;
 }
 
 .evaluate-info {
@@ -319,6 +322,10 @@ map,
   margin-left: 20rpx;
   width: 200rpx;
 }
+.evaluate-points{
+  width: 120rpx;
+}
+
 
 .exchange_button {
   display: flex;
@@ -330,11 +337,15 @@ map,
 
 .evaluate-content{
   margin-left: 20rpx;
-  width: 100%;
+  height: 130rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* 指定显示文本的行数 */
+  overflow: hidden; /* 超出隐藏 */
 }
 
 .evaluate{
-  width: 85%;
+  width: 98%;
   display: flex;
   flex-direction: column;
 }
@@ -365,6 +376,31 @@ map,
   background-color: #fffbf8;
   flex-direction: column;
   box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
+
+.demo-rate {
+  background-color: var(--bg-color-demo);
+  color: var(--td-text-color-primary);
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32rpx;
+  border-bottom: solid 1rpx var(--bg-color-demo-border);
+  border-top: solid 1rpx var(--bg-color-demo-border);
+  margin-top: 32rpx;
+  margin-bottom: 32rpx;
+}
+
+.demo-rate__title {
+  width: 200rpx;
+  font-size: larger;
+}
+
+.demo-rate__transparent {
+  background-color: transparent;
+  padding-left: 32rpx;
+  border: 0;
 }
 /* 课程评价-end */
 
@@ -545,3 +581,5 @@ map,
   font-weight: bold;
 }
 /* student-list end */
+
+

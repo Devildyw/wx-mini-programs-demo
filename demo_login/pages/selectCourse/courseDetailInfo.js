@@ -18,8 +18,8 @@ const {
 const swiperList = [
 
 ];
-const likedImage = '../../assets/icon/点赞图标.png';
-const unLikedImage = '../../assets/icon/未点赞图标.png';
+const unLikedImage = 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E6%9C%AA%E7%82%B9%E8%B5%9E%E5%9B%BE%E6%A0%87.png';
+const likedImage = 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E7%82%B9%E8%B5%9E%E5%9B%BE%E6%A0%87.png';
 Page({
 
   /**
@@ -84,7 +84,8 @@ Page({
         },
       ],
     },
-    likeImage: unLikedImage,
+    likedImage: likedImage,
+    unLikedImage: unLikedImage,
     onExchangeMaterialShow: false,
     image: 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/QQ%E5%9B%BE%E7%89%8720230608220001.png',
     evaluateSorter: {
@@ -140,36 +141,300 @@ Page({
     pageSize: 10,
     total: 0,
     materialid: '',
-    materialType: '',
-    materialTypeValue: [],
-    materialTypeTitle: '',
-    types: [{
-        label: '北京市',
-        value: '北京市'
-      },
-      {
-        label: '上海市',
-        value: '上海市'
-      },
-      {
-        label: '广州市',
-        value: '广州市'
-      },
-      {
-        label: '深圳市',
-        value: '深圳市'
-      },
-      {
-        label: '成都市',
-        value: '成都市'
-      },
-    ],
+    materialTypeValue: '',
+    MaterialTypeText: '',
+    types: [],
+    fileList: [],
+    gridConfig: {
+      column: 1,
+      width: 200,
+      height: 200,
+    },
+    tempMaterialPath: '',
+    materialUrl: '',
+    materialImageUrl: '',
+    material_desc: '',
+    material_name: '',
+    material_points: '',
+    tempMaterialFileName: '',
+    evaluateList: [],
+    onEvaluateAddShow: false,
+    rate: 0,
+    frequencyValue: '',
+    frequencyText: '',
+    frequencyTypes: [{
+      label: "基本不",
+      value: "基本不"
+    }, {
+      label: "偶尔",
+      value: "偶尔"
+    }, {
+      label: "经常",
+      value: "经常"
+    }, {
+      label: "每次",
+      value: "每次"
+    }],
+    gradeValue: '',
+    gradeText: '',
+    gradeTypes: [{
+      label: "不及格",
+      value: "不及格"
+    }, {
+      label: "60-70",
+      value: "60-70"
+    }, {
+      label: "70-80",
+      value: "70-80"
+    }, {
+      label: "80-90",
+      value: "80-90"
+    }, {
+      label: "90以上",
+      value: "90以上"
+    }],
+    wayValue: '',
+    wayText: '',
+    wayTypes: [{
+      label: "闭卷",
+      value: "闭卷"
+    }, {
+      label: "开卷",
+      value: "开卷"
+    }, {
+      label: "论文",
+      value: "论文"
+    }, {
+      label: "实验报告",
+      value: "实验报告"
+    }],
+    evaluateContent: ''
+  },
+  inputEvaluateContent(e) {
+    this.setData({
+      evaluateContent: e.detail.value
+    })
+  },
+  addCourseEvaluate() {
+    console.log(this.data);
+    post("/system/evaluate/add/evaluate", {
+      courseId: this.data.courseDetailInfo.courseId + "-" + this.data.courseDetailInfo.teacherId,
+      examType: this.data.wayValue,
+      finalScore: this.data.gradeValue,
+      content: this.data.evaluateContent,
+      attendanceFrequency: this.data.frequencyValue,
+      points: this.data.rate
+    }, {
+      Authorization: wx.getStorageSync('Authorization')
+    }).then(res => {
+      if (res.code === 200) {
+        wx.showModal({
+          title: '提示',
+          content: '评价成功+100积分',
+          complete: (res) => {
+            if (res.cancel) {
+
+            }
+
+            if (res.confirm) {
+
+            }
+          }
+        })
+      }
+      this.setData({
+        frequencyValue: '',
+        frequencyText: '',
+        gradeValue: '',
+        gradeText: '',
+        wayValue: '',
+        wayText: '',
+        evaluateContent: "",
+        rate: 0
+      })
+      this.getCourseDetailInfo();
+      this.refreshCourseEvaluateList();
+    })
   },
 
+  onRateChange(e) {
+    this.setData({
+      rate: e.detail.value
+    });
+    console.log(this.data.rate);
+  },
+
+  likeForEvaluate(e) {
+
+    const evaluateItem = e.currentTarget.dataset.item;
+    const index = e.currentTarget.dataset.index;
+    post("/likes", {
+      bizId: evaluateItem.id,
+      bizType: 'course_evaluate',
+      liked: !evaluateItem.liked
+    }, {
+      Authorization: wx.getStorageSync('Authorization')
+    }).then(res => {})
+
+    this.setData({
+      ['evaluateList[' + index + '].liked']: !evaluateItem.liked,
+      ['evaluateList[' + index + '].likedTimes']: evaluateItem.liked ? --this.data.evaluateList[index].likedTimes : ++this.data.evaluateList[index].likedTimes,
+    })
+    console.log("index,", this.data.evaluateList[index]);
+  },
+
+  checkNumber() {
+    if (!Number.isInteger(this.data.material_points)) {
+      wx.showToast({
+        title: '请输入数字',
+      })
+    }
+  },
+  /*------------------------*/
+  handleAdd(e) {
+    console.log(e);
+    const {
+      fileList
+    } = this.data;
+    const {
+      files
+    } = e.detail;
+
+    // 方法1：选择完所有图片之后，统一上传，因此选择完就直接展示
+    this.setData({
+      fileList: [...fileList, ...files], // 此时设置了 fileList 之后才会展示选择的图片
+    });
+
+    console.log(this.data.fileList);
+
+    // 方法2：每次选择图片都上传，展示每次上传图片的进度
+    // files.forEach(file => this.uploadFile(file))
+    wx.uploadFile({
+      url: 'http://localhost:8080/common/upload',
+      filePath: e.detail.files[0].url,
+      name: 'file',
+      header: {
+        Authorization: wx.getStorageSync('Authorization')
+      },
+      success: res => {
+        const data = JSON.parse(res.data)
+        this.setData({
+          materialImageUrl: data.data.url
+        })
+      }
+    })
+
+  },
+
+  handleRemove(e) {
+    const {
+      index
+    } = e.detail;
+    const {
+      fileList
+    } = this.data;
+
+    fileList.splice(index, 1);
+    this.setData({
+      fileList,
+    });
+  },
 
   /****************************** */
   onColumnChange(e) {
     console.log('picker pick:', e);
+  },
+
+  /** 选择文件 */
+  onUploadMaterialFile() {
+    wx.uploadFile({
+      url: 'http://localhost:8080/common/upload',
+      filePath: this.data.tempMaterialPath,
+      name: 'file',
+      header: {
+        Authorization: wx.getStorageSync('Authorization')
+      },
+      success: res => {
+        const data = JSON.parse(res.data)
+        console.log("上传文件结果", data);
+        this.setData({
+          materialUrl: data.data.url
+        })
+      }
+    })
+  },
+
+  inputMaterialDesc(e) {
+    this.setData({
+      material_desc: e.detail.value
+    })
+  },
+
+  inputMaterialName(e) {
+    this.setData({
+      material_name: e.detail.value
+    })
+  },
+
+  inputMaterialPoints(e) {
+    this.setData({
+      material_points: e.detail.value
+    })
+  },
+
+  /** 上传资料 */
+  onMaterialUpload() {
+    console.log(this.data);
+    post("/system/material/upload", {
+      fileUrl: this.data.materialUrl,
+      coverImageUrl: this.data.materialImageUrl,
+      filename: this.data.material_name,
+      type: this.data.materialTypeValue,
+      description: this.data.material_desc,
+      teacherCourseId: this.data.tcourseId,
+      needPoints: this.data.material_points,
+    }, {
+      Authorization: wx.getStorageSync('Authorization')
+    }).then(res => {
+      this.clearMaterialUploadInfo()
+      this.refreshCourseMaterial()
+    })
+
+  },
+
+  /**清空上传资料的残余信息 */
+  clearMaterialUploadInfo() {
+    this.setData({
+      tempMaterialPath: '',
+      materialUrl: '',
+      materialImageUrl: '',
+      material_desc: '',
+      material_name: '',
+      material_points: '',
+      tempMaterialFileName: '',
+      fileList: [],
+      materialTypeValue: '',
+      materialTypeText: ''
+    })
+  },
+  /** 上传文件 */
+  onSelectMaterialFile() {
+    wx.chooseMessageFile({
+      count: 1,
+      type: 'file',
+      success: res => {
+        console.log(res);
+        const tempMaterialFile = res.tempFiles[0];
+        this.setData({
+          tempMaterialPath: tempMaterialFile.path,
+          tempMaterialFileName: tempMaterialFile.name
+        })
+        this.onUploadMaterialFile();
+        console.log("url:", this.data.materialUrl);
+      }
+    })
+
+
   },
 
   onPickerChange(e) {
@@ -181,10 +446,11 @@ Page({
     } = e.detail;
 
     console.log('picker change:', e.detail);
+
     this.setData({
       [`${key}Visible`]: false,
-      [`${key}Value`]: value,
-      [`${key}Text`]: value.join(' '),
+      [`${key}Value`]: value[0],
+      [`${key}Text`]: e.detail.label[0],
     });
   },
 
@@ -199,21 +465,30 @@ Page({
     });
   },
 
-  onTitlePicker() {
-    this.setData({
-      cityVisible: true,
-      cityTitle: '选择城市'
-    });
-  },
-
   onWithoutTitlePicker() {
     this.setData({
       materialTypeVisible: true,
-      materialTypeTitle: ''
     });
-    //加载types
   },
 
+
+  onFrequencyPicker() {
+    this.setData({
+      frequencyVisible: true
+    });
+  },
+
+  onGradePicker() {
+    this.setData({
+      gradeVisible: true
+    });
+  },
+
+  onWayPicker() {
+    this.setData({
+      wayVisible: true
+    });
+  },
 
   /***************************** */
   /**
@@ -267,11 +542,33 @@ Page({
       })
     })
   },
-  onDelete() {
-    wx.showToast({
-      title: '你点击了删除',
-      icon: 'none'
-    });
+  deleteForEvaluate(e) {
+    const evaluateid = e.currentTarget.dataset.evaluateid;
+    post("/system/evaluate/delete/evaluate", {
+      id: evaluateid
+    }, {
+      Authorization: wx.getStorageSync('Authorization')
+    }).then(res => {
+      if (res.code === 200) {
+        wx.showModal({
+          title: '提示',
+          content: '删除成功，相应积分已被扣去',
+          complete: (res) => {
+            if (res.cancel) {
+
+            }
+
+            if (res.confirm) {
+
+            }
+          }
+        })
+
+
+        this.refreshCourseEvaluateList();
+        this.getCourseDetailInfo();
+      }
+    })
   },
   onEdit() {
     wx.showToast({
@@ -315,6 +612,16 @@ Page({
       onStudentInfoShow: true
     })
   },
+  onEvaluateAddClose() {
+    this.setData({
+      onEvaluateAddShow: false
+    });
+  },
+  onEvaluateAddShow() {
+    this.setData({
+      onEvaluateAddShow: true
+    })
+  },
   onExchangeMaterialShow(event) {
     this.setData({
       onExchangeMaterialShow: true,
@@ -347,10 +654,11 @@ Page({
     if (index === 0) {
       this.getCourseDetailInfo();
     } else if (index === 1) {
-      console.log("index===1");
-      this.refreshCourseMaterial()
+      this.refreshCourseMaterial();
+      this.initMaterialTypes();
     } else if (index === 2) {
-      this.getCourseEvaluateList();
+      this.getCourseDetailInfo();
+      this.refreshCourseEvaluateList();
     } else if (index === 3) {
       this.getCourseQAList();
     } else if (index === 4) {
@@ -358,6 +666,17 @@ Page({
     }
     this.setData({
       active: index
+    })
+  },
+
+  //初始化types
+  initMaterialTypes() {
+    get("/system/material/types", {}, {
+      Authorization: wx.getStorageSync('Authorization')
+    }).then(res => {
+      this.setData({
+        types: res.data
+      })
     })
   },
 
@@ -394,7 +713,29 @@ Page({
    * 获取课程评价列表分页
    */
   getCourseEvaluateList() {
+    get("/system/evaluate/page/list", {
+      pageNum: this.data.pageNum,
+      pageSize: this.data.pageSize,
+      orderByColumn: '',
+      isAsc: '',
+      courseId: this.data.courseDetailInfo.courseId + "-" + this.data.courseDetailInfo.teacherId,
+    }, {
+      Authorization: wx.getStorageSync('Authorization')
+    }).then(res => {
+      this.setData({
+        evaluateList: [...this.data.evaluateList, ...res.rows],
+        total: res.total,
+        pageNum: this.data.pageNum + 1
+      })
+    })
+  },
 
+  refreshCourseEvaluateList() {
+    this.setData({
+      evaluateList: [],
+      pageNum: 1
+    })
+    this.getCourseEvaluateList()
   },
 
   /**
