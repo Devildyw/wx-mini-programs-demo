@@ -3,10 +3,10 @@
     <view class="QA-list" class="QA-item">
       <view class="QA-container">
         <view class="QA-basic-info">
-          <text class="QA-title">这是一个长长标题长长标题不超过15字</text>
-          <text class="QA-content">这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容（不超过50字）</text>
+          <text class="QA-title">{{QuestionDetail.title}}</text>
+          <text class="QA-content">{{QuestionDetail.description}}</text>
         </view>
-        <view class="recent-reply" bind:tap="onOpen">
+        <!-- <view class="recent-reply" bind:tap="onOpen">
           <view class="QA-info-right-item" style="margin-left: 16rpx;" >
             <view class="QA-info-right-item-avatar">
               <t-avatar class="avatar-example" size="42rpx" image="{{image}}" style="margin-top: 18rpx;" />
@@ -14,12 +14,12 @@
             <text class="QA-info-right-item-name" style="color: rgb(15, 94, 146); font-weight: bold;">不过六个字符</text>
             <text style="margin-left: 10rpx;">最近回复了: 回复内容如下如下...</text>
           </view>
-        </view>
+        </view> -->
         <view class="QA-info">
           <view class="QA-info-left">
             <view class="QA-info-left-item">
-              <image src="../../assets/icon/回答.png"></image>
-              <view>26</view>
+              <image src="{{replyIcon}}"></image>
+              <view>{{QuestionDetail.answerTimes}}</view>
             </view>
             <!-- <view class="QA-info-left-item">
               <image src="../../assets/icon/赞.png"></image>
@@ -30,10 +30,10 @@
           <view class="QA-info-right">
             <view class="QA-info-right-item">
               <view class="QA-info-right-item-avatar">
-                <t-avatar class="avatar-example" size="42rpx" image="{{image}}" />
+                <t-avatar class="avatar-example" size="42rpx" image="{{(QuestionDetail.userName!=null&&QuestionDetail.userName!='')?QuestionDetail.userIcon:defaultAvatar}}" />
               </view>
-              <text class="QA-info-right-item-name">不过六个字符</text>
-              <text class="QA-info-right-Date">2024-04-22</text>
+              <text class="QA-info-right-item-name">{{(QuestionDetail.userName!=null&&QuestionDetail.userName!='')?QuestionDetail.userName:"匿名用户"}}</text>
+              <text class="QA-info-right-Date">{{QuestionDetail.createTime}}</text>
             </view>
           </view>
         </view>
@@ -41,15 +41,18 @@
     </view>
   </view>
   <view class="wrapper" style="width: 96%; margin-left: 2%;">
-    <t-collapse  bind:change="handleChange" expand-icon="false" expand-mutex="true" style="--td-collapse-header-height:0rpx">
+    <t-collapse bind:change="handleChange" expand-icon="false" expand-mutex="true" style="--td-collapse-header-height:0rpx">
       <t-collapse-panel value="{{0}}" expand-icon="false">
         <view class="textarea-example">
-          <t-avatar class="avatar-example" size="60rpx" shape="round" image="{{image}}" style="--td-collapse-title-font-size:28rpx" />
-          <t-textarea t-class="external-class" placeholderStyle="font-size:28rpx" placeholder="请输入回答" bordered maxlength="250" disableDefaultPadding="{{true}}" indicator style="height: 248rpx; --td-textarea-background-color:rgb(247,249,251); --td-collapse-content-font-size:28rpx; --td-collapse-content-line-height:1" />
+          <t-avatar class="avatar-example" size="60rpx" shape="round" image="{{userInfo.avatar}}" style="--td-collapse-title-font-size:28rpx" />
+          <t-textarea t-class="external-class" placeholderStyle="font-size:28rpx" placeholder="请输入回答" bind:change="inputReplyContent" bordered maxlength="250" disableDefaultPadding="{{true}}" indicator style="height: 248rpx; --td-textarea-background-color:rgb(247,249,251); --td-collapse-content-font-size:28rpx; --td-collapse-content-line-height:1" />
         </view>
         <view class="submit-button">
           <text style="line-height: 60rpx; margin-left: 80rpx; font-size: 24rpx; color: gray;">回答问题得积分</text>
-          <van-button type="info" size="small" style="margin-right: 10rpx;">回答</van-button>
+          <view style="margin-top: 8rpx;">
+            <t-radio default-checked="{{anonymity}}" icon="dot" label="匿名" bind:change="selectAnonymity" style="--td-radio-font-size:24rpx;height: 30rpx; --td-radio-icon-size:42rpx; --td-radio-vertical-padding:0rpx; line-height: 60rpx;" />
+          </view>
+          <van-button type="info" size="small" bind:click="replayForQuestion" style="margin-right: 10rpx;">回答</van-button>
         </view>
       </t-collapse-panel>
     </t-collapse>
@@ -64,28 +67,29 @@
             <view class="reply-info-right">
               <view class="reply-info-right-item">
                 <view class="reply-info-right-item-avatar">
-                  <t-avatar class="avatar-example" size="48rpx" image="{{image}}" />
+                  <t-avatar class="avatar-example" size="48rpx" image="{{item.anonymity?defaultAvatar:item.userIcon}}" />
                 </view>
-                <text class="reply-info-right-item-name">不过六个字符</text>
-
+                <text class="reply-info-right-item-name">{{item.anonymity?"匿名用户":item.userName}}</text>
               </view>
-              <text class="reply-info-right-Date">2024-04-22</text>
+              <text class="reply-info-right-Date">{{item.createTime}}</text>
             </view>
+            <t-dialog visible="{{showDeleteConfirm}}" title="提醒" content="确定要删除这条回答吗" confirm-btn="{{ {content: '确定', variant: 'base' } }}" cancel-btn="取消" bind:confirm="deleteForReply" bind:cancel="closeDelelteConfirm">
+            </t-dialog>
 
           </view>
           <view class="reply-basic-info">
-            <text class="reply-content">这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容（不超过50字）</text>
+            <text class="reply-content" data-replyid="{{item.id}}" data-userid="{{item.userId}}" bind:longtap="showDeleteConfirm">{{item.content}}</text>
           </view>
           <view class="reply-info">
 
             <view class="reply-info-left">
-              <view class="reply-info-left-item" bind:tap="onOpen">
-                <image src="../../assets/icon/回答.png"></image>
-                <view>26</view>
+              <view class="reply-info-left-item" data-replyitem="{{item}}" bind:tap="onOpen">
+                <image src="{{replyIcon}}"></image>
+                <view>{{item.replyTimes}}</view>
               </view>
               <view class="reply-info-left-item">
-                <image src="../../assets/icon/赞.png"></image>
-                <view>12</view>
+                <image src="{{item.liked?likedImage:unLikedImage}}" data-replyid="{{item.id}}" data-index="{{index}}" bind:tap="likeForReply"></image>
+                <view>{{item.likedTimes}}</view>
               </view>
             </view>
 
@@ -114,28 +118,30 @@
               <view class="comment-list-info-right">
                 <view class="reply-info-right-item">
                   <view class="reply-info-right-item-avatar">
-                    <t-avatar class="avatar-example" shape="round" size="64rpx" image="{{image}}" />
+                    <t-avatar class="avatar-example" shape="round" size="64rpx" image="{{replyItem.anonymity?defaultAvatar:replyItem.userIcon}}" />
                   </view>
-                  <text class="reply-info-right-item-name">不过六个字符</text>
+                  <text class="reply-info-right-item-name">{{replyItem.anonymity?"匿名用户":replyItem.userName}}</text>
 
                 </view>
-                <text class="reply-info-right-Date">2024-04-22</text>
+                <text class="reply-info-right-Date">{{replyItem.createTime}}</text>
               </view>
 
             </view>
             <view class="reply-basic-info">
-              <text class="reply-content">这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容（不超过50字）</text>
+              <text class="reply-content">{{replyItem.content}}</text>
             </view>
             <view class="reply-info">
 
               <view class="reply-info-left">
-                <view class="reply-info-left-item" bind:tap="onOpen">
-                  <image src="../../assets/icon/回答.png"></image>
-                  <view>26</view>
+                <view class="reply-info-left-item">
+                  <image src="{{replyIcon}}"></image>
+                  <view>{{replyItem.replyTimes}}</view>
                 </view>
                 <view class="reply-info-left-item">
-                  <image src="../../assets/icon/赞.png"></image>
-                  <view>12</view>
+                <!-- 从这里开始 -->
+                  <image src="{{replyItem.liked?likedImage:unLikedImage}}" data-replyid="{{item.id}}" data-index="{{index}}" bind:tap="likeForReply"
+                  ></image>
+                  <view>{{replyItem.likedTimes}}</view>
                 </view>
               </view>
 
@@ -146,7 +152,7 @@
       </view>
       <view class="wrapper">
         <!--style="width: 96%; margin-left: 2%;"-->
-        <t-collapse bind:change="handleChange" expand-icon="false" expand-mutex="true"  style="--td-collapse-header-height:0rpx;">
+        <t-collapse bind:change="handleChange" expand-icon="false" expand-mutex="true" style="--td-collapse-header-height:0rpx;">
           <t-collapse-panel value="{{0}}" expand-icon="false">
             <view class="textarea-example">
               <t-avatar class="avatar-example" size="60rpx" shape="round" image="{{image}}" style="--td-collapse-title-font-size:28rpx" />
@@ -193,7 +199,7 @@
             </view>
             <view class="wrapper">
               <!--style="width: 96%; margin-left: 2%;"-->
-              <t-collapse bind:change="handleChange" expand-icon="false" expand-mutex="true"  style="--td-collapse-header-height:0rpx;">
+              <t-collapse bind:change="handleChange" expand-icon="false" expand-mutex="true" style="--td-collapse-header-height:0rpx;">
                 <t-collapse-panel value="{{0}}" expand-icon="false">
                   <view class="textarea-example">
                     <t-avatar class="avatar-example" size="60rpx" shape="round" image="{{image}}" style="--td-collapse-title-font-size:28rpx" />

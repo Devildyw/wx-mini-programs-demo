@@ -20,12 +20,16 @@ const swiperList = [
 ];
 const unLikedImage = 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E6%9C%AA%E7%82%B9%E8%B5%9E%E5%9B%BE%E6%A0%87.png';
 const likedImage = 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E7%82%B9%E8%B5%9E%E5%9B%BE%E6%A0%87.png';
+const defaultAvatar = 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E5%8C%BF%E5%90%8D%E5%A4%B4%E5%83%8F.png';
+const replyIcon = 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E5%9B%9E%E7%AD%94.png';
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    replyIcon:replyIcon,
+    defaultAvatar: defaultAvatar,
     color: "",
     xh: "",
     isLogin: false,
@@ -108,15 +112,7 @@ Page({
         },
       ],
     },
-    QAList: [{
-      questionId: 1
-    }, {
-      questionId: 2
-    }, {
-      questionId: 3
-    }, {
-      questionId: 4
-    }, 5, 6, 7, 8, 9, 10],
+    QAList: [],
     right: [{
         text: '编辑',
         className: 'btn edit-btn',
@@ -208,8 +204,52 @@ Page({
       label: "实验报告",
       value: "实验报告"
     }],
-    evaluateContent: ''
+    evaluateContent: '',
+    onQAAddShow:false,
+    anonymity:false,
+    question_title:'',
+    question_desc:'',
   },
+
+  onQuestionDelete(e){
+    const questionid = e.currentTarget.dataset.questionid
+    post("/system/question/delete/question",{
+      id:questionid
+    },{
+      Authorization:wx.getStorageSync('Authorization')
+    }).then(res=>{
+      console.log(res);
+      if (res.code===200) {
+        wx.showModal({
+          title: '提示',
+          content: '删除成功,相应积分已被扣去',
+          complete: (res) => {
+            if (res.cancel) {
+              
+            }
+        
+            if (res.confirm) {
+              
+            }
+          }
+        })
+        this.refreshCourseQAList()
+      }
+    })
+    
+  },
+
+  inputQuestionTitle(e){
+    this.setData({
+      question_title:e.detail.value
+    })
+  },
+  inputQuestionDesc(e){
+    this.setData({
+      question_desc:e.detail.value
+    })
+  },
+
   inputEvaluateContent(e) {
     this.setData({
       evaluateContent: e.detail.value
@@ -264,6 +304,62 @@ Page({
     console.log(this.data.rate);
   },
 
+  selectAnonymity(e){
+    this.setData({
+      anonymity:e.detail.checked
+    })
+  },
+
+  onAddQuestion(){
+    if (this.data.question_title.length>18) {
+      wx.showModal({
+        title: '提示',
+        content: '标题不得超过18字',
+        complete: (res) => {
+          if (res.cancel) {
+            
+          }
+      
+          if (res.confirm) {
+            
+          }
+        }
+      })
+    }else{
+      post("/system/question/add/question",{
+        courseId:this.data.courseDetailInfo.courseId+"-"+this.data.courseDetailInfo.teacherId,
+        title:this.data.question_title,
+        description: this.data.question_desc,
+        anonymity:this.data.anonymity
+      },{
+        Authorization:wx.getStorageSync('Authorization')
+      }).then(res=>{
+        if (res.code===200) {
+          wx.showModal({
+            title: '提示',
+            content: '发布成功，获得10积分',
+            complete: (res) => {
+              if (res.cancel) {
+                
+              }
+          
+              if (res.confirm) {
+                
+              }
+            }
+          })
+          this.setData({
+            question_title:'',
+            question_desc:'',
+            anonymity:0
+          })
+        }
+        this.refreshCourseQAList()
+      })
+    }
+    
+  },
+
   likeForEvaluate(e) {
 
     const evaluateItem = e.currentTarget.dataset.item;
@@ -280,7 +376,6 @@ Page({
       ['evaluateList[' + index + '].liked']: !evaluateItem.liked,
       ['evaluateList[' + index + '].likedTimes']: evaluateItem.liked ? --this.data.evaluateList[index].likedTimes : ++this.data.evaluateList[index].likedTimes,
     })
-    console.log("index,", this.data.evaluateList[index]);
   },
 
   checkNumber() {
@@ -612,6 +707,16 @@ Page({
       onStudentInfoShow: true
     })
   },
+  onQAAddClose() {
+    this.setData({
+      onQAAddShow: false
+    });
+  },
+  onQAAddShow() {
+    this.setData({
+      onQAAddShow: true
+    })
+  },
   onEvaluateAddClose() {
     this.setData({
       onEvaluateAddShow: false
@@ -660,7 +765,7 @@ Page({
       this.getCourseDetailInfo();
       this.refreshCourseEvaluateList();
     } else if (index === 3) {
-      this.getCourseQAList();
+      this.refreshCourseQAList();
     } else if (index === 4) {
       this.getCourseStudentList();
     }
@@ -704,7 +809,7 @@ Page({
       this.setData({
         materialList: [...this.data.materialList, ...res.rows],
         total: res.total,
-        pageNum: this.data.pageNum + 1
+        pageNum: ++this.data.pageNum
       })
     })
   },
@@ -725,7 +830,7 @@ Page({
       this.setData({
         evaluateList: [...this.data.evaluateList, ...res.rows],
         total: res.total,
-        pageNum: this.data.pageNum + 1
+        pageNum: ++this.data.pageNum
       })
     })
   },
@@ -742,7 +847,27 @@ Page({
    * 获取课程问答列表分页
    */
   getCourseQAList() {
+    get("/system/question/page/list",{
+      courseId: this.data.courseDetailInfo.courseId+"-"+this.data.courseDetailInfo.teacherId,
+      pageNum:this.data.pageNum,
+      pageSize:this.data.pageSize,
+    },{
+      Authorization:wx.getStorageSync('Authorization')
+    }).then(res=>{
+      this.setData({
+        QAList:[...this.data.QAList,...res.data.list],
+        total:res.data.total,
+        pageNum:++this.data.pageNum
+      })
+    })
+  },
 
+  refreshCourseQAList(){
+    this.setData({
+      pageNum:1,
+      QAList:[],
+    })
+    this.getCourseQAList();
   },
 
   /**
@@ -953,7 +1078,11 @@ Page({
     } else {
       if (this.data.active === 1) {
         //资料上拉触底
-        this.getCourseMaterialList()
+        this.getCourseMaterialList();
+      }else if (this.data.active===2) {
+        this.getCourseEvaluateList();
+      }else if (this.data.active===3) {
+        this.getCourseQAList();
       }
     }
 

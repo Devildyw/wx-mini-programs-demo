@@ -9,6 +9,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/selectCourse/QADetailInfo",
+          "pathName": "pages/selectCourse/QADetailInfo",
+          "query": "questionId=undefined",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "",
           "pathName": "pages/index/index",
           "query": "",

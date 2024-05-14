@@ -90,7 +90,7 @@
       </view>
       <van-dialog use-slot show="{{ onMaterialUploadShow }}" show-cancel-button="true" show-confirm-button="false" bind:close="onMaterialUploadClose" bind:confirm="onMaterialUpload" transition="fade">
         <view class="detail-info-header">上传资料</view>
-        <view class="student-detail-info-container" style="height:850rpx;">
+        <view class="student-detail-info-container" style="height:860rpx;">
           <t-input label="上传资料" value="{{ tempMaterialFileName }}" disabled="true">
             <t-button slot="suffix" theme="primary" size="extra-small" bind:tap="onSelectMaterialFile"> 上传文件 </t-button>
           </t-input>
@@ -100,7 +100,7 @@
           <t-input label="资料名称" placeholder="请输入文字" bind:change="inputMaterialName" value="{{material_name}}"></t-input>
           <t-cell title="类型" arrow hover note="{{materialTypeText}}" bind:click="onWithoutTitlePicker" />
           <t-input label="所需积分" type="number" placeholder="请输入所需积分0~99" bind:change="inputMaterialPoints" value="{{material_points}}"></t-input>
-          <t-textarea t-class="external-class" t-class-label="{{skylineRender?'skyline-label':''}}" maxcharacter="50" disableDefaultPadding="{{true}}" label="描述" placeholder="选填" value="{{material_desc}}" bind:change="inputMaterialDesc" disableDefaultPadding="{{true}}" />
+          <t-textarea t-class="external-class" t-class-label="{{skylineRender?'skyline-label':''}}" maxlength="50" disableDefaultPadding="{{true}}" label="描述" placeholder="选填" value="{{material_desc}}" bind:change="inputMaterialDesc" disableDefaultPadding="{{true}}" indicator />
 
           <t-picker visible="{{materialTypeVisible}}" value="{{materialTypeValue}}" data-key="materialType" title="{{materialTypeTitle}}" cancelBtn="取消" confirmBtn="确认" usingCustomNavbar bindchange="onPickerChange" bindpick="onColumnChange" bindcancel="onPickerCancel">
             <t-picker-item options="{{types}}"></t-picker-item>
@@ -177,7 +177,7 @@
       </view>
       <van-dialog use-slot show="{{ onEvaluateAddShow }}" show-cancel-button="true" show-confirm-button="false" bind:close="onEvaluateAddClose" bind:confirm="addCourseEvaluate" transition="fade">
         <view class="detail-info-header">发布评价</view>
-        <view class="student-detail-info-container" style="height:850rpx;">
+        <view class="student-detail-info-container" style="height:780rpx;">
           <t-cell title="考勤频率" arrow hover note="{{frequencyText}}" bind:click="onFrequencyPicker" />
           <t-cell title="成绩" arrow hover note="{{gradeText}}" bind:click="onGradePicker" />
           <t-cell title="考核方式" arrow hover note="{{wayText}}" bind:click="onWayPicker" />
@@ -186,7 +186,7 @@
 
             <t-rate value="{{rate}}" bind:change="onRateChange" />
           </view>
-          <t-textarea t-class="external-class" t-class-label="{{skylineRender?'skyline-label':''}}" maxcharacter="250" disableDefaultPadding="{{true}}" label="评价内容" placeholder="请输入评价，至少输入15个字" value="{{evaluateContent}}" bind:change="inputEvaluateContent" disableDefaultPadding="{{true}}" />
+          <t-textarea t-class="external-class" style="height: 350rpx;" t-class-label="{{skylineRender?'skyline-label':''}}" maxlength="250" disableDefaultPadding="{{true}}" label="评价内容" placeholder="请输入评价，至少输入15个字" value="{{evaluateContent}}" bind:change="inputEvaluateContent" disableDefaultPadding="{{true}}" indicator  />
 
 
           <t-picker visible="{{frequencyVisible}}" value="{{frequencyValue}}" data-key="frequency" cancelBtn="取消" confirmBtn="确认" usingCustomNavbar bindchange="onPickerChange" bindpick="onColumnChange" bindcancel="onPickerCancel">
@@ -209,49 +209,59 @@
           <t-swipe-cell>
             <view class="QA-container">
               <view class="QA-basic-info" data-questionId="{{item.questionId}}" bind:tap="showQADetail">
-                <text class="QA-title">这是一个长长标题长长标题不超过15字</text>
-                <text class="QA-content">这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个......</text>
-              </view>
-              <view class="recent-reply">
-                <view class="QA-info-right-item" style="margin-left: 16rpx;">
-                  <view class="QA-info-right-item-avatar">
-                    <t-avatar class="avatar-example" size="42rpx" image="{{image}}" style="margin-top: 18rpx;" />
-                  </view>
-                  <text class="QA-info-right-item-name">不过六个字符</text>
-                  <text style="margin-left: 10rpx;">最近回复了: 回复内容如下如下...</text>
+                <text class="QA-title">{{item.title}}</text>
+                <view class="QA-content">
+                  <text>{{item.description}}</text>
                 </view>
               </view>
-              <view class="QA-info">
+              <view style="height: 80rpx;">
+                <view class="recent-reply" hidden="{{item.latestReplyContent===null||item.latestReplyContent===''}}">
+                  <view class="QA-info-right-item" style="margin-left: 16rpx;" hidden="{{item.latestReplyContent===null||item.latestReplyContent===''}}">
+                    <view class="QA-info-right-item-avatar">
+                      <t-avatar class="avatar-example" size="42rpx" image="{{(item.latestReplyUser!=null&&item.latestReplyUser!='')?item.latestReplyUserIcon:defaultAvatar}}" style="margin-top: 18rpx;" />
+                    </view>
+                    <text class="QA-info-right-item-name">{{(item.latestReplyUser!=null&&item.latestReplyUser!='')?item.latestReplyUser:"匿名用户"}}</text>
+                    <text style="margin-left: 10rpx; width: 70%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">回复了：{{item.latestReplyContent}}</text>
+                  </view>
+                </view>
+              </view>
+              <view class="QA-info" style="margin-top: 16rpx;">
                 <view class="QA-info-left">
                   <view class="QA-info-left-item">
-                    <image src="../../assets/icon/回答.png"></image>
-                    <view>26</view>
+                    <image src="{{replyIcon}}"></image>
+                    <view>{{item.answerTimes}}</view>
                   </view>
-                  <!-- <view class="QA-info-left-item">
-                  <image src="../../assets/icon/赞.png"></image>
-                  <view>12</view>
-                </view> -->
                 </view>
 
                 <view class="QA-info-right">
                   <view class="QA-info-right-item">
                     <view class="QA-info-right-item-avatar">
-                      <t-avatar class="avatar-example" size="42rpx" image="{{image}}" />
+                      <t-avatar class="avatar-example" size="42rpx" image="{{(item.userName!=null&&item.userName!='')?item.userIcon:defaultAvatar}}" />
                     </view>
-                    <text class="QA-info-right-item-name">不过六个字符</text>
-                    <text class="QA-info-right-Date">2024-04-22</text>
+                    <text class="QA-info-right-item-name">{{(item.userName!=null&&item.userName!='')?item.userName:"匿名用户"}}</text>
+                    <text class="QA-info-right-Date">{{item.createTime}}</text>
                   </view>
                 </view>
               </view>
             </view>
-            <view slot="right" class="btn-wrapper" style="height: 100%;">
-              <view class="btn delete-btn" bind:tap="onDelete">删除</view>
+            <view slot="right" class="btn-wrapper" style="height: 100%;" hidden="{{!(userInfo.userId===item.userId)}}">
+              <view class="btn delete-btn" data-questionid="{{item.id}}" bind:tap="onQuestionDelete">删除</view>
             </view>
           </t-swipe-cell>
         </view>
       </view>
       <t-fab icon="align-top" bind:click="handlerBackTop" aria-label="返回顶部" style="right: 16rpx; bottom: 64rpx;"></t-fab>
-      <t-fab icon="add" bind:click="handleClick" text="新增提问" aria-label="增加" style="left: 240rpx; bottom: 16rpx;"></t-fab>
+      <t-fab icon="add" bind:click="onQAAddShow" text="新增提问" aria-label="增加" style="left: 240rpx; bottom: 16rpx;"></t-fab>
+
+      <van-dialog use-slot show="{{ onQAAddShow }}" show-cancel-button="true" show-confirm-button="false" bind:close="onQAAddShowClose" bind:confirm="onAddQuestion" transition="fade">
+        <view class="detail-info-header">新增提问</view>
+        <view class="student-detail-info-container" style="height:550rpx;">
+          <t-input label="标题" placeholder="请输入文字，请控制在18字以内" bind:change="inputQuestionTitle" value="{{question_title}}"></t-input>
+          
+          <t-textarea t-class="external-class" style="height: 350rpx;" t-class-label="{{skylineRender?'skyline-label':''}}" maxlength="120" bordered disableDefaultPadding="{{true}}" label="问题描述" placeholder="必填，描述的越清晰对问题解决越有帮助" value="{{question_desc}}" bind:change="inputQuestionDesc" disableDefaultPadding="{{true}}" indicator  />
+          <t-radio default-checked="{{anonymity}}" bind:change="selectAnonymity" icon="dot" label="匿名" />
+        </view>
+      </van-dialog>
     </van-tab>
     <van-tab title="学生列表" disabled="{{!((courseDetailInfo.hasTag===1 && courseDetailInfo.teacherId===userInfo.userId)||userInfo.roles[0].roleKey==='admin')}}">
       <view style="margin-bottom: 140rpx;">

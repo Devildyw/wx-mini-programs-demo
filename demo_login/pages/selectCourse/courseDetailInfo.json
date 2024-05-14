@@ -6,6 +6,9 @@
       "t-swiper": "../../miniprogram_npm/tdesign-miniprogram/swiper/swiper",
       "t-upload": "tdesign-miniprogram/upload/upload",
       "t-textarea": "tdesign-miniprogram/textarea/textarea",
-      "t-rate": "../../miniprogram_npm/tdesign-miniprogram/rate/rate"
+      "t-rate": "../../miniprogram_npm/tdesign-miniprogram/rate/rate",
+      "t-radio-group": "tdesign-miniprogram/radio-group/radio-group",
+    "t-radio": "tdesign-miniprogram/radio/radio",
+    "t-icon": "tdesign-miniprogram/icon/icon"
   }
 }

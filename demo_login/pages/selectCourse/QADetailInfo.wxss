@@ -29,15 +29,22 @@ page{
   flex-direction: column;
   flex-wrap: wrap;
   width: 100%;
-  height: 80%;
+  height: 300rpx;
 }
 .QA-info{
  display: flex;
  flex-direction: row;
+ margin-top: 8rpx;
 }
 
 
-
+.reply-content{
+  width: 100%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* 指定显示文本的行数 */
+  overflow: hidden; /* 超出隐藏 */
+}
 .QA-title{
   font-size: large;
   font-weight: bold;
@@ -142,7 +149,7 @@ page{
   flex-direction: column;
   flex-wrap: wrap;
   width: 100%;
-  height: 80%;
+  height: 130rpx;
 }
 .reply-info{
  display: flex;
@@ -434,9 +441,20 @@ page{
 /* name */
 .reply-info-right-item-name{
    font-weight: bold;
+   line-height: 48rpx;
 }
-
+.reply-info-right-Date{
+  line-height: 48rpx;
+}
 .comment-list-info-right-item-name{
   font-weight: bold;
 }
 /* name*/
+
+.demo-desc {
+  margin: 0 0 32rpx;
+}
+
+.wrapper {
+  margin-bottom: 32rpx;
+}
