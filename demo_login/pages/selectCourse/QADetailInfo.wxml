@@ -52,7 +52,7 @@
           <view style="margin-top: 8rpx;">
             <t-radio default-checked="{{anonymity}}" icon="dot" label="匿名" bind:change="selectAnonymity" style="--td-radio-font-size:24rpx;height: 30rpx; --td-radio-icon-size:42rpx; --td-radio-vertical-padding:0rpx; line-height: 60rpx;" />
           </view>
-          <van-button type="info" size="small" bind:click="replayForQuestion" style="margin-right: 10rpx;">回答</van-button>
+          <van-button type="info" size="small" bind:click="replyForQuestion" style="margin-right: 10rpx;">回答</van-button>
         </view>
       </t-collapse-panel>
     </t-collapse>
@@ -78,12 +78,12 @@
 
           </view>
           <view class="reply-basic-info">
-            <text class="reply-content" data-replyid="{{item.id}}" data-userid="{{item.userId}}" bind:longtap="showDeleteConfirm">{{item.content}}</text>
+            <text class="reply-content" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;overflow: hidden;" data-replyid="{{item.id}}" data-userid="{{item.userId}}" bind:longtap="showDeleteConfirm">{{item.content}}</text>
           </view>
           <view class="reply-info">
 
             <view class="reply-info-left">
-              <view class="reply-info-left-item" data-replyitem="{{item}}" bind:tap="onOpen">
+              <view class="reply-info-left-item" data-index="{{index}}" bind:tap="onOpen">
                 <image src="{{replyIcon}}"></image>
                 <view>{{item.replyTimes}}</view>
               </view>
@@ -112,36 +112,35 @@
   <view class="body" style="background-color: rgb(241, 247, 251)">
     <view style="border: 1rpx solid #e0e0e0;">
       <view class="comment-outermost-container">
-        <view class="comment-list" class="comment-item">
+        <view class="comment-list" class="comment-item" style="height:570rpx">
           <view class="comment-container">
             <view class="comment-info">
               <view class="comment-list-info-right">
                 <view class="reply-info-right-item">
                   <view class="reply-info-right-item-avatar">
-                    <t-avatar class="avatar-example" shape="round" size="64rpx" image="{{replyItem.anonymity?defaultAvatar:replyItem.userIcon}}" />
+                    <t-avatar class="avatar-example" shape="round" size="64rpx" image="{{ReplyList[replyIndex].anonymity?defaultAvatar:ReplyList[replyIndex].userIcon}}" />
                   </view>
-                  <text class="reply-info-right-item-name">{{replyItem.anonymity?"匿名用户":replyItem.userName}}</text>
+                  <text class="reply-info-right-item-name">{{ReplyList[replyIndex].anonymity?"匿名用户":ReplyList[replyIndex].userName}}</text>
 
                 </view>
-                <text class="reply-info-right-Date">{{replyItem.createTime}}</text>
+                <text class="reply-info-right-Date">{{ReplyList[replyIndex].createTime}}</text>
               </view>
 
             </view>
-            <view class="reply-basic-info">
-              <text class="reply-content">{{replyItem.content}}</text>
+            <view class="reply-basic-info" style="height: 420rpx;">
+              <text class="reply-content">{{ReplyList[replyIndex].content}}</text>
             </view>
-            <view class="reply-info">
+            <view class="reply-info" style="margin-top: 20rpx;">
 
               <view class="reply-info-left">
                 <view class="reply-info-left-item">
                   <image src="{{replyIcon}}"></image>
-                  <view>{{replyItem.replyTimes}}</view>
+                  <view>{{ReplyList[replyIndex].replyTimes}}</view>
                 </view>
                 <view class="reply-info-left-item">
-                <!-- 从这里开始 -->
-                  <image src="{{replyItem.liked?likedImage:unLikedImage}}" data-replyid="{{item.id}}" data-index="{{index}}" bind:tap="likeForReply"
-                  ></image>
-                  <view>{{replyItem.likedTimes}}</view>
+                  <!-- 从这里开始 -->
+                  <image src="{{ReplyList[replyIndex].liked?likedImage:unLikedImage}}" data-replyid="{{ReplyList[replyIndex].id}}" data-index="{{replyIndex}}" bind:tap="likeForReply"></image>
+                  <view>{{ReplyList[replyIndex].likedTimes}}</view>
                 </view>
               </view>
 
@@ -152,62 +151,69 @@
       </view>
       <view class="wrapper">
         <!--style="width: 96%; margin-left: 2%;"-->
-        <t-collapse bind:change="handleChange" expand-icon="false" expand-mutex="true" style="--td-collapse-header-height:0rpx;">
-          <t-collapse-panel value="{{0}}" expand-icon="false">
+        <t-collapse bind:change="handleChange" expand-icon="false" expand-mutex="true" style="--td-collapse-header-height:0rpx; --td-collapse-title-font-size:26rpx;">
+          <t-collapse-panel value="{{0}}" header="评论" expand-icon="false">
             <view class="textarea-example">
-              <t-avatar class="avatar-example" size="60rpx" shape="round" image="{{image}}" style="--td-collapse-title-font-size:28rpx" />
-              <t-textarea t-class="external-class" placeholderStyle="font-size:28rpx" placeholder="来评论试试吧" bordered maxlength="50" disableDefaultPadding="{{true}}" indicator style="height: 248rpx; --td-textarea-background-color:rgb(247,249,251); --td-collapse-content-font-size:28rpx; --td-collapse-content-line-height:1" />
+              <t-avatar class="avatar-example" size="60rpx" shape="round" image="{{userInfo.avatar}}" style="--td-collapse-title-font-size:28rpx" />
+              <t-textarea t-class="external-class" placeholderStyle="font-size:28rpx" bind:change="inputReplyContent" placeholder="发表评论表达对该回答的看法" bordered maxlength="50" disableDefaultPadding="{{true}}" indicator style="height: 248rpx; --td-textarea-background-color:rgb(247,249,251); --td-collapse-content-font-size:28rpx; --td-collapse-content-line-height:1" />
             </view>
+
             <view class="submit-button">
+              <view style="margin-top: 8rpx; margin-left: 80rpx;">
+                <t-radio default-checked="{{anonymity}}" icon="dot" label="匿名" bind:change="selectAnonymity" style="--td-radio-font-size:24rpx;height: 30rpx; --td-radio-icon-size:42rpx; --td-radio-vertical-padding:0rpx; line-height: 60rpx;" />
+              </view>
               <text style="line-height: 60rpx; margin-left: 80rpx; font-size: 24rpx; color: gray;"></text>
-              <van-button type="info" size="small" style="margin-right: 10rpx;">评论</van-button>
+              <van-button type="info" size="small" style="margin-right: 10rpx;" bind:click="replyForAnswer">评论</van-button>
             </view>
           </t-collapse-panel>
         </t-collapse>
       </view>
     </view>
-    <scroll-view style="height:600rpx; margin-top: 8rpx;" scroll-y="true">
+    <scroll-view>
       <view class="comment-list-outermost-container">
-        <view wx:for="{{ReplyList}}" wx:key="index" class="comment-list-list" class="comment-list-item">
+        <view wx:for="{{contentList}}" wx:key="index" class="comment-list-list" class="comment-list-item">
           <view>
             <view style="display: flex; width: 100%;">
               <view class="comment-list-info-right-item-avatar">
-                <t-avatar class="avatar-example" shape="round" size="64rpx" image="{{image}}" />
+                <t-avatar class="avatar-example" shape="round" size="64rpx" image="{{(item.userName!=null&&item.userName!='')?item.userIcon:defaultAvatar}}" />
               </view>
               <view class="comment-list-container">
                 <view class="comment-list-info">
                   <view class="comment-list-info-right">
                     <view class="comment-list-info-right-item">
-                      <text class="comment-list-info-right-item-name">不过六个字符</text>
+                      <text class="comment-list-info-right-item-name">{{(item.userName!=null&&item.userName!='')?item.userName:'匿名用户'+item.userId}}</text>
                     </view>
-                    <text class="comment-list-info-right-Date">2024-04-22</text>
+                    <text class="comment-list-info-right-Date">{{item.createTime}}</text>
                   </view>
                 </view>
                 <view class="comment-list-basic-info">
-                  <text class="comment-list-content">回复<text style="color: rgb(36, 162, 212);">@冯小强</text> :这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容这是一个内容（不超过50字）</text>
+                  <text class="comment-list-content" data-replyid="{{item.id}}" data-userid="{{item.userId}}" bind:longtap="showDeleteContentConfirm">{{(item.targetReplyId!=null)?'回复':''}}<text style="color: rgb(7, 118, 161);">{{(item.targetReplyId!=null)?((item.targetUserName!=''&&item.targetUserName!=null)?'@'+item.targetUserName:'@匿名用户'+item.userId):''}}</text><text>{{(item.targetReplyId!=null)?'：':''}}</text>{{item.content}}</text>
                 </view>
                 <view class="comment-list-info">
                   <view class="comment-list-info-left">
                     <view class="comment-list-info-left-item">
-                      <image src="../../assets/icon/赞.png"></image>
-                      <view>12</view>
+                      <image src="{{item.liked?likedImage:unLikedImage}}" data-replyid="{{item.id}}" data-index="{{index}}" bind:tap="likeForContent"></image>
+                      <view>{{item.likedTimes}}</view>
                     </view>
                   </view>
                 </view>
               </view>
-
+              <t-dialog visible="{{showDeleteContentConfirm}}" title="提醒" content="确定要删除这条评论吗" confirm-btn="{{ {content: '确定', variant: 'base' } }}" cancel-btn="取消" bind:confirm="deleteForReply" bind:cancel="closeDelelteContentConfirm"></t-dialog>
             </view>
             <view class="wrapper">
               <!--style="width: 96%; margin-left: 2%;"-->
-              <t-collapse bind:change="handleChange" expand-icon="false" expand-mutex="true" style="--td-collapse-header-height:0rpx;">
-                <t-collapse-panel value="{{0}}" expand-icon="false">
+              <t-collapse bind:change="handleChange" expand-icon="false" expand-mutex="true" style="--td-collapse-header-height:0rpx; --td-collapse-title-font-size:26rpx;">
+                <t-collapse-panel value="{{0}}" header="回复" expand-icon="false">
                   <view class="textarea-example">
-                    <t-avatar class="avatar-example" size="60rpx" shape="round" image="{{image}}" style="--td-collapse-title-font-size:28rpx" />
-                    <t-textarea t-class="external-class" placeholderStyle="font-size:28rpx" placeholder="来评论试试吧" bordered maxlength="50" disableDefaultPadding="{{true}}" indicator style="height: 248rpx; --td-textarea-background-color:rgb(247,249,251); --td-collapse-content-font-size:28rpx; --td-collapse-content-line-height:1" />
+                    <t-avatar class="avatar-example" size="60rpx" shape="round" image="{{userInfo.avatar}}" style="--td-collapse-title-font-size:28rpx" />
+                    <t-textarea t-class="external-class" placeholderStyle="font-size:28rpx" placeholder="回复@TA" bind:change="inputReplyContent" bordered maxlength="50" disableDefaultPadding="{{true}}" indicator style="height: 248rpx; --td-textarea-background-color:rgb(247,249,251); --td-collapse-content-font-size:28rpx; --td-collapse-content-line-height:1" />
                   </view>
                   <view class="submit-button">
+                    <view style="margin-top: 8rpx; margin-left: 80rpx;">
+                      <t-radio default-checked="{{anonymity}}" icon="dot" label="匿名" bind:change="selectAnonymity" style="--td-radio-font-size:24rpx;height: 30rpx; --td-radio-icon-size:42rpx; --td-radio-vertical-padding:0rpx; line-height: 60rpx;" />
+                    </view>
                     <text style="line-height: 60rpx; margin-left: 80rpx; font-size: 24rpx; color: gray;"></text>
-                    <van-button type="info" size="small" style="margin-right: 10rpx;">评论</van-button>
+                    <van-button type="info" size="small" style="margin-right: 10rpx;" data-targetuserid="{{item.userId}}" data-targetid="{{item.id}}" bind:click="replyForAnswer">回复</van-button>
                   </view>
                 </t-collapse-panel>
               </t-collapse>

@@ -40,10 +40,7 @@ page{
 
 .reply-content{
   width: 100%;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3; /* 指定显示文本的行数 */
-  overflow: hidden; /* 超出隐藏 */
+
 }
 .QA-title{
   font-size: large;
@@ -370,7 +367,7 @@ page{
 }
 .comment-list-outermost-container{
   margin-top: 20rpx;
-  margin-bottom: 100rpx;
+  /* margin-bottom: 100rpx; */
   width: 100%;
 }
 .comment-list-container{
