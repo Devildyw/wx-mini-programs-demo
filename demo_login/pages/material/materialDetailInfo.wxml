@@ -1,1 +1,102 @@
-<navigator open-type="navigateBack" delta="1" />
+<view class="top">
+  <t-swiper current="{{current}}" autoplay="{{autoplay}}" height="400rpx" duration="{{duration}}" interval="{{interval}}" navigation="{{ { type: 'dots' } }}" list="{{swiperList}}" loop="{{true}}" style="--td-swiper-radius:0rpx">
+  </t-swiper>
+</view>
+<view style="height: 40rpx; border: 1rpx solid rgb(233, 233, 233); background-color: rgb(255, 255, 255); text-align: center; line-height: 40rpx; font-size: 36rpx;">
+  <!-- <text >详情</text> -->
+</view>
+<view class="cu-list menu card-menu margin-bottom-xl shadow-lg radius info_background" style="height: 1000rpx; margin-top: 10rpx;">
+  <view class="info-background">
+    <!-- <view class="course-title-1" style="padding: 20rpx;">
+            <text>{{materialDetailInfo.filename}}</text>
+          </view>
+          <view class="course-title-2">
+            <view style="height: 80rpx;">
+              <text>资料描述：{{materialDetailInfo.description===null?'':materialDetailInfo.description}}</text>
+            </view>
+            
+          </view>
+
+
+          <view class="classInfo_container">
+            <view class="line_info-1">
+              <text>课程代码：<text style="font-weight: bold;">{{courseDetailInfo.courseCode===null?'未知':courseDetailInfo.courseCode}}</text></text>
+              <text>课时：<text style="font-weight: bold;">{{courseDetailInfo.period===null?'未知':courseDetailInfo.period}}</text></text>
+              <text>校区：<text style="font-weight: bold;">{{courseDetailInfo.schoolName===null?'未知':courseDetailInfo.schoolName}}</text></text>
+              <text>课程类型：<text style="font-weight: bold;">{{courseDetailInfo.typeName===null?'未知':courseDetailInfo.typeName}}</text></text>
+              <text>课程状态：<text style="font-weight: bold;">{{courseDetailInfo.status===0?'有效':'无效'}}</text></text>
+
+            </view>
+            <view class="line_info-2">
+
+
+              <text>学分：<text style="font-weight: bold;">{{courseDetailInfo.score===null?'未知':courseDetailInfo.score}}</text></text>
+              <text>授课方式：<text style="font-weight: bold;">{{courseDetailInfo.courseType===0?'线下':'线上'}}</text></text>
+              <text>选择人数：<text style="font-weight: bold;">{{courseDetailInfo.selectCount===null?'未知':courseDetailInfo.selectCount}}</text></text>
+              <text>授课地点：<text style="font-weight: bold;">{{courseDetailInfo.classRoom===null?'未知':courseDetailInfo.classRoom}}</text></text>
+              <text>总量/余量：<text style="font-weight: bold;">{{courseDetailInfo.total===null?'未知':courseDetailInfo.total}}/{{courseDetailInfo.remain===null?'未知':courseDetailInfo.remain}}</text></text>
+            </view>
+
+          </view>
+          <view style="padding: 15rpx; padding-left: 25rpx; font-size: 30rpx;"><text>授课时间：<text style="font-weight: bold;">{{courseDetailInfo.day1===null||courseDetailInfo.day1===''?" ":"周一:"+courseDetailInfo.day1+"节"}} {{courseDetailInfo.day2===null||courseDetailInfo.day2===''?" ":"周二:"+courseDetailInfo.day2+"节"}} {{courseDetailInfo.day3===null||courseDetailInfo.day3===''?" ":"周三:"+courseDetailInfo.day3+"节"}} {{courseDetailInfo.day4===null||courseDetailInfo.day4===''?" ":"周四:"+courseDetailInfo.day4+"节"}} {{courseDetailInfo.day5===null||courseDetailInfo.day5===''?" ":"周五:"+courseDetailInfo.day5+"节"}}</text></text></view> -->
+    <!-- <view style="padding-left: 40rpx; padding-top: 20rpx;">
+      <van-field value="{{ userInfo.nickName }}" label="姓名:" readonly="{{true}}" placeholder="暂无" value="123465" border="{{ true }}" />
+      <van-field bind:change="onChangePwd" required clearable type="password" label="密码" placeholder="请输入密码" />
+      <van-field bind:change="onChangePwd" required clearable type="password" label="密码" placeholder="请输入密码" />
+      <van-field bind:change="onChangePwd" required clearable type="password" label="密码" placeholder="请输入密码" />
+      <van-field bind:change="onChangePwd" required clearable type="password" label="密码" placeholder="请输入密码" />
+      <van-field bind:change="onChangePwd" required clearable type="password" label="密码" placeholder="请输入密码" />
+      <van-field bind:change="onChangePwd" required clearable type="password" label="密码" placeholder="请输入密码" />
+      <van-field bind:change="onChangePwd" required clearable type="password" label="密码" placeholder="请输入密码" />
+      <van-field bind:change="onChangePwd" required clearable type="password" label="密码" placeholder="请输入密码" />
+      <van-field bind:change="onChangePwd" required clearable type="password" label="密码" placeholder="请输入密码" />
+
+    </view> -->
+    <view style="height:100rpx; width: 690rpx; display: flex; flex-direction: row; line-height: 100rpx; font-size: 32rpx; border-bottom-style: solid; border-bottom-width:1rpx; border-bottom-color:rgb(238, 238, 238)">
+      <text style="width: 28%;  text-align: center;" >资料名称</text>
+      <text style="width: 72%; text-align: center;">内容</text>
+    </view>
+    <view style="height:100rpx; width: 690rpx; display: flex; flex-direction: row; line-height: 100rpx; font-size: 32rpx; border-bottom-style: solid; border-bottom-width:1rpx; border-bottom-color:rgb(238, 238, 238)">
+      <text style="width: 28%;  text-align: center;" >资料名称</text>
+      <text style="width: 72%; text-align: center;">内容</text>
+    </view>
+    <view style="height:100rpx; width: 690rpx; display: flex; flex-direction: row; line-height: 100rpx; font-size: 32rpx; border-bottom-style: solid; border-bottom-width:1rpx; border-bottom-color:rgb(238, 238, 238)">
+      <text style="width: 28%;  text-align: center;" >资料名称</text>
+      <text style="width: 72%; text-align: center;">内容</text>
+    </view>
+    <view style="height:100rpx; width: 690rpx; display: flex; flex-direction: row; line-height: 100rpx; font-size: 32rpx; border-bottom-style: solid; border-bottom-width:1rpx; border-bottom-color:rgb(238, 238, 238)">
+      <text style="width: 28%;  text-align: center;" >资料名称</text>
+      <text style="width: 72%; text-align: center;">内容</text>
+    </view>
+    <view style="height:100rpx; width: 690rpx; display: flex; flex-direction: row; line-height: 100rpx; font-size: 32rpx; border-bottom-style: solid; border-bottom-width:1rpx; border-bottom-color:rgb(238, 238, 238)">
+      <text style="width: 28%;  text-align: center;" >资料名称</text>
+      <text style="width: 72%; text-align: center;">内容</text>
+    </view>
+    <view style="height:100rpx; width: 690rpx; display: flex; flex-direction: row; line-height: 100rpx; font-size: 32rpx; border-bottom-style: solid; border-bottom-width:1rpx; border-bottom-color:rgb(238, 238, 238)">
+      <text style="width: 28%;  text-align: center;" >资料名称</text>
+      <text style="width: 72%; text-align: center;">内容</text>
+    </view>
+    <view style="height:100rpx; width: 690rpx; display: flex; flex-direction: row; line-height: 100rpx; font-size: 32rpx; border-bottom-style: solid; border-bottom-width:1rpx; border-bottom-color:rgb(238, 238, 238)">
+      <text style="width: 28%;  text-align: center;" >资料名称</text>
+      <text style="width: 72%; text-align: center;">内容</text>
+    </view>
+    <view style="height:100rpx; width: 690rpx; display: flex; flex-direction: row; line-height: 100rpx; font-size: 32rpx; border-bottom-style: solid; border-bottom-width:1rpx; border-bottom-color:rgb(238, 238, 238)">
+      <text style="width: 28%;  text-align: center;" >资料名称</text>
+      <text style="width: 72%; text-align: center;">内容</text>
+    </view>
+    
+    <view class="keyword-container">
+      <text class="info-mark-count">评分人数：{{courseDetailInfo.evaluateNum===0?'暂无':courseDetailInfo.evaluateNum+"人"}}</text>
+      <view class="info-mark-container">
+        <text>评分：</text>
+        <van-rate readonly allow-half color="red" void-color="red" value="{{ courseDetailInfo.evaluateScore }}" />
+        <text style="margin-left: 10rpx;">{{courseDetailInfo.evaluateNum===0?'暂无评分':courseDetailInfo.evaluateScore+"分"}}</text>
+      </view>
+      <view class="info-keywords" hidden="{{courseDetailInfo.keywordList===null}}">
+        <view wx:for="{{courseDetailInfo.keywordList}}" wx:key="index">
+          <text class="info-keyword">{{item}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

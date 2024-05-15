@@ -59,7 +59,7 @@
             </view>
           </view>
         </view>
-        <t-fab icon="add" bind:click="handleClick" text="添加到课表" aria-label="增加" style="{{courseDetailInfo.hasTag!=1?'':'display:none'}}"></t-fab>
+          <t-fab icon="add" data-teacherCourseid="{{courseDetailInfo.teacherCourseId}}" bind:click="onChoice" text="添加到课表" aria-label="增加" style="{{courseDetailInfo.hasTag!=1?'':'display:none'}}"></t-fab>
       </view>
     </van-tab>
     <van-tab title="课程资料" disabled="{{courseDetailInfo.hasTag!=1}}">
@@ -82,7 +82,7 @@
                 <van-button round type="info" size="small" data-materialId="{{item.id}}" bind:tap="onExchangeMaterialShow">消耗{{item.needPoints}}分</van-button>
               </view>
               <view hidden="{{!(item.hasTag===1||courseDetailInfo.teacherId===userInfo.userId||userInfo.roles[0].roleKey==='admin')?true:''}}">
-                <van-button round type="info" size="small" data-materialid="{{item.id}}" bind:tap="showMaterialDetail">详情</van-button>
+                <van-button round type="warning" size="small" data-materialid="{{item.id}}" bind:tap="showMaterialDetail">详情</van-button>
               </view>
             </view>
           </view>
@@ -244,7 +244,7 @@
                 </view>
               </view>
             </view>
-            <view slot="right" class="btn-wrapper" style="height: 100%;" hidden="{{!(userInfo.userId===item.userId)}}">
+            <view slot="right" class="btn-wrapper" style="height: 100%;" hidden="{{!((userInfo.userId===item.userId)||(userInfo.userId===courseDetailInfo.teacherId))}}">
               <view class="btn delete-btn" data-questionid="{{item.id}}" bind:tap="onQuestionDelete">删除</view>
             </view>
           </t-swipe-cell>
@@ -263,23 +263,21 @@
         </view>
       </van-dialog>
     </van-tab>
-    <van-tab title="学生列表" disabled="{{!((courseDetailInfo.hasTag===1 && courseDetailInfo.teacherId===userInfo.userId)||userInfo.roles[0].roleKey==='admin')}}">
+    <van-tab title="学生列表" disabled="{{!((courseDetailInfo.hasTag===1 && courseDetailInfo.teacherId===userInfo.userId))}}">
       <view style="margin-bottom: 140rpx;">
-        <scroll-view wx:for="{{materialList}}" wx:key="index" class="shop-list" class="shop-item" bind:tap="onStudentInfoShow">
+        <scroll-view wx:for="{{studentList}}" wx:key="index" class="shop-list" class="shop-item" data-studentitem="{{item}}" bind:tap="onStudentInfoShow">
           <view class="student-info-container">
             <view class="student-info">
               <view style="display: flex; flex-direction: row; width: 300rpx;">
                 <view class="student-info-right-item-avatar">
-                  <t-avatar class="avatar-example" shape="round" size="64rpx" image="{{image}}" style="margin-top: 18rpx;" />
+                  <t-avatar class="avatar-example" shape="round" size="64rpx" image="{{item.avatar}}" style="margin-top: 18rpx;" />
                 </view>
-                <text class="student-title">冯小强</text>
+                <text class="student-title">{{item.nickName}}</text>
               </view>
-              <text class="student-mark">男</text>
-              <text class="student-type">计算机电子信息与技术201</text>
+              <text class="student-mark">{{item.sex===0?'男':(item.sex===1?'女':'未知')}}</text>
+              <text class="student-type">{{item.gradeClassVo.major}}{{item.gradeClassVo.classGradeName}}</text>
             </view>
-            <!-- <view class="exchange_button">
-              <van-button round type="info" size="small">兑换-10</van-button>
-            </view> -->
+
           </view>
         </scroll-view>
       </view>
@@ -287,10 +285,10 @@
         <view class="detail-info-header">联系方式</view>
         <view class="student-detail-info-container">
           <view style="display: flex; flex-direction: row; justify-content: center; margin-top: 20rpx;">
-            <text>手机号 :<text style="color: rgb(22, 134, 199);">17318968638</text></text>
+            <text>手机号 :<text style="color: rgb(22, 134, 199);">{{studentItem.phone}}</text></text>
           </view>
           <view style="display: flex; flex-direction: row; justify-content: center;">
-            <text>邮件 :<text style="color: rgb(22, 134, 199);">1842501760@qq.com</text></text>
+            <text>邮件 :<text style="color: rgb(22, 134, 199);">{{studentItem.email}}</text></text>
           </view>
         </view>
       </van-dialog>

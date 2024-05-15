@@ -58,7 +58,7 @@
     </t-collapse>
   </view>
   <!-- <view class="line">回答/评论</view> -->
-  <scroll-view style="height: 750rpx;" scroll-y="true">
+  <scroll-view>
 
     <view class="reply-outermost-container">
       <view wx:for="{{ReplyList}}" wx:key="index" class="reply-list" class="reply-item">
@@ -220,6 +220,9 @@
             </view>
           </view>
 
+        </view>
+        <view style="height: 80rpx; line-height: 80rpx; text-align: center; color: gray;" bind:tap="{{((contentPageNum-1)*contentPageSize>=contentTotal)?'':'getContentList'}}">
+        <text>{{((contentPageNum-1)*contentPageSize>=contentTotal)?'已经到底了！':'查看更多'}}</text>
         </view>
       </view>
     </scroll-view>

@@ -1,1 +1,228 @@
-/* pages/material/materialDetailInfo.wxss */
+.font-f{
+  font-family: "microsoft yahei";
+}
+.UCenter-bg {
+  /* background-image: linear-gradient(to top, #305ca8 100%, #1e3c72 1%, #1e3c72 0%); */
+  background-size: cover;
+  height: 450rpx;
+  display: flex;
+  padding-top: 40rpx;
+  overflow: hidden;
+  justify-content: flex-start;
+  width: 100%;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  font-weight: 300;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+
+}
+.external-class{
+  height: 220rpx;
+}
+.mb-16 {
+  margin-bottom: 32rpx;
+}
+
+.avatar {
+  width: 180rpx;
+  height: 180rpx;
+  background-color: grey;
+  /* overflow: hidden; */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 4px outset #FF6600;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+}
+
+.points-container {
+  width: 90%;
+  height: 380rpx;
+  margin-top: 10rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.points-container .points {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 60rpx;
+  font-weight: normal;
+  color: rgb(255, 204, 146);
+
+}
+
+.points-container .info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 60rpx;
+  font-weight: bold;
+}
+
+.info .points-icon {
+  width: 50rpx;
+  height: 50rpx;
+  margin-left: 20rpx;
+}
+
+.points-container .icon {
+  width: 300rpx;
+  height: 300rpx;
+}
+
+.UCenter-bg text {
+  opacity: 0.8;
+}
+
+.UCenter-bg image {
+  width: 200rpx;
+  height: 200rpx;
+  object-fit: cover;
+}
+
+.UCenter-bg .gif-wave {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  mix-blend-mode: screen;
+  height: 100rpx;
+}
+
+map,
+.mapBox {
+  left: 0;
+  z-index: 99;
+  mix-blend-mode: screen;
+  height: 100rpx;
+}
+
+map,
+.mapBox {
+  width: 750rpx;
+  height: 300rpx;
+}
+
+.text-df {
+  font-size: large;
+  font-weight: bold;
+}
+
+.basicInfo-Container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10rpx;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: flex-start;
+}
+
+.basicInfo-Container text {
+  text-align: left;
+  margin-right: 5%;
+}
+
+.classInfo_container {
+  margin-top: 10rpx;
+  display: flex;
+  flex-direction: row;
+  padding: 15rpx;
+}
+
+.line_info-1 {
+  display: flex;
+  padding-left: 10rpx;
+  font-size: 30rpx;
+  flex-direction: column;
+}
+
+.line_info-2 {
+  display: flex;
+  flex-direction: column;
+  font-size: 30rpx;
+  margin-left: 100rpx;
+}
+
+.keyword {
+  font-size: 32rpx;
+  padding: 15rpx;
+}
+
+.course-title-1 {
+  padding-top: 30rpx;
+  font-size: 48rpx;
+  font-weight: bold;
+}
+
+.course-title-2 {
+  margin-top: 10rpx;
+  padding-left: 20rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+}
+
+.keyword-container {
+  padding: 15rpx;
+  margin-top: 30rpx;
+  width: 90%;
+  margin-left: 5%;
+  display: flex;
+  border: 1rpx solid rgb(243, 236, 234);
+  border-radius: 40rpx;
+  background-color: #fffbf8;
+  flex-direction: column;
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+}
+
+.info-mark-container {
+  margin-top: 10rpx;
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+.info-mark-container text {
+  margin-top: 8rpx;
+}
+
+.info-mark-count {
+  margin-top: 10rpx;
+  margin-left: 20rpx;
+}
+
+.info-keywords {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 10rpx;
+  margin-left: 20rpx;
+}
+
+.info-keywords .info-keyword {
+  margin-right: 10rpx;
+  margin-top: 10rpx;
+  padding-left: 5rpx;
+  padding-right: 5rpx;
+  background-color: rgb(241, 127, 107);
+  border: 1rpx solid #FF6600;
+  border-radius: 25rpx;
+  color: rgb(245, 236, 236);
+}
+
+.info-background {
+  background-color: #fff;
+  border-radius: 35rpx;
+  height: 1000rpx;
+}

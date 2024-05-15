@@ -122,15 +122,7 @@ Page({
         className: 'btn delete-btn',
       },
     ],
-    studentList: [{
-      questionId: 1
-    }, {
-      questionId: 2
-    }, {
-      questionId: 3
-    }, {
-      questionId: 4
-    }, 5, 6, 7, 8, 9, 10],
+    studentList: [],
     onStudentInfoShow: false,
     onMaterialUploadShow: false,
     pageNum: 1,
@@ -209,6 +201,7 @@ Page({
     anonymity:false,
     question_title:'',
     question_desc:'',
+    studentItem:{},
   },
 
   onQuestionDelete(e){
@@ -222,7 +215,7 @@ Page({
       if (res.code===200) {
         wx.showModal({
           title: '提示',
-          content: '删除成功,相应积分已被扣去',
+          content: '删除成功',
           complete: (res) => {
             if (res.cancel) {
               
@@ -270,7 +263,7 @@ Page({
       if (res.code === 200) {
         wx.showModal({
           title: '提示',
-          content: '评价成功+100积分',
+          content: '评价成功',
           complete: (res) => {
             if (res.cancel) {
 
@@ -309,7 +302,32 @@ Page({
       anonymity:e.detail.checked
     })
   },
-
+  onChoice(e) {
+    const teachercourseid = e.currentTarget.dataset.teachercourseid;
+    post("/system/lesson/course/select",{
+      teacherCourseId:teachercourseid
+    },{
+      Authorization:wx.getStorageSync('Authorization')
+    }).then(res=>{
+      console.log(res);
+      if (res.code===200) {
+        wx.showModal({
+          title: '提示',
+          content: '选课成功',
+          complete: (res) => {
+            if (res.cancel) {
+              
+            }
+        
+            if (res.confirm) {
+              
+            }
+          }
+        })
+      }
+      this.getCourseDetailInfo();
+    })
+  },
   onAddQuestion(){
     if (this.data.question_title.length>18) {
       wx.showModal({
@@ -337,7 +355,7 @@ Page({
         if (res.code===200) {
           wx.showModal({
             title: '提示',
-            content: '发布成功，获得10积分',
+            content: '发布成功',
             complete: (res) => {
               if (res.cancel) {
                 
@@ -618,15 +636,7 @@ Page({
       url: '/pages/material/materialDetailInfo?materialid=' + event.currentTarget.dataset.materialid,
     })
   },
-  onActionClick({
-    detail
-  }) {
 
-    wx.showToast({
-      title: `你点击了${detail.text}`,
-      icon: 'none'
-    });
-  },
   getCourseDetailInfo() {
     get("/system/course/info/" + this.data.tcourseId, {}, {
       Authorization: wx.getStorageSync('Authorization')
@@ -647,7 +657,7 @@ Page({
       if (res.code === 200) {
         wx.showModal({
           title: '提示',
-          content: '删除成功，相应积分已被扣去',
+          content: '删除成功',
           complete: (res) => {
             if (res.cancel) {
 
@@ -699,12 +709,15 @@ Page({
 
   onStudentInfoClose() {
     this.setData({
-      onStudentInfoShow: false
+      onStudentInfoShow: false,
+      studentItem:{},
     });
   },
-  onStudentInfoShow() {
+  onStudentInfoShow(e) {
     this.setData({
-      onStudentInfoShow: true
+      studentItem:e.currentTarget.dataset.studentitem,
+      onStudentInfoShow: true,
+
     })
   },
   onQAAddClose() {
@@ -767,11 +780,21 @@ Page({
     } else if (index === 3) {
       this.refreshCourseQAList();
     } else if (index === 4) {
-      this.getCourseStudentList();
+      this.refreshCourseStudentList();
     }
     this.setData({
       active: index
     })
+  },
+
+
+  refreshCourseStudentList(){
+    this.setData({
+      pageNum:1,
+      total:0,
+      studentList:[]
+    })
+    this.getCourseStudentList()
   },
 
   //初始化types
@@ -874,7 +897,20 @@ Page({
    * 获取课程学生课表分页
    */
   getCourseStudentList() {
-
+    get("/system/course/student/list",{
+      tcourseId: this.data.courseDetailInfo.teacherCourseId,
+      pageNo:this.data.pageNum,
+      pageSize:this.data.pageSize
+    },{
+      Authorization:wx.getStorageSync('Authorization')
+    }).then(res=>{
+      console.log(res);
+      this.setData({
+        studentList:[...this.data.studentList, ...res.data.list],
+        pageNum: ++this.data.pageNum,
+        total: res.data.total
+      })
+    })
   },
 
   handleClick(e) {
@@ -981,9 +1017,10 @@ Page({
       })
     })
 
+    this.onChange();
 
 
-    let ress = this.get_my_num()
+    
   },
   go_my_share() {
     wx.navigateTo({
@@ -1071,7 +1108,7 @@ Page({
       return
     }
 
-    if (this.data.pageSize * this.data.pageNum >= this.data.total) {
+    if ((this.data.pageSize-1) * this.data.pageNum >= this.data.total) {
       wx.showToast({
         title: '已经到底了',
       })
@@ -1083,6 +1120,8 @@ Page({
         this.getCourseEvaluateList();
       }else if (this.data.active===3) {
         this.getCourseQAList();
+      }else if (this.data.active===4) {
+        this.getCourseStudentList();
       }
     }
 

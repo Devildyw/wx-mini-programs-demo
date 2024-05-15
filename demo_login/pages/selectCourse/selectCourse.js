@@ -85,7 +85,7 @@ Page({
     pageSize:10,
     orderByColumn:'',
     isAsc:'',
-    lastTotal:0,
+    total:0,
     userInfo:{},
     semester:'',
     right: [
@@ -104,8 +104,58 @@ Page({
     wx.showToast({ title: `你点击了${detail.text}`, icon: 'none' });
   },
 
-  onChoice() {
-    wx.showToast({ title: '你点击了选择', icon: 'none' });
+  onChoice(e) {
+    const teachercourseid = e.currentTarget.dataset.teachercourseid;
+    post("/system/lesson/course/select",{
+      teacherCourseId:teachercourseid
+    },{
+      Authorization:wx.getStorageSync('Authorization')
+    }).then(res=>{
+      console.log(res);
+      if (res.code===200) {
+        wx.showModal({
+          title: '提示',
+          content: '选课成功',
+          complete: (res) => {
+            if (res.cancel) {
+              
+            }
+        
+            if (res.confirm) {
+              
+            }
+          }
+        })
+      }
+      this.onSearch();
+    })
+  },
+
+  onDelete(e){
+    const teachercourseid = e.currentTarget.dataset.teachercourseid;
+    post("/system/lesson/course/cancel",{
+      teacherCourseId:teachercourseid
+    },{
+      Authorization:wx.getStorageSync('Authorization')
+    }).then(res=>{
+      console.log(res);
+      if (res.code===200) {
+        wx.showModal({
+          title: '提示',
+          content: '取消成功',
+          complete: (res) => {
+            if (res.cancel) {
+              
+            }
+        
+            if (res.confirm) {
+              
+            }
+          }
+        })
+      }
+      this.onSearch();
+    })
   },
 
   onChange(e) {
@@ -133,8 +183,8 @@ Page({
     this.setData({
       keyword:options.keyword!=null?options.keyword:'',
       userInfo:wx.getStorageSync('userInfo')
-    })
-    console.log(this.data.userInfo);
+    });
+    
   },
 
   getList(){
@@ -146,9 +196,11 @@ Page({
       keyword:this.data.keyword,
       gradeYearId:this.data.userInfo.gradeClass.gradeYearId
     },{Authorization:wx.getStorageSync('Authorization')}).then(res=>{
+      console.log(res);
       this.setData({
-        
+        pageNum:++this.data.pageNum,
         courseList:[...this.data.courseList,...res.rows],
+        total:res.total
       })
     })
   },
@@ -156,7 +208,9 @@ Page({
   onSearch(){
     
     this.setData({
-      courseList:[]
+      courseList:[],
+      pageNum:1,
+      total:0,
     })
     this.getList()
   },
@@ -210,8 +264,11 @@ Page({
         ],
       })
     });
-    
     this.onSearch();
+    wx.showToast({
+      title: '右滑可查看更多操作',
+      icon:'none'
+    });
   },
 
   /**
@@ -239,7 +296,14 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-
+    if ((this.data.pageSize-1)*this.data.pageNum>=this.data.total) {
+      wx.showToast({
+        title: '已经到底了',
+        icon:'none'
+      })
+    }else{
+      this.getList();
+    }
   },
 
   /**

@@ -24,14 +24,14 @@ Page({
     activeValues: [],
     QuestionDetail: {},
     pageNum: 1,
-    active:0,
+    active: 0,
     deleteReplyId: '',
-    pageSize: 10,
+    pageSize: 3,
     total: 0,
     contentPageNum: 1,
-    contentPageSize:10,
-    contentTotal:0,
-    contentList:[],
+    contentPageSize: 10,
+    contentTotal: 0,
+    contentList: [],
     ReplyList: [],
     show: false,
     anonymity: false,
@@ -59,8 +59,8 @@ Page({
         text: '右侧弹出'
       },
     ],
-    replyIndex:'',
-    showDeleteContentConfirm:false,
+    replyIndex: '',
+    showDeleteContentConfirm: false,
   },
 
   noticeForDelete(e) {
@@ -69,10 +69,9 @@ Page({
       icon: "none"
     })
   },
-  getContentList(){
-    console.log("getcontentList");
+  getContentList() {
     get("/system/reply/page/list", {
-      pageNum: this.data.contentPageNum,
+      pageNo: this.data.contentPageNum,
       pageSize: this.data.contentPageSize,
       questionId: this.data.questionId,
       answerId: this.data.ReplyList[this.data.replyIndex].id
@@ -83,17 +82,17 @@ Page({
       this.setData({
         contentPageNum: ++this.data.contentPageNum,
         contentList: [...this.data.contentList, ...res.data.list],
-        contentTotal: this.data.total
+        contentTotal: res.data.total
       })
     })
   },
 
-  refreshContentList(){
+  refreshContentList() {
     console.log("refresh");
     this.setData({
-      contentTotal:0,
-      contentList:[],
-      contentPageNum:1
+      contentTotal: 0,
+      contentList: [],
+      contentPageNum: 1
     })
     this.getContentList();
   },
@@ -145,7 +144,7 @@ Page({
   },
   getReplyList() {
     get("/system/reply/page/list", {
-      pageNum: this.data.pageNum,
+      pageNo: this.data.pageNum,
       pageSize: this.data.pageSize,
       questionId: this.data.questionId
     }, {
@@ -155,7 +154,7 @@ Page({
       this.setData({
         pageNum: ++this.data.pageNum,
         ReplyList: [...this.data.ReplyList, ...res.data.list],
-        total: this.data.total
+        total: res.data.total
       })
     })
   },
@@ -206,7 +205,7 @@ Page({
     })
   },
 
-  replyForAnswer(e){
+  replyForAnswer(e) {
     console.log(e);
     const targetUserId = e.currentTarget.dataset.targetuserid;
     const targetReplyId = e.currentTarget.dataset.targetid;
@@ -214,7 +213,7 @@ Page({
       content: this.data.replyContent,
       anonymity: this.data.anonymity,
       questionId: this.data.QuestionDetail.id,
-      answerId:this.data.ReplyList[this.data.replyIndex].id,
+      answerId: this.data.ReplyList[this.data.replyIndex].id,
       targetUserId: targetUserId,
       targetReplyId: targetReplyId
     }, {
@@ -239,45 +238,46 @@ Page({
           anonymity: false,
           content: ''
         })
-        
+
         this.refreshContentList();
         this.setData({
-          ['ReplyList['+this.data.replyIndex+'].replyTimes']:++this.data.ReplyList[this.data.replyIndex].replyTimes
+          ['ReplyList[' + this.data.replyIndex + '].replyTimes']: ++this.data.ReplyList[this.data.replyIndex].replyTimes
         })
       }
     })
   },
 
   deleteForReply() {
-    post("/system/reply/delete/reply",{
-      id:this.data.deleteReplyId
-    },
-    {Authorization:wx.getStorageSync('Authorization')}).then(res=>{
+    post("/system/reply/delete/reply", {
+      id: this.data.deleteReplyId
+    }, {
+      Authorization: wx.getStorageSync('Authorization')
+    }).then(res => {
       console.log(res);
-      if (res.code===200) {
+      if (res.code === 200) {
         wx.showModal({
           title: '提示',
           content: '删除成功',
           complete: (res) => {
             if (res.cancel) {
-              
+
             }
-        
+
             if (res.confirm) {
-              
+
             }
           }
         })
         this.refreshReplyList();
         this.getQuestionDetail();
-        if (this.data.replyIndex!==''&&this.data.replyIndex!==null) {
+        if (this.data.replyIndex !== '' && this.data.replyIndex !== null) {
           this.refreshContentList();
           this.setData({
-            ['ReplyList['+this.data.replyIndex+'].replyTimes']:--this.data.ReplyList[this.data.replyIndex].replyTimes
+            ['ReplyList[' + this.data.replyIndex + '].replyTimes']: --this.data.ReplyList[this.data.replyIndex].replyTimes
           })
         }
         this.setData({
-          showDeleteConfirm:false,
+          showDeleteConfirm: false,
           showDeleteContentConfirm: false,
         })
       }
@@ -300,7 +300,7 @@ Page({
     })
   },
 
-  likeForContent(e){
+  likeForContent(e) {
     const replyid = e.currentTarget.dataset.replyid;
     const index = e.currentTarget.dataset.index;
     post("/likes", {
@@ -359,7 +359,7 @@ Page({
 
   onOpen(e) {
     this.setData({
-      replyIndex:e.currentTarget.dataset.index,
+      replyIndex: e.currentTarget.dataset.index,
       show: true,
       active: 1
     });
@@ -413,30 +413,19 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-    if (this.data.active===0) {
-      if (this.data.pageNum*this.data.pageSize>=this.data.total) {
-         wx.showToast({
-           title: '已经到底了',
-           icon:'none'
-         })
-      } else {
-        this.getReplyList();
-      }
-    }else if (this.data.active===1) {
-        if (this.data.contentPageNum*this.data.contentPageSize>=this.data.contentTotal) {
-          wx.showToast({
-            title: '已经到底了',
-            icon:'none'
-          })
-        } else {
-          this.getContentList();
-        }
+    if ((this.data.pageNum - 1) * this.data.pageSize >= this.data.total) {
+      wx.showToast({
+        title: '已经到底了',
+        icon: 'none'
+      })
+    } else {
+      this.getReplyList();
     }
   },
 
   onClose() {
     this.setData({
-      replyIndex:'',
+      replyIndex: '',
       show: false,
       active: 0
     });

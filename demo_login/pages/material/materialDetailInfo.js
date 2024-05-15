@@ -1,3 +1,5 @@
+const { get } = require("../../utils/request")
+
 // pages/material/materialDetailInfo.js
 Page({
 
@@ -5,16 +7,33 @@ Page({
    * 页面的初始数据
    */
   data: {
-    materialid:'',
+    materialid:'1768260132195667968',
+    materialDetailInfo:{},
+    swiperList:[],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    console.log(options.materialid);
-    this.setData({
-      materialid:options.materialid
+    // console.log(options.materialid);
+    // this.setData({
+    //   materialid:options.materialid
+    // })
+    this.getCourseMaterialInfo();
+  },
+
+  getCourseMaterialInfo(){
+    get("/system/material/material/info",{
+      materialId:this.data.materialid
+    },{
+      Authorization:wx.getStorageSync('Authorization')
+    }).then(res=>{
+      console.log(res);
+      this.setData({
+        swiperList:[res.data.coverUrl],
+        materialDetailInfo:res.data
+      })
     })
   },
 

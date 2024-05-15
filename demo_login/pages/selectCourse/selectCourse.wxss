@@ -70,7 +70,7 @@
   font-size: 42rpx;
   margin-top: 10rpx;
   margin-bottom: 2rpx;
-  color: rgb(10, 40, 90);
+  /* color: rgb(10, 40, 90); */
   /* border: 1rpx solid red; */
   border-bottom: 1rpx solid rgb(204, 202, 202);
   /* border-radius: 20rpx; */

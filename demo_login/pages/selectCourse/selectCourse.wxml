@@ -27,21 +27,28 @@
         </view>
         <view class="basicInfo">
           <text style="width: 32%;">评分人数:<text  style="color: rgb(15, 79, 98); font-weight: bold;">{{item.evaluateNum==0?'暂无':item.evaluateNum}}</text></text>
-          <text style="width: 32%;">评分:<text style="color: rgb(15, 79, 98); font-weight: bold;">{{item.evaluateNum==0?'暂无评分':item.evaluateScore}}</text></text>
+          <text style="width: 22%;">评分:<text style="color: rgb(15, 79, 98); font-weight: bold;">{{item.evaluateNum==0?'暂无':item.evaluateScore}}</text></text>
+          <text style="width: 30%;">余/总:<text style="color: rgb(15, 79, 98); font-weight: bold;">{{item.remain}}/{{item.total}}</text></text>
           <text style="width: 100%;">评价:<text style="color: rgb(15, 79, 98); font-weight: bold;">{{item.keywords===null||item.keywords===''?'暂无':(item.keywords)}}</text></text>
         </view>
       </view>
 
 
     </view>
-    <view slot="right" class="btn-wrapper" style="height: 100%;">
-      <view class="btn favor-btn" bind:tap="onChoice">
+    <view slot="right" class="btn-wrapper" hidden="{{item.hasTag}}" style="height: 100%;">
+      <view class="btn {{item.remain===0?'edit-btn':'favor-btn'}}" data-teacherCourseid="{{item.teacherCourseId}}" bind:tap="{{item.remain===0?'':'onChoice'}}">
         <view style="display: flex; flex-direction: column; justify-content: center;">
-          <view>选择</view>
-          <view>1/10</view>
+          <view style="text-align: center;">{{item.remain===0?"已满":"选择"}}</view>
+          <view>{{item.remain}}/{{item.total}}</view>
         </view>
       </view>
-
+    </view>
+    <view slot="right" class="btn-wrapper" hidden="{{!item.hasTag}}" style="height: 100%;">
+      <view class="btn delete-btn" data-teacherCourseid="{{item.teacherCourseId}}" bind:tap="onDelete">
+        <view style="display: flex; flex-direction: column; justify-content: center;">
+          <view style="text-align: center;">取消</view>
+        </view>
+      </view>
     </view>
   </t-swipe-cell>
 </view>

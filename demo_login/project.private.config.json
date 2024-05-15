@@ -9,6 +9,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/material/materialDetailInfo",
+          "pathName": "pages/material/materialDetailInfo",
+          "query": "materialid=1768260132195667968",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/selectCourse/QADetailInfo",
           "pathName": "pages/selectCourse/QADetailInfo",
           "query": "questionId=undefined",
