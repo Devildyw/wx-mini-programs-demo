@@ -1,4 +1,8 @@
 const {get,post} = require('../../utils/request')
+import drawQrcode from 'weapp-qrcode'
+// 或者，将 dist 目录下，weapp.qrcode.min.js 复制到项目目录中
+// import drawQrcode from '../../utils/weapp.qrcode.min.js'
+
 
 // pages/selectCourse/selectCourse.js
 Page({
@@ -7,85 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    type: {
-      value: 'all',
-      options: [
-        {
-          value: 'all',
-          label: '类型',
-        },
-        {
-          value: 'new',
-          label: '最新产品',
-        },
-        {
-          value: 'hot',
-          label: '最火产品',
-        },
-      ],
-    },
-    courseType: {
-      value: 'all',
-      options: [
-        {
-          value: 'all',
-          label: '方式',
-        },
-        {
-          value: '0',
-          label: '线下',
-        },
-        {
-          value: '1',
-          label: '线上',
-        },
-      ],
-    },
-    school: {
-      value: 'all',
-      options: [
-        {
-          value: 'all',
-          label: '校区',
-        },
-        {
-          value: '0',
-          label: '航空港',
-        },
-        {
-          value: '1',
-          label: '龙泉',
-        },
-      ],
-    },
-    sorter: {
-      value: 'default',
-      options: [
-        {
-          value: 'default',
-          label: '默认排序',
-        },
-        {
-          value: 'markHigh',
-          label: '按评分降序排序',
-        },
-        {
-          value: 'personNumHigh',
-          label: '按评分人数降序排序',
-        },
-        {
-          value: 'personNumHigh',
-          label: '按兑换次数降序排序',
-        },
-      ],
-    },
-    keyword:'',
-    materialList:[],
-    pageNum:1,
-    pageSize:10,
-    orderByColumn:'',
-    isAsc:'',
-    lastTotal:0,
+    url:'',
   },
 
 
@@ -104,9 +30,28 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.getList()
+    this.setData({
+      url:options.url
+    })
+    drawQrcode({
+      width: 200,
+      height: 200,
+      canvasId: 'myQrcode',
+      text: this.data.url
+    })
   },
-
+  copyUrl(){
+    wx.setClipboardData({
+      data: this.data.url,
+      success (res) {
+        wx.getClipboardData({
+          success (res) {
+            console.log(res.data) // data
+          }
+        })
+      }
+    })
+  },
   getList(){
     get('/system/originMaterial/page/list',{
       pageNum:this.data.pageNum,

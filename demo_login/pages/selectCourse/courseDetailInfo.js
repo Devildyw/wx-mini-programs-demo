@@ -1111,6 +1111,7 @@ Page({
     if ((this.data.pageSize-1) * this.data.pageNum >= this.data.total) {
       wx.showToast({
         title: '已经到底了',
+        icon:'none'
       })
     } else {
       if (this.data.active === 1) {

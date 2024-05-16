@@ -9,6 +9,7 @@
       "t-rate": "../../miniprogram_npm/tdesign-miniprogram/rate/rate",
       "t-radio-group": "tdesign-miniprogram/radio-group/radio-group",
     "t-radio": "tdesign-miniprogram/radio/radio",
-    "t-icon": "tdesign-miniprogram/icon/icon"
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-link": "tdesign-miniprogram/link/link"
   }
 }

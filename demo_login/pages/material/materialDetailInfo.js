@@ -1,4 +1,7 @@
-const { get } = require("../../utils/request")
+import drawQrcode from '../../utils/weapp.qrcode.esm.js'
+const {
+  get, post
+} = require("../../utils/request")
 
 // pages/material/materialDetailInfo.js
 Page({
@@ -7,32 +10,85 @@ Page({
    * 页面的初始数据
    */
   data: {
-    materialid:'1768260132195667968',
-    materialDetailInfo:{},
-    swiperList:[],
+    materialid: '',
+    materialDetailInfo: {},
+    swiperList: [],
+    onMaterialAddMarkShow:false,
+    rate:0
+  },
+  onRateChange(e) {
+    this.setData({
+      rate: e.detail.value
+    });
   },
 
+  addMaterialMark(){
+    post("/system/material/evaluate",{
+      materialId:this.data.materialid,
+      mark:this.data.rate
+    },{
+      Authorization:wx.getStorageSync('Authorization')
+    }).then(res=>{
+      if (res.code===200) {
+        wx.showModal({
+          title: '提示',
+          content: '评分成功',
+          complete: (res) => {
+            if (res.cancel) {
+              
+            }
+        
+            if (res.confirm) {
+              
+            }
+          }
+        })
+      }
+      this.getCourseMaterialInfo();
+      this.setData({
+        rate:0,
+        onMaterialAddMarkShow:false,
+      })
+    })
+  },
+  onMaterialAddMarkClose() {
+    this.setData({
+      onMaterialAddMarkShow: false
+    });
+  },
+  onMaterialAddMarkShow() {
+    this.setData({
+      onMaterialAddMarkShow: true
+    })
+  },
+
+  downloadMaterialFile() {
+    wx.navigateTo({
+      url: '/pages/material/material?url='+this.data.materialDetailInfo.url,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    // console.log(options.materialid);
-    // this.setData({
-    //   materialid:options.materialid
-    // })
+    console.log(options.materialid);
+    this.setData({
+      materialid:options.materialid
+    })
+    
     this.getCourseMaterialInfo();
   },
 
-  getCourseMaterialInfo(){
-    get("/system/material/material/info",{
-      materialId:this.data.materialid
-    },{
-      Authorization:wx.getStorageSync('Authorization')
-    }).then(res=>{
+  getCourseMaterialInfo() {
+    get("/system/material/material/info", {
+      materialId: this.data.materialid
+    }, {
+      Authorization: wx.getStorageSync('Authorization')
+    }).then(res => {
       console.log(res);
       this.setData({
-        swiperList:[res.data.coverUrl],
-        materialDetailInfo:res.data
+        swiperList: [res.data.coverUrl],
+        materialDetailInfo: res.data
       })
     })
   },

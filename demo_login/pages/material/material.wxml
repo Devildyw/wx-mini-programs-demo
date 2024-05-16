@@ -1,42 +1,11 @@
-<navigator open-type="navigateBack" delta="1" />
-<van-search value="{{ keyword }}" placeholder="请输入资料相关关键词" use-action-slot="true" bind:search="onSearch" bind:change="onInput">
-  <view slot="action" bind:tap="onSearch">搜索</view>
-</van-search>
-<t-dropdown-menu style="height: 70rpx; align-items:center; border-top: 1rpx solid rgb(223, 223, 223);">
-  <t-dropdown-item  options="{{courseType.options}}" value="{{courseType.value}}" bindchange="onCourseTypeChange" />
-  <t-dropdown-item  options="{{type.options}}" value="{{type.value}}" bindchange="onChange" />
-  <t-dropdown-item  options="{{school.options}}" default-value="{{school.value}}" />
-  <t-dropdown-item options="{{sorter.options}}" default-value="{{sorter.value}}" />
-</t-dropdown-menu>
-
-<view wx:for="{{materialList}}" wx:key="index" class="shop-list" class="shop-item">
-
-  <view class="info">
-    <view class="info-container" data-materialId="{{item.id}}" bind:tap="showMaterialDetailsInfo">
-      <!-- <image src="http://localhost:8080/profile/upload/2024/03/14/QQ图片20230608220001_20240314211655A002.png"></image> -->
-      <text class="shop-title">《{{item.courseName}}》</text>
-      <view class="basicInfo">
-        <text>老师姓名：{{item.teacherName}} </text>
-        <text>课程类型：{{item.typeName}}</text>
-
-      </view>
-      <view class="basicInfo">
-        <text>学时：{{item.period}}</text>
-        <text>学分：{{item.score}}</text>
-        <text>方式：{{item.courseType===0?'线下':'线上'}}</text>
-      </view>
-      <view class="basicInfo">
-        <text>评分：{{item.evaluateNum==0?'暂无评分':item.evaluateScore}}</text>
-        <text>评价：{{item.keywords===null||item.keywords===''?'暂无':(item.keywords)}}</text>
-      </view>
-    </view>
-    <view class="choose">
-      <view>
-        <view class="choose-top">选择</view>
-        <!-- <view class="choose-bottom">{{item.remain}}/{{item.total}}</view> -->
-      </view>
-    </view>
+<view style="display: flex; flex-direction: row; justify-content: center;">
+  <view style="display: flex; flex-direction: column">
+    <text style="text-align: center; margin-top:40rpx ; margin-bottom: 40rpx; font-weight: bold; font-size: large;">扫描下方二维码即可下载文件</text>
+    <canvas style="width: 200px; height: 200px; margin-left: 30rpx;" canvas-id="myQrcode"></canvas>
+    
   </view>
 </view>
 
-<!-- <wxs src="../../utils/tools.wxs" module="m1"/> -->
+<view style="display: flex; flex-direction: row; justify-content: center; height: 200rpx; margin-left: 10%; width: 80%" >
+  <view style="margin-top:40rpx ; margin-bottom: 40rpx; font-weight: bold; color: grey; font-size: 24rpx; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" bind:tap="copyUrl">{{url}}</view>
+</view>

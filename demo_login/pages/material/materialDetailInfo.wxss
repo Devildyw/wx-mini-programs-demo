@@ -224,5 +224,49 @@ map,
 .info-background {
   background-color: #fff;
   border-radius: 35rpx;
-  height: 1000rpx;
+  height: 1250rpx;
+}
+
+.link-example {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 96rpx;
+  background-color: var(--bg-color-demo);
+}
+
+.detail-info-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: large;
+  font-weight: bold;
+}
+
+.student-detail-info-container{
+  height: 180rpx;
+  width: 98%;
+  margin-left: 1%;
+  display: flex;
+  flex-direction: column;
+}
+
+.demo-rate {
+  background-color: var(--bg-color-demo);
+  color: var(--td-text-color-primary);
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32rpx;
+  border-bottom: solid 1rpx var(--bg-color-demo-border);
+  border-top: solid 1rpx var(--bg-color-demo-border);
+  margin-top: 32rpx;
+  margin-bottom: 32rpx;
+}
+.demo-rate__title {
+  width: 200rpx;
+  font-size: larger;
 }
