@@ -9,6 +9,27 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/myself/myCourseList",
+          "pathName": "pages/myself/myCourseList",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/myself/myMaterialList",
+          "pathName": "pages/myself/myMaterialList",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/points/points",
+          "pathName": "pages/points/points",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/material/materialDetailInfo",
           "pathName": "pages/material/materialDetailInfo",
           "query": "materialid=1768260132195667968",

@@ -4,6 +4,7 @@
   
   "usingComponents": {
       "cu-custom":"/colorui/components/cu-custom",
-      "t-image": "tdesign-miniprogram/image/image"
+      "t-image": "tdesign-miniprogram/image/image",
+      "t-dialog": "../../miniprogram_npm/tdesign-miniprogram/dialog/dialog"
   }
 }

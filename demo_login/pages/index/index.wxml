@@ -1,10 +1,12 @@
 <!--pages/index/index.wxml-->
-<view class='container'>
+<view class='container' t>
 
   <!-- 搜索框 -->
-  <van-search value="{{ keyword }}" placeholder="请输入课程相关关键词" use-action-slot="true" bind:search="onSearch" bind:change="onInput">
+  <view hidden="{{userInfo.roles[0].roleKey==='teacher'}}">
+    <van-search value="{{ keyword }}" placeholder="请输入课程相关关键词" use-action-slot="true" bind:search="onSearch" bind:change="onInput" >
     <view slot="action" bind:tap="onSearch">搜索</view>
   </van-search>
+  </view>
 
   <view class="card-theme">
     <view class="box" style="height: 20rpx" />
@@ -14,13 +16,13 @@
 
   <view class='card' style='margin-top:30rpx;'>
     <form bindsubmit="submit" report-submit="ture">
-      <view class='navs'>
-        <block wx:for="{{navs}}" wx:key="key">
-          <button data-key='{{item.key}}' data-verify="{{item.verify}}" class="form_button nav" form-type='submit' plain="{{plain}}">
+      <view class='navs' style="display: flex; flex-direction: row; justify-content: space-around">
+        <view wx:for="{{navs}}" wx:key="key" >
+          <button data-key='{{item.key}}' data-verify="{{item.verify}}" class="form_button nav" style="width: 150rpx;" form-type='submit' plain="{{plain}}">
             <image class="nav-icon" src="/images/index/{{item.key}}.png"></image>
             <text class="nav-desc text-caption">{{item.desc}}</text>
           </button>
-        </block>
+        </view>
       </view>
     </form>
   </view>
@@ -32,7 +34,7 @@
   <view class='card animation-fade'>
 
 
-    <view class="hot-course-container">
+    <view class="hot-course-container" hidden="{{userInfo.roles[0].roleKey==='teacher'}}">
       <view class="grid-course-hot-container">
         <view class="card-desc text-caption hot-course-title" style="font-size: 30rpx;">热门课程</view>
         <view class="card-desc text-caption hot-course-more" style="font-size: 30rpx;" bind:tap="showMore">查看更多></view>
@@ -41,7 +43,7 @@
         <view wx:for="{{hotCourseList}}" wx:key="index" class="hot-course-item" data-teacherCourseId="{{item.teacherCourseId}}" bind:tap="showCourseDetail">
           <view class="hot-course-item-cell">
             <view class="hot-course-item-cell-top">
-              <image src="../../assets/icon/点赞.png" mode="" />
+              <image src="https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E5%A5%96%E7%89%8C.png" mode="" />
               <view class="hot-course-item-cell-text">
                 <text style=" color: rgb(250, 243, 243);"><text style="font-weight: bold; color: rgb(71, 47, 2);">No.{{index + 1}}</text></text>
               </view>

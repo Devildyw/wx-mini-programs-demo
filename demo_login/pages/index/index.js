@@ -35,9 +35,14 @@ Page({
     swiperList,
     user_data: {},
     isLogin: false,
-    "navs": [{
+    navs: [{
         key: "timetable",
         desc: "课表",
+        verify: "jwc"
+      },
+      {
+        key: "tips",
+        desc: "小贴士",
         verify: "jwc"
       },
       {
@@ -46,11 +51,6 @@ Page({
         verify: ""
       }, 
       {
-        key: "tips",
-        desc: "小贴士",
-        verify: "jwc"
-      },
-      {
         key: "points",
         desc: "积分",
         verify: "jwc"
@@ -58,6 +58,7 @@ Page({
     ],
     is_bind:'',
     notice:'',
+    userInfo:'',
   },
 
   confirmTap(e){
@@ -187,7 +188,16 @@ Page({
    */
   onLoad: function (options) {
     this.getNotice()
-    this.getHotCourseList()
+    this.getHotCourseList(),
+    this.setData({
+      userInfo:wx.getStorageSync('userInfo')
+    })
+
+    if (this.data.userInfo.roles[0].roleKey==='teacher') {
+      this.setData({
+        navs:this.data.navs.slice(0,2)
+      })
+    }
   },
 
   getHotCourseList(){

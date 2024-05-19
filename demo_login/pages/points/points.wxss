@@ -191,4 +191,9 @@ map,
 }
 .gift-header .gift-discription{
   margin-top: 5rpx;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* 指定显示文本的行数 */
+  overflow: hidden; /* 超出隐藏 */
 }

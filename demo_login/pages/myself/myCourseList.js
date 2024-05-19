@@ -5,34 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    product: {
-      value: 'all',
-      options: [{
-          value: 'all',
-          label: '学期',
-        },
-        {
-          value: 'new',
-          label: '最新产品',
-        },
-        {
-          value: 'hot',
-          label: '最火产品',
-        },
-      ],
-    },
-    sorter: {
-      value: 'default',
-      options: [{
-          value: 'default',
-          label: '默认排序',
-        },
-        {
-          value: 'price',
-          label: '价格从高到低',
-        },
-      ],
-    },
+    semester: {},
     keyword:'',
     courseList:[],
     pageNum:1,
@@ -49,6 +22,36 @@ Page({
     ],
   },
 
+  refreshCourseList(){
+    this.setData({
+      pageNum:1,
+      total:0,
+      courseList:[]
+    })
+    this.getCourseList();
+  },
+  getCourseList(){
+    get("/system/course/page/list",{
+      pageNum:this.data.pageNum,
+      pageSize:this.data.pageSize,
+      onlyMine:true,
+      orderByColumn:'',
+      isAsc:'',
+      keyword:'',
+      gradeYearId:'',
+      semester:this.data.semester.value
+    },{
+      Authorization:wx.getStorageSync('Authorization')
+    }).then(res=>{
+      console.log(res);
+      this.setData({
+        courseList:[...this.data.courseList,...res.rows],
+        pageNum:++this.data.pageNum,
+        total:res.total
+      })
+    })
+  },
+
   onActionClick({ detail }) {
     wx.showToast({ title: `你点击了${detail.text}`, icon: 'none' });
   },
@@ -63,7 +66,13 @@ Page({
       url: '/pages/selectCourse/courseDetailInfo?tcourseId='+tcourseId,
     })
   },
-
+  onChange(e) {
+    this.setData({
+      'semester.value': e.detail.value,
+    });
+    console.log(this.data.semester.value);
+    this.refreshCourseList();
+  },
   onCourseTypeChange(e){
     this.setData({
       'courseType.value': e.detail.value,
@@ -73,11 +82,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.getSemesters();
     this.setData({
-      keyword:options.keyword!=null?options.keyword:'',
       userInfo:wx.getStorageSync('userInfo')
     })
-    console.log(this.data.userInfo);
+    // this.refreshCourseList();
+  },
+
+  getSemesters(){
+    get("/common/semesters",{},{
+      Authorization:wx.getStorageSync('Authorization')
+    }).then(res=>{
+      console.log(res);
+      this.setData({
+        ['semester.options']:res.data.semesters,
+        ['semester.value']:res.data.semester,
+      })
+      this.refreshCourseList();
+    })
   },
 
   getList(){
@@ -119,27 +141,7 @@ Page({
    */
   onShow() {
     
-    get("/system/category/allList",{},{Authorization:wx.getStorageSync('Authorization')}).then(res=>{
-      this.setData({
-        ['type.options']:res.data,
-        ['courseType.options']:[
-          {
-            value: 'null',
-            label: '全部',
-          },
-          {
-            value: '0',
-            label: '线下',
-          },
-          {
-            value: '1',
-            label: '线上',
-          },
-        ],
-      })
-    });
     
-    this.onSearch();
   },
 
   /**

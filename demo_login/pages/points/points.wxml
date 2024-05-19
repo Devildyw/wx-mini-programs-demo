@@ -4,7 +4,7 @@
 
 
     <view class='avatar'>
-      <image src="{{userInfo.avatar===null?'../../assets/background/医院空图片.png':userInfo.avatar}}" mode="widthFix"  />
+      <image src="{{userInfo.avatar===null?'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E5%8C%BB%E9%99%A2%E7%A9%BA%E5%9B%BE%E7%89%87.png':userInfo.avatar}}" mode="widthFix"  />
     </view>
 
     <view class="points-container">
@@ -12,11 +12,11 @@
       <view class="points">
         <text>当前积分值:</text>
         <view class="info">
-          <text>{{userInfo.points}}</text>
-          <image class="points-icon" src="../../assets/icon/积分.png"></image>
+          <text>{{userPoints.points}}</text>
+          <image class="points-icon" src="https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E7%A7%AF%E5%88%86.png"></image>
         </view>
       </view>
-      <image class="icon" src="../../assets/background/金融_礼品礼盒.png" mode="aspectFill" bind:tap="showTips"></image>
+      <image class="icon" src="https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E9%87%91%E8%9E%8D_%E7%A4%BC%E5%93%81%E7%A4%BC%E7%9B%92.png" mode="aspectFill" bind:tap="showTips"></image>
     </view>
 
     <!-- <view class="margin-top-sm">
@@ -31,25 +31,26 @@
           <view wx:for="{{shopGiftList}}" wx:key="index" class="gift-list" class="gift-item">
             <view class="gift-container">
               <view class="gift-image">
-                <t-image src="{{imageSrc}}" mode="aspectFill" width="230rpx" height="230rpx" style="--td-image-round-radius:16rpx" aria-label="一个放置在墙角的黄色行李箱" />
+                <t-image src="{{item.coverUrl}}" mode="aspectFill" width="230rpx" height="230rpx" style="--td-image-round-radius:16rpx" aria-label="一个放置在墙角的黄色行李箱" />
               </view>
               <view class="gift-info">
                 <view class="gift-header">
                   <view class="gift-title">
-                    <text>礼品名称</text>
+                    <text>{{item.name}}</text>
                   </view>
                   <view class="gift-discription">
-                    <text>这是一个哥哥哥哥哥哥哥哥哥描述这是一个哥哥哥哥哥哥哥哥哥描述这是一个哥哥哥哥哥哥哥哥哥描述</text>
+                    <text>{{item.description}}</text>
                   </view>
                 </view>
                 <view style="display: flex; flex-direction: row; margin-top: 10rpx; margin-bottom: 10rpx; justify-content: space-between; margin-right: 10rpx; ">
                   <view style="height: 54rpx;  border-radius: 2rpx;"><text style="font-size: 28rpx;">消耗积分 :</text>
-                    <text style="line-height: 54rpx; color: #1767b6; font-size: 40rpx; font-weight: bold;">100</text>
-                    <image class="neetpoints-icon" src="../../assets/icon/积分.png"></image>
+                    <text style="line-height: 54rpx; color: #1767b6; font-size: 40rpx; font-weight: bold;">{{item.needPoints}}</text>
+                    <image class="neetpoints-icon" src="https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E7%A7%AF%E5%88%86.png"></image>
                   </view>
                   <view>
-                    <van-button disabled="{{false}}" type="info" size="small" bind:tap="exchangeGift">兑换11/20</van-button>
+                    <van-button disabled="{{false}}" type="info" size="small" data-giftid="{{item.id}}" bind:tap="showExchangeConfirm">剩余 {{item.count}}</van-button>
                   </view>
+                  <t-dialog visible="{{showExchangeConfirm}}" title="提醒" content="确定要兑换此物品吗，一旦兑换不可退回!" confirm-btn="{{ {content: '确定', variant: 'base' } }}" cancel-btn="取消" bind:confirm="exchangeGift" bind:cancel="closeExchangeConfirm"></t-dialog>
                 </view>
               </view>
             </view>
@@ -57,35 +58,36 @@
         </view>
       </scroll-view>
     </van-tab>
-    <van-tab title="明细">
+    <van-tab title="兑换记录">
       <scroll-view style="height: 1100rpx;" scroll-y="true">
         <view class="outermost-container">
-          <view wx:for="{{shopGiftList}}" wx:key="index" class="gift-list" class="gift-item">
+          <view wx:for="{{giftRecordList}}" wx:key="index" class="gift-list" class="gift-item">
             <view class="gift-container">
               <view class="gift-image">
-                <t-image src="{{imageSrc}}" mode="aspectFill" width="230rpx" height="230rpx" style="--td-image-round-radius:16rpx" aria-label="一个放置在墙角的黄色行李箱" />
+                <t-image src="{{item.giftVo.coverUrl}}" mode="aspectFill" width="230rpx" height="230rpx" style="--td-image-round-radius:16rpx" aria-label="一个放置在墙角的黄色行李箱" />
               </view>
               <view class="gift-info">
                 <view class="gift-header">
                   <view class="gift-title">
-                    <text>礼品名称</text>
+                    <text>{{item.giftVo.name}}</text>
                   </view>
                   <view class="gift-discription">
-                    <text>这是一个哥哥哥哥哥哥哥哥哥描述这是一个哥哥哥哥哥哥哥哥哥描述这是一个哥哥哥哥哥哥哥哥哥描述</text>
+                    <text>{{item.giftVo.description}}</text>
                   </view>
                 </view>
                 <view style="display: flex; flex-direction: row; margin-top: 10rpx; margin-bottom: 10rpx; justify-content: space-between; margin-right: 10rpx; ">
-                  <view style="height: 54rpx;  border-radius: 2rpx;"><text style="font-size: 28rpx;">消耗积分 :</text>
-                    <text style="line-height: 54rpx; color: #1767b6; font-size: 40rpx; font-weight: bold;">100</text>
-                    <image class="neetpoints-icon" src="../../assets/icon/积分.png"></image>
+                  <view style="height: 54rpx;  border-radius: 2rpx;"><text style="font-size: 28rpx;">消耗 :</text>
+                    <text style="line-height: 54rpx; color: #1767b6; font-size: 40rpx; font-weight: bold;">{{item.giftVo.needPoints}}</text>
+                    <image class="neetpoints-icon" src="https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E7%A7%AF%E5%88%86.png"></image>
                   </view>
-                  <view hidden="">
-                    <van-button disabled="{{false}}" type="warning" size="small" bind:tap="getGift">领取</van-button>
+                  <view hidden="{{item.tag===1}}">
+                    <van-button disabled="{{false}}" type="warning" size="small"  data-giftrecordid="{{item.id}}" bind:tap="showDrawConfirm">领取</van-button>
                   </view>
-                  <view hidden="true">
+                  <view hidden="{{!(item.tag===1)}}">
                     <van-button disabled="{{true}}" type="warning" size="small" >已领取</van-button>
                   </view>
                 </view>
+                <t-dialog visible="{{showDrawConfirm}}" title="提醒" content="一定是在线下指定地点领取了才点击哦！" confirm-btn="{{ {content: '确定', variant: 'base' } }}" cancel-btn="取消" bind:confirm="receiveGift" bind:cancel="closeDrawConfirm"></t-dialog>
               </view>
             </view>
           </view>

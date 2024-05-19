@@ -24,31 +24,93 @@ Page({
     forksCount: 0,
     visitTotal: 0,
     is_bind: false,
+    userPoints:{},
     userInfo:{},
-    
+    pageNum:1,
+    pageSize:10,
+    total:0,
     active: 0,
-    shopGiftList:[1,2,3,4,5,6,7,8,9],
-    imageSrc: 'https://tdesign.gtimg.com/mobile/demos/image1.jpeg',
+    shopGiftList:[],
+    giftRecordList:[],
+    showExchangeConfirm: false,
+    giftId:'',
+    showDrawConfirm:false,
+    giftRecordId:'',
   },
 
+  closeDrawConfirm(){
+    this.setData({
+      giftRecordId:'',
+      showDrawConfirm:false
+    })
+  },
+
+  showDrawConfirm(event){
+    this.setData({
+      giftRecordId:event.currentTarget.dataset.giftrecordid,
+      showDrawConfirm:true
+    })
+  },
+  receiveGift(){
+    console.log("this.data.giftRecordId",this.data.giftRecordId)
+    post("/system/record/receive",{
+      id:this.data.giftRecordId
+    },{
+      Authorization:wx.getStorageSync('Authorization')
+    }).then(res=>{
+      console.log(res)
+      if (res.code===200) {
+        wx.showModal({
+          title: '提醒',
+          content: '领取成功',
+          complete: (res) => {
+            if (res.cancel) {
+              
+            }
+        
+            if (res.confirm) {
+              
+            }
+          }
+        })
+      }
+      this.refreshGiftRecordList();
+      this.setData({
+        showDrawConfirm:false
+      })
+    })
+  },
+  showExchangeConfirm(event){
+    this.setData({
+      giftId:event.currentTarget.dataset.giftid,
+      showExchangeConfirm:true
+    })
+  },
+
+  getUserPoints(){
+    get("/system/record/points",{},{
+      Authorization:wx.getStorageSync('Authorization')
+    }).then(res=>{
+      console.log(res);
+      this.setData({
+        userPoints:res.data
+      })
+    })
+  },
+
+  closeExchangeConfirm(){
+    this.setData({
+      giftId:'',
+      showExchangeConfirm:false
+    })
+  },
+  
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-    console.log("success")
-    let that = this;
-    wx.showLoading({
-      title: '数据加载中',
-      mask: true,
-    })
-   
-    that.setData({
-      starCount: that.coutNum(that.data.starCount),
-      forksCount: that.coutNum(that.data.forksCount),
-      visitTotal: that.coutNum(that.data.visitTotal)
-    })
-    wx.hideLoading()
+    this.getUserPoints();
+    this.refreshGiftList();
   },
   toLogin: function () {
     var type = "jwc"
@@ -83,7 +145,69 @@ Page({
   },
 
   onChange(event) {
-    
+    const index = event.detail.index;
+    if (index===0) {
+      console.log(index);
+      this.refreshGiftList();
+    }else{
+      this.refreshGiftRecordList();
+    }
+    wx.pageScrollTo({
+      selector:".top",
+      duration: 300
+    })
+  },
+  refreshGiftRecordList(){
+    this.setData({
+      pageNum:1,
+      total:0,
+      giftRecordList:[]
+    })
+
+    this.getGiftRecordList();
+  },
+
+  getGiftRecordList(){
+    get("/system/record/unclaimedList",{
+      pageNo:this.data.pageNum,
+      pageSize:this.data.pageSize,
+      status:0
+    },{
+      Authorization:wx.getStorageSync('Authorization')
+    }).then(res=>{
+      console.log(res);
+      this.setData({
+        giftRecordList:[...this.data.giftRecordList,...res.data.list],
+        pageNum:++this.data.pageNum,
+        total:res.data.total
+      })
+    })
+  },
+
+  refreshGiftList(){
+    this.setData({
+      shopGiftList:[],
+      pageNum:1,
+      total:0
+    })
+    this.getGiftList();
+  },
+
+  getGiftList(){
+    get("/system/gift/list",{
+      pageNum:this.data.pageNum,
+      pageSize:this.data.pageSize,
+      status:0
+    },{
+      Authorization:wx.getStorageSync('Authorization')
+    }).then(res=>{
+      console.log(res.rows);
+      this.setData({
+        pageNum:++this.data.pageNum,
+        total:res.total,
+        shopGiftList:[...this.data.shopGiftList,...res.rows]
+      })
+    })
   },
   showTips(){
     
@@ -219,41 +343,27 @@ Page({
   /*
     兑换礼品
   */
-  exchangeGift(e){
-    wx.showModal({
-      title: '确认兑换',
-      content: '是否确认兑换该物品，一但兑换不支持退还！！！',
-      complete: (res) => {
-        if (res.cancel) {
-          console.log("取消");
-        }
-    
-        if (res.confirm) {
-          console.log("确定");
-          // 接口
-        }
+  exchangeGift(){
+    post("/system/record/exchange",{
+      giftId:this.data.giftId
+    },{
+      Authorization:wx.getStorageSync('Authorization')
+    }).then(res=>{
+      
+      if (res.code===200) {
+        wx.showToast({
+          title: '兑换成功',
+          icon:'none'
+        })
+        this.refreshGiftList();
+        this.getUserPoints();
       }
+      this.setData({
+        showExchangeConfirm:false
+      })
     })
   },
-  /**
-   * 领取
-   */
-  getGift(e){
-    wx.showModal({
-      title: '确认领取',
-      content: '一定是在线下指定地点领取了才点击哦！！！',
-      complete: (res) => {
-        if (res.cancel) {
-          console.log("取消");
-        }
-    
-        if (res.confirm) {
-          console.log("确定");
-          // 接口
-        }
-      }
-    })
-  },
+
   showUserInfo(){
     wx.navigateTo({
       url: '/pages/myself/userInfo',

@@ -26,8 +26,14 @@ Page({
     is_bind: false,
     userInfo:{},
     onFeedBackShow:false,
+    feedBackContent:'',
   },
 
+  inputFeedBackContent(e){
+     this.setData({
+       feedBackContent:e.detail.value
+     })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -56,6 +62,32 @@ Page({
 
   onFeedBackClose() {
     this.setData({ onFeedBackShow:false });
+  },
+
+  addFeedBack(){
+    post("/system/feedback",{
+      userId:this.data.userInfo.userId,
+      content:this.data.feedBackContent
+    },{
+      Authorization:wx.getStorageSync('Authorization')
+    }).then(res=>{
+      console.log(res);
+      if (res.code===200) {
+        wx.showModal({
+          title: '提示',
+          content: '反馈成功',
+          complete: (res) => {
+            if (res.cancel) {
+              
+            }
+        
+            if (res.confirm) {
+              
+            }
+          }
+        })
+      }
+    })
   },
   onFeedBackShow(){
     this.setData({
