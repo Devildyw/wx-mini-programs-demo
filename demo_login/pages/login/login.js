@@ -54,7 +54,7 @@ Page({
       })
     } else {
       wx.clearStorage()
-      post('/login', {
+      post('/user/login', {
         username: this.data.account,
         password: this.data.password,
         uuid: this.data.uuid,

@@ -116,7 +116,7 @@
         </view>
       </van-dialog>
       <t-fab icon="align-top" bind:click="handlerBackTop" aria-label="返回顶部" style="right: 16rpx; bottom: 64rpx;"></t-fab>
-      <t-fab icon="add" bind:click="onMaterialUploadShow" text="上传资料{{!(userInfo.roles[0].roleKey==='admin'||userInfo.roles[0].roleKey==='teacher')?'赚积分':''}}" aria-label="增加" style="left: 190rpx; bottom: 16rpx;"></t-fab>
+      <t-fab icon="add" bind:click="onMaterialUploadShow" text="上传资料" aria-label="增加" style="left: 250rpx; bottom: 16rpx;"></t-fab>
     </van-tab>
     <van-tab title="课程评价" disabled="{{courseDetailInfo.hasTag!=1}}">
       <view class="evaluate-keyword-container">
@@ -293,7 +293,6 @@
         </view>
       </van-dialog>
       <t-fab icon="align-top" bind:click="handlerBackTop" aria-label="返回顶部" style="right: 16rpx; bottom: 64rpx;"></t-fab>
-      <t-fab icon="add" bind:click="handleClick" text="上传资料赚积分" aria-label="增加" style="left: 210rpx; bottom: 16rpx;"></t-fab>
     </van-tab>
   </van-tabs>
   <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">

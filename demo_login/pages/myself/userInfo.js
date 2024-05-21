@@ -60,7 +60,7 @@ Page({
     // 方法2：每次选择图片都上传，展示每次上传图片的进度
     // files.forEach(file => this.uploadFile(file))
     wx.uploadFile({
-      url:'http://localhost:8080/common/upload',
+      url:'http://localhost:8080/common/oss/upload',
       filePath: e.detail.files[0].url,
       name:'file',
       header:{
@@ -69,7 +69,7 @@ Page({
       success:res =>{
         const data = JSON.parse(res.data)
         this.setData({
-          newAvatarUrl:data.data.url
+          newAvatarUrl:data.data
         })
       }
     })

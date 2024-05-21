@@ -187,17 +187,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getNotice()
-    this.getHotCourseList(),
-    this.setData({
-      userInfo:wx.getStorageSync('userInfo')
-    })
-
-    if (this.data.userInfo.roles[0].roleKey==='teacher') {
-      this.setData({
-        navs:this.data.navs.slice(0,2)
-      })
-    }
+    
   },
 
   getHotCourseList(){
@@ -261,7 +251,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.setData({
+      userInfo:wx.getStorageSync('userInfo')
+    })
     this.getData()
+    this.getNotice()
+    this.getHotCourseList()
+    
+
+    if (this.data.userInfo.roles[0].roleKey=='teacher') {
+      this.setData({
+        navs:this.data.navs.slice(0,2)
+      })
+    }
   },
 
   getData(){

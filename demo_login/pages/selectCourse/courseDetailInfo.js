@@ -423,7 +423,7 @@ Page({
     // 方法2：每次选择图片都上传，展示每次上传图片的进度
     // files.forEach(file => this.uploadFile(file))
     wx.uploadFile({
-      url: 'http://localhost:8080/common/upload',
+      url: 'http://localhost:8080/common/oss/upload',
       filePath: e.detail.files[0].url,
       name: 'file',
       header: {
@@ -432,7 +432,7 @@ Page({
       success: res => {
         const data = JSON.parse(res.data)
         this.setData({
-          materialImageUrl: data.data.url
+          materialImageUrl: data.data
         })
       }
     })
@@ -461,7 +461,7 @@ Page({
   /** 选择文件 */
   onUploadMaterialFile() {
     wx.uploadFile({
-      url: 'http://localhost:8080/common/upload',
+      url: 'http://localhost:8080/common/oss/upload',
       filePath: this.data.tempMaterialPath,
       name: 'file',
       header: {
@@ -471,7 +471,7 @@ Page({
         const data = JSON.parse(res.data)
         console.log("上传文件结果", data);
         this.setData({
-          materialUrl: data.data.url
+          materialUrl: data.data
         })
       }
     })
