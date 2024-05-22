@@ -27,9 +27,7 @@ Page({
   onLoad(options) {
     let token = wx.getStorageSync('Authorization')
     if (token==null ||token==='') {
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
+      wx.reLaunch({url: "/pages/login/login"});
     }
   },
   editNewPwd(event) {
@@ -149,9 +147,7 @@ Page({
           showCancel:false,
           complete: (res) => {
             if (res.confirm) {
-              wx.navigateTo({
-                url: '/pages/login/login',
-              })
+              wx.reLaunch({url: "/pages/login/login"});
             }
           }
         })

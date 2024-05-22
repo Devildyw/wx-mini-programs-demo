@@ -32,9 +32,7 @@ const request = (url, options, header = {}) => {
                     icon:'error',
                     duration:2000
                   })
-                  wx.navigateTo({
-                    url: '/pages/login/login',
-                  }) 
+                  wx.reLaunch({url: "/pages/login/login"});
                 } else{
                   wx.showModal({
                     title: '错误提示',

@@ -29,10 +29,20 @@ Page({
     feedBackContent:'',
   },
 
+  loginOut(){
+    wx.clearStorageSync();
+    wx.reLaunch({url: "/pages/login/login"});
+    // wx.hideHomeButton();
+  },
   inputFeedBackContent(e){
      this.setData({
        feedBackContent:e.detail.value
      })
+  },
+  resetPassword(){
+    wx.navigateTo({
+      url: '/pages/login/initPassword',
+    });
   },
   /**
    * 生命周期函数--监听页面加载

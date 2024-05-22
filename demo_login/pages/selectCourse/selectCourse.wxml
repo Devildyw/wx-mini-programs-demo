@@ -5,8 +5,8 @@
 <t-dropdown-menu style="height: 70rpx; align-items:center; border-top: 1rpx solid rgb(223, 223, 223);">
   <t-dropdown-item options="{{courseType.options}}" value="{{courseType.value}}" bindchange="onCourseTypeChange" />
   <t-dropdown-item options="{{type.options}}" value="{{type.value}}" bindchange="onChange" />
-  <t-dropdown-item options="{{school.options}}" default-value="{{school.value}}" />
-  <t-dropdown-item options="{{sorter.options}}" default-value="{{sorter.value}}" />
+  <t-dropdown-item options="{{school.options}}" default-value="{{school.value}}" bindchange="onSchoolChange"/>
+  <t-dropdown-item options="{{sorter.options}}" default-value="{{sorter.value}}" bindchange="onSortChange"/>
 </t-dropdown-menu>
 
 <view wx:for="{{courseList}}" wx:key="index" class="shop-list" class="shop-item">
@@ -28,8 +28,8 @@
         <view class="basicInfo">
           <text style="width: 32%;">评分人数:<text  style="color: rgb(15, 79, 98); font-weight: bold;">{{item.evaluateNum==0?'暂无':item.evaluateNum}}</text></text>
           <text style="width: 22%;">评分:<text style="color: rgb(15, 79, 98); font-weight: bold;">{{item.evaluateNum==0?'暂无':item.evaluateScore}}</text></text>
-          <text style="width: 30%;">余/总:<text style="color: rgb(15, 79, 98); font-weight: bold;">{{item.remain}}/{{item.total}}</text></text>
-          <text style="width: 100%;">评价:<text style="color: rgb(15, 79, 98); font-weight: bold;">{{item.keywords===null||item.keywords===''?'暂无':(item.keywords)}}</text></text>
+          <text style="width: 32%;">余/总:<text style="color: rgb(15, 79, 98); font-weight: bold;">{{item.remain}}/{{item.total}}</text></text>
+          <text style="width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" >关键词:<text style="color: rgb(15, 79, 98); font-weight: bold;">{{item.keywords===null||item.keywords===''?'暂无':(item.keywords)}}</text></text>
         </view>
       </view>
 

@@ -8,10 +8,10 @@ Page({
    */
   data: {
     type: {
-      value: 'all',
+      value: 'null',
       options: [
         {
-          value: 'all',
+          value: 'null',
           label: '类型',
         },
         {
@@ -25,10 +25,10 @@ Page({
       ],
     },
     courseType: {
-      value: 'all',
+      value: 'null',
       options: [
         {
-          value: 'all',
+          value: 'null',
           label: '方式',
         },
         {
@@ -42,10 +42,10 @@ Page({
       ],
     },
     school: {
-      value: 'all',
+      value: 'null',
       options: [
         {
-          value: 'all',
+          value: 'null',
           label: '校区',
         },
         {
@@ -59,22 +59,22 @@ Page({
       ],
     },
     sorter: {
-      value: 'default',
+      value: '',
       options: [
         {
-          value: 'default',
+          value: '',
           label: '默认排序',
         },
         {
-          value: 'markHigh',
+          value: 'ttc.evaluate_score',
           label: '按评分降序排序',
         },
         {
-          value: 'personNumHigh',
+          value: 'ttc.evaluate_num',
           label: '按评分人数降序排序',
         },
         {
-          value: 'personNumHigh',
+          value: 'ttc.select_count',
           label: '按选择人数降序排序',
         },
       ],
@@ -162,6 +162,7 @@ Page({
     this.setData({
       'type.value': e.detail.value,
     });
+    this.onSearch();
   },
 
   showCourseDetailInfo(e){
@@ -175,6 +176,21 @@ Page({
     this.setData({
       'courseType.value': e.detail.value,
     });
+    this.onSearch();
+  },
+
+  onSchoolChange(e){
+    this.setData({
+      'school.value': e.detail.value,
+    });
+    this.onSearch();
+  },
+
+  onSortChange(e){
+    this.setData({
+      'sorter.value': e.detail.value,
+    });
+    this.onSearch();
   },
   /**
    * 生命周期函数--监听页面加载
@@ -191,10 +207,13 @@ Page({
     get('/system/course/page/list',{
       pageNum:this.data.pageNum,
       pageSize:this.data.pageSize,
-      orderByColumn:this.data.orderByColumn,
-      isAsc:this.data.isAsc,
+      orderByColumn:this.data.sorter.value,
+      isAsc:'desc',
       keyword:this.data.keyword,
-      gradeYearId:this.data.userInfo.gradeClass.gradeYearId
+      gradeYearId:this.data.userInfo.gradeClass.gradeYearId,
+      courseType:this.data.courseType.value==='null'?'':this.data.courseType.value,
+      schoolId:this.data.school.value==='null'?'':this.data.school.value,
+      type:this.data.type.value==='null'?'':this.data.type.value
     },{Authorization:wx.getStorageSync('Authorization')}).then(res=>{
       console.log(res);
       this.setData({
@@ -206,7 +225,6 @@ Page({
   },
 
   onSearch(){
-    
     this.setData({
       courseList:[],
       pageNum:1,
@@ -254,11 +272,11 @@ Page({
             label: '全部',
           },
           {
-            value: '0',
+            value: '1',
             label: '航空港',
           },
           {
-            value: '1',
+            value: '2',
             label: '龙泉',
           },
         ],
