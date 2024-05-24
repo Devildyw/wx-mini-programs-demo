@@ -1,0 +1,20 @@
+// 支持es4语法
+var isSelectionStart = function(startDateTime1) {
+    var startDateTime = getDate(startDateTime1).getTime();
+    
+    
+    var now = getDate().getTime();
+    return (startDateTime>now);
+}
+
+var isSelectionEnd = function(endDateTime1){
+  var endDateTime = getDate(endDateTime1).getTime();
+  var now = getDate().getTime();
+  return (endDateTime<now);
+}
+
+// 导出对外暴露的属性
+module.exports = {
+  isSelectionStart: isSelectionStart,
+  isSelectionEnd:isSelectionEnd
+}

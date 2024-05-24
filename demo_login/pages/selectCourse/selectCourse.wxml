@@ -15,7 +15,7 @@
   <t-swipe-cell>
     <view class="info">
       <view class="info-container" data-tcourseId="{{item.teacherCourseId}}" bind:tap="showCourseDetailInfo">
-        <text class="shop-title ">《{{item.courseName}}》</text>
+        <text class="shop-title">《{{item.courseName}}》</text>
         <view class="basicInfo">
           <text style="font-weight: bold;">老师姓名：{{item.teacherName}} </text>
           <text style="margin-left: 80rpx; font-weight: bold;">课程类型：{{item.typeName}}</text>
@@ -53,4 +53,4 @@
   </t-swipe-cell>
 </view>
 
-<!-- <wxs src="../../utils/tools.wxs" module="m1"/> -->
+<wxs src="../../utils/isSelection.wxs" module="tools"></wxs>

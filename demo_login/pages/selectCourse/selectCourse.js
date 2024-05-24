@@ -8,10 +8,10 @@ Page({
    */
   data: {
     type: {
-      value: 'null',
+      value: null,
       options: [
         {
-          value: 'null',
+          value: null,
           label: '类型',
         },
         {
@@ -24,6 +24,7 @@ Page({
         },
       ],
     },
+    configInfo:{},
     courseType: {
       value: 'null',
       options: [
@@ -207,13 +208,13 @@ Page({
     get('/system/course/page/list',{
       pageNum:this.data.pageNum,
       pageSize:this.data.pageSize,
-      orderByColumn:this.data.sorter.value,
+      orderByColumn:this.data.sorter.value===''?'ttc.create_time':this.data.sorter.value,
       isAsc:'desc',
       keyword:this.data.keyword,
       gradeYearId:this.data.userInfo.gradeClass.gradeYearId,
       courseType:this.data.courseType.value==='null'?'':this.data.courseType.value,
       schoolId:this.data.school.value==='null'?'':this.data.school.value,
-      type:this.data.type.value==='null'?'':this.data.type.value
+      type:this.data.type.value===null?'':this.data.type.value
     },{Authorization:wx.getStorageSync('Authorization')}).then(res=>{
       console.log(res);
       this.setData({
@@ -243,12 +244,23 @@ Page({
   onReady() {
 
   },
+  getSystemConfig(){
+    get("/common/config",{},{
+      Authorization:wx.getStorageSync('Authorization')
+    }).then(res=>{
 
+      console.log(res);
+      this.setData({
+        configInfo:res.data
+      })
+      console.log(this.data.configInfo);
+    })
+  },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    
+    this.getSystemConfig();
     get("/system/category/allList",{},{Authorization:wx.getStorageSync('Authorization')}).then(res=>{
       this.setData({
         ['type.options']:res.data,
@@ -314,7 +326,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-    if ((this.data.pageSize-1)*this.data.pageNum>=this.data.total) {
+    if ((this.data.pageNum-1)*this.data.pageSize>=this.data.total) {
       wx.showToast({
         title: '已经到底了',
         icon:'none'

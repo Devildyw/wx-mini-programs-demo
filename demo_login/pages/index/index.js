@@ -257,7 +257,6 @@ Page({
     this.getData()
     this.getNotice()
     this.getHotCourseList()
-    
 
     if (this.data.userInfo.roles[0].roleKey=='teacher') {
       this.setData({
@@ -265,7 +264,7 @@ Page({
       })
     }
   },
-
+  
   getData(){
     this.setData({
       is_bind : wx.getStorageSync('Authorization')!=null,

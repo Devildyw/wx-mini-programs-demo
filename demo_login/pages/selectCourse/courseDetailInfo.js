@@ -822,8 +822,8 @@ Page({
     get("/system/originMaterial/page/list", {
       pageNum: this.data.pageNum,
       pageSize: this.data.pageSize,
-      orderByColumn: '',
-      isAsc: '',
+      orderByColumn: 'tom.create_time',
+      isAsc: 'desc',
       keyword: '',
       courseId: this.data.courseDetailInfo.courseId + "-" + this.data.courseDetailInfo.teacherId,
     }, {
@@ -844,8 +844,8 @@ Page({
     get("/system/evaluate/page/list", {
       pageNum: this.data.pageNum,
       pageSize: this.data.pageSize,
-      orderByColumn: '',
-      isAsc: '',
+      orderByColumn: 'create_time',
+      isAsc: 'desc',
       courseId: this.data.courseDetailInfo.courseId + "-" + this.data.courseDetailInfo.teacherId,
     }, {
       Authorization: wx.getStorageSync('Authorization')
@@ -1108,7 +1108,7 @@ Page({
       return
     }
 
-    if ((this.data.pageSize-1) * this.data.pageNum >= this.data.total) {
+    if ((this.data.pageNum-1) * this.data.pageSize >= this.data.total) {
       wx.showToast({
         title: '已经到底了',
         icon:'none'

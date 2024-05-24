@@ -6,12 +6,7 @@ Page({
    */
   data: {
     semester: {},
-    keyword:'',
     courseList:[],
-    pageNum:1,
-    pageSize:10,
-    orderByColumn:'',
-    isAsc:'',
     lastTotal:0,
     userInfo:{},
     right: [
@@ -31,23 +26,14 @@ Page({
     this.getCourseList();
   },
   getCourseList(){
-    get("/system/course/page/list",{
-      pageNum:this.data.pageNum,
-      pageSize:this.data.pageSize,
-      onlyMine:true,
-      orderByColumn:'',
-      isAsc:'',
-      keyword:'',
-      gradeYearId:'',
+    get("/system/course/my/list",{
       semester:this.data.semester.value
     },{
       Authorization:wx.getStorageSync('Authorization')
     }).then(res=>{
       console.log(res);
       this.setData({
-        courseList:[...this.data.courseList,...res.rows],
-        pageNum:++this.data.pageNum,
-        total:res.total
+        courseList:[...this.data.courseList,...res.data],
       })
     })
   },

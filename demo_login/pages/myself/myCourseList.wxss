@@ -67,14 +67,17 @@
 }
 .shop-title {
   font-weight: bold;
-  font-size: 42rpx;
+  font-size: 32rpx;
   margin-top: 10rpx;
   margin-bottom: 2rpx;
-  color: rgb(10, 40, 90);
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  white-space: nowrap;
+  line-height: 40rpx;
+  /* color: rgb(10, 40, 90); */
   /* border: 1rpx solid red; */
   border-bottom: 1rpx solid rgb(204, 202, 202);
   /* border-radius: 20rpx; */
-  height: 80rpx;
 }
 
 .basicInfo{
