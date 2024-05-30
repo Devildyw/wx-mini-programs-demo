@@ -2,9 +2,9 @@ const {
   get,
   post
 } = require('../../utils/request')
-const fail = '../../assets/icon/失败状态.png'
-const success = '../../assets/icon/状态-成功_状态-成功.png'
-const def = '../../assets/icon/默认状态.png'
+const fail = 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E5%A4%B1%E8%B4%A5%E7%8A%B6%E6%80%81.png'
+const success = 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E7%8A%B6%E6%80%81-%E6%88%90%E5%8A%9F_%E7%8A%B6%E6%80%81-%E6%88%90%E5%8A%9F.png'
+const def = 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E9%BB%98%E8%AE%A4%E7%8A%B6%E6%80%81.png'
 var re = new RegExp("^(?=.*[a-zA-Z])(?=.*\\d).{8,16}$");
 // pages/login/initPassword.js
 Page({

@@ -6,15 +6,15 @@
     <!-- <view class="t-b">{{title}}</view> -->
     <view class="t-x">
       <view class="t-a">
-        <image src="../../assets/icon/user.png" mode="" class="t-i"/>
+        <image src="https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/user.png" mode="" class="t-i"/>
         <input type="text" class="t-input1" name="username" placeholder="请输入用户名" model:value="{{account}}"/>
       </view>
       <view class="t-a">
-        <image src="../../assets/icon/验证码.png"  mode="" class="t-i"/> 
+        <image src="https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E9%AA%8C%E8%AF%81%E7%A0%81.png"  mode="" class="t-i"/> 
         <input type="password" class="t-input1" name="password" placeholder="请输入密码"  model:value="{{password}}"/>
       </view>
       <view class="t-a">
-        <image src="../../assets/icon/验证码.png"  mode="" class="t-i"/> 
+        <image src="https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E9%AA%8C%E8%AF%81%E7%A0%81.png"  mode="" class="t-i"/> 
         <input type="text" class="t-input2" name="code" placeholder="请输入验证码" model:value="{{code}}"/>
       </view>
       

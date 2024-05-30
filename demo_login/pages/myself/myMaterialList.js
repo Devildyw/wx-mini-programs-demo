@@ -95,7 +95,7 @@ Page({
   
   showMaterialDetail(event) {
     wx.navigateTo({
-      url: '/pages/material/materialDetailInfo?materialid=' + event.currentTarget.dataset.materialid,
+      url: '/material/pages/material/materialDetailInfo?materialid=' + event.currentTarget.dataset.materialid,
     })
   },
 

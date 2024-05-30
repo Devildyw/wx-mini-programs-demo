@@ -3,18 +3,12 @@
     "pages/index/index",
     "pages/timetable/timetable",
     "pages/selectCourse/selectCourse",
-    "pages/selectCourse/courseDetailInfo",
-    "pages/selectCourse/QADetailInfo",
-    "pages/material/materialDetailInfo",
     "pages/myself/myCourseList",
     "pages/myself/myMaterialList",
     "pages/login/login",
     "pages/login/initPassword",
     "pages/myself/myself",
-    "pages/myself/userInfo",
-    "pages/material/material",
-    "pages/points/points",
-    "pages/logs/logs"
+    "pages/myself/userInfo"
   ],
   "window": {
     "navigationBarTextStyle": "white",
@@ -55,6 +49,27 @@
       "sdkVersionEnd": "15.255.255"
     }
   },
+  "subPackages": [{
+    "root": "courseDetail",
+    "name": "courseDetail",
+    "pages": [
+      "pages/courseDetail/courseDetail",
+      "pages/courseDetail/QADetailInfo"
+    ]
+  },{
+    "root": "points",
+    "name": "points",
+    "pages": [
+      "pages/points/points"
+    ]
+  },{
+    "root": "material",
+    "name": "material",
+    "pages": [
+      "pages/material/material",
+      "pages/material/materialDetailInfo"
+    ]
+  }],
   "componentFramework": "glass-easel",
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents",
