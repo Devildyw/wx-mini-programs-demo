@@ -19,7 +19,9 @@
       <view class="basicInfo">
         <!-- <text style="width: 32%;">评分人数:<text  style="color: rgb(15, 79, 98); font-weight: bold;">{{item.evaluateNum==0?'暂无':item.evaluateNum}}</text></text>
         <text style="width: 22%;">评分:<text style="color: rgb(15, 79, 98); font-weight: bold;">{{item.evaluateNum==0?'暂无':item.evaluateScore}}</text></text> -->
-        <text style="width: 100%;">类型：<text style="color:rgb(15, 79, 98); font-weight: bold;">{{item.isElective?'选修':'必修'}}</text></text>
+        <text style="width: 30%;">类型：<text style="color:rgb(15, 79, 98); font-weight: bold;">{{item.isElective?'选修':'必修'}}</text></text>
+        <text style="width: 30%;">周次：<text style="color:rgb(15, 79, 98); font-weight: bold;">{{item.teachWeek}}</text></text>
+        <text style="width: 30%;">教室：<text style="color:rgb(15, 79, 98); font-weight: bold;">{{item.classRoom}}</text></text>
         <!-- <text style="width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">关键词:<text style="color: rgb(15, 79, 98); font-weight: bold;">{{item.keywords===null||item.keywords===''?'暂无':(item.keywords)}}</text></text> -->
         <view style="width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><text style="font-size: 28rpx;font-weight: bold;">授课时间：{{item.day1===null||item.day1===''?"":"周一:第"+item.day1+"节"}} {{item.day2===null||item.day2===''?"":"周二:第"+item.day2+"节"}} {{item.day3===null||item.day3===''?"":"周三:第"+item.day3+"节"}} {{item.day4===null||item.day4===''?"":"周四:第"+item.day4+"节"}} {{item.day5===null||item.day5===''?"":"周五:第"+item.day5+"节"}}</text></view>
       </view>

@@ -36,7 +36,7 @@
 
     </view>
     <view slot="right" class="btn-wrapper" hidden="{{item.hasTag}}" style="height: 100%;">
-      <view class="btn {{item.remain===0?'edit-btn':'favor-btn'}}" data-teacherCourseid="{{item.teacherCourseId}}" bind:tap="{{item.remain===0?'':'onChoice'}}">
+      <view class="btn {{item.remain===0?'edit-btn':'favor-btn'}}" data-index="{{index}}" data-teacherCourseid="{{item.teacherCourseId}}" bind:tap="{{item.remain===0?'':'onChoice'}}">
         <view style="display: flex; flex-direction: column; justify-content: center;">
           <view style="text-align: center;">{{item.remain===0?"已满":"选择"}}</view>
           <view>{{item.remain}}/{{item.total}}</view>
@@ -44,7 +44,7 @@
       </view>
     </view>
     <view slot="right" class="btn-wrapper" hidden="{{!item.hasTag}}" style="height: 100%;">
-      <view class="btn delete-btn" data-teacherCourseid="{{item.teacherCourseId}}" bind:tap="onDelete">
+      <view class="btn delete-btn" data-index="{{index}}" data-teacherCourseid="{{item.teacherCourseId}}" bind:tap="onDelete">
         <view style="display: flex; flex-direction: column; justify-content: center;">
           <view style="text-align: center;">取消</view>
         </view>

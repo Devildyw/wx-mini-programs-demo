@@ -106,6 +106,8 @@ Page({
   },
 
   onChoice(e) {
+    console.log(e);
+    const index = e.currentTarget.dataset.index;
     const teachercourseid = e.currentTarget.dataset.teachercourseid;
     post("/system/lesson/course/select",{
       teacherCourseId:teachercourseid
@@ -114,6 +116,10 @@ Page({
     }).then(res=>{
       console.log(res);
       if (res.code===200) {
+        this.setData({
+          ['courseList['+index+'].remain'] : --this.data.courseList[index].remain,
+          ['courseList['+index+'].hasTag'] : true
+        })
         wx.showModal({
           title: '提示',
           content: '选课成功',
@@ -128,11 +134,12 @@ Page({
           }
         })
       }
-      this.onSearch();
+      
     })
   },
 
   onDelete(e){
+    const index = e.currentTarget.dataset.index;
     const teachercourseid = e.currentTarget.dataset.teachercourseid;
     post("/system/lesson/course/cancel",{
       teacherCourseId:teachercourseid
@@ -141,6 +148,10 @@ Page({
     }).then(res=>{
       console.log(res);
       if (res.code===200) {
+        this.setData({
+          ['courseList['+index+'].remain'] : ++this.data.courseList[index].remain,
+          ['courseList['+index+'].hasTag'] : false
+        })
         wx.showModal({
           title: '提示',
           content: '取消成功',
@@ -155,7 +166,6 @@ Page({
           }
         })
       }
-      this.onSearch();
     })
   },
 
@@ -169,7 +179,7 @@ Page({
   showCourseDetailInfo(e){
     var tcourseId =  e.currentTarget.dataset.tcourseid;
     wx.navigateTo({
-      url: '/courseDetail/pages/courseDetail/courseDetailInfo?tcourseId='+tcourseId,
+      url: '/courseDetail/pages/courseDetail/courseDetail?tcourseId='+tcourseId,
     })
   },
 
@@ -213,7 +223,7 @@ Page({
       keyword:this.data.keyword,
       gradeYearId:this.data.userInfo.gradeClass.gradeYearId,
       courseType:this.data.courseType.value==='null'?'':this.data.courseType.value,
-      schoolId:this.data.school.value==='null'?'':this.data.school.value,
+      collegeId:this.data.userInfo.gradeClass.collegeId,
       type:this.data.type.value===null?'':this.data.type.value
     },{Authorization:wx.getStorageSync('Authorization')}).then(res=>{
       console.log(res);
