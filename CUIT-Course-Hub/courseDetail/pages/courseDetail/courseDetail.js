@@ -15,9 +15,9 @@ const {
   get,
   post
 } = require('../../../utils/request')
-const swiperList = [
+// const swiperList = [
 
-];
+// ];
 const unLikedImage = 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E6%9C%AA%E7%82%B9%E8%B5%9E%E5%9B%BE%E6%A0%87.png';
 const likedImage = 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E7%82%B9%E8%B5%9E%E5%9B%BE%E6%A0%87.png';
 const defaultAvatar = 'https://ding-blog.oss-cn-chengdu.aliyuncs.com/images/%E5%8C%BF%E5%90%8D%E5%A4%B4%E5%83%8F.png';
@@ -44,7 +44,7 @@ Page({
     autoplay: true,
     duration: 500,
     interval: 5000,
-    swiperList,
+    swiperList:[],
     navigation: {
       type: '',
       showControls: true
@@ -639,6 +639,7 @@ Page({
         courseDetailInfo: res.data,
         swiperList: [res.data.coverUrl]
       })
+      console.log(this.data.swiperList);
     })
   },
   deleteForEvaluate(e) {

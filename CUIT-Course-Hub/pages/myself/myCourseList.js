@@ -49,7 +49,7 @@ Page({
   showCourseDetailInfo(e){
     var tcourseId =  e.currentTarget.dataset.tcourseid;
     wx.navigateTo({
-      url: '/pages/selectCourse/courseDetailInfo?tcourseId='+tcourseId,
+      url: '/courseDetail/pages/courseDetail/courseDetail?tcourseId='+tcourseId,
     })
   },
   onChange(e) {
